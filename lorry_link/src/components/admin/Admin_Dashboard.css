@@ -1,0 +1,102 @@
+/* src/pages/admin/Dashboard.css */
+.admin-dashboard-baground {
+    background-color: black;
+}
+
+
+.admin-dashboard {
+    background-color: black;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: yellow;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .admin-dashboard .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid yellow;
+  }
+  
+  .admin-dashboard .logout-button {
+    background-color: yellow;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-dashboard .logout-button:hover {
+    background-color: #ffcc00;
+  }
+  
+  .admin-dashboard .dashboard-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+    padding-bottom: 10px;
+  }
+  
+  .admin-dashboard .tab-button {
+    background: transparent;
+    color: yellow;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: all 0.3s;
+  }
+  
+  .admin-dashboard .tab-button:hover {
+    background: rgba(255, 255, 0, 0.1);
+  }
+  
+  .admin-dashboard .tab-button.active {
+    background: yellow;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .admin-dashboard .dashboard-content {
+    background: rgba(255, 255, 0, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 0, 0.2);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .admin-dashboard .dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .admin-dashboard .dashboard-tabs {
+      flex-wrap: wrap;
+    }
+    
+    .admin-dashboard .tab-button {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .admin-dashboard {
+      padding: 15px;
+    }
+    
+    .admin-dashboard .dashboard-content {
+      padding: 15px;
+    }
+  }

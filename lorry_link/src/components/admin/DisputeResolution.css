@@ -1,0 +1,203 @@
+/* src/components/admin/DisputeResolution.css */
+.dispute-resolution {
+    color: yellow;
+    padding: 20px;
+  }
+  
+  .management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .tab-button {
+    background: transparent;
+    color: yellow;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .tab-button:hover {
+    background: rgba(255, 255, 0, 0.1);
+  }
+  
+  .tab-button.active {
+    background: yellow;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .disputes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+  }
+  
+  .dispute-card {
+    background: rgba(255, 255, 0, 0.05);
+    border: 1px solid rgba(255, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s;
+  }
+  
+  .dispute-card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .dispute-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 0, 0.2);
+  }
+  
+  .dispute-header h3 {
+    margin: 0;
+    color: yellow;
+  }
+  
+  .status-badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .status-badge.open {
+    background: rgba(255, 193, 7, 0.2);
+    color: #FFC107;
+  }
+  
+  .status-badge.resolved {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+  }
+  
+  .dispute-details {
+    margin-bottom: 15px;
+  }
+  
+  .dispute-details p {
+    margin: 8px 0;
+  }
+  
+  .dispute-details strong {
+    color: #ffcc00;
+  }
+  
+  .dispute-message {
+    background: rgba(255, 255, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .dispute-message p {
+    margin: 5px 0;
+  }
+  
+  .resolution-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .resolve-btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  
+  .resolve-btn.approve {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+  }
+  
+  .resolve-btn.approve:hover {
+    background: rgba(76, 175, 80, 0.3);
+  }
+  
+  .resolve-btn.reject {
+    background: rgba(244, 67, 54, 0.2);
+    color: #F44336;
+    border: 1px solid #F44336;
+  }
+  
+  .resolve-btn.reject:hover {
+    background: rgba(244, 67, 54, 0.3);
+  }
+  
+  .resolution-outcome {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 0, 0.2);
+  }
+  
+  .resolution-outcome p {
+    margin: 8px 0;
+  }
+  
+  .resolution-outcome strong {
+    color: #ffcc00;
+  }
+  
+  .no-results {
+    padding: 20px;
+    text-align: center;
+    color: rgba(255, 255, 0, 0.7);
+  }
+  
+  .loading {
+    color: yellow;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .management-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .tabs {
+      width: 100%;
+    }
+    
+    .tab-button {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .disputes-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .resolution-actions {
+      flex-direction: column;
+    }
+    
+    .resolve-btn {
+      width: 100%;
+    }
+  }
