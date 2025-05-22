@@ -1,6 +1,7 @@
 // src/components/admin/AddAdmin.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import './AddAdmin.css';
 import { addNewAdmin } from '../../services/adminService';
 
@@ -9,12 +10,14 @@ const AddAdmin = () => {
     name: '',
     email: '',
     phone: '',
+    profile: '',
     password: '',
     confirmPassword: ''
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const [profile, setProfile] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +34,7 @@ const AddAdmin = () => {
     if (!formData.phone.match(/^[0-9]{10}$/)) newErrors.phone = '10-digit phone number required';
     if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords must match';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -45,6 +48,7 @@ const AddAdmin = () => {
       await addNewAdmin({
         name: formData.name,
         email: formData.email,
+        profile: formData.profile,
         phone: formData.phone,
         password: formData.password
       });
@@ -73,7 +77,7 @@ const AddAdmin = () => {
           />
           {errors.name && <span className="AA-error-message">{errors.name}</span>}
         </div>
-        
+
         <div className="AA-form-group">
           <label>Email</label>
           <input
@@ -85,7 +89,7 @@ const AddAdmin = () => {
           />
           {errors.email && <span className="AA-error-message">{errors.email}</span>}
         </div>
-        
+
         <div className="AA-form-group">
           <label>Phone Number</label>
           <input
@@ -97,7 +101,23 @@ const AddAdmin = () => {
           />
           {errors.phone && <span className="AA-error-message">{errors.phone}</span>}
         </div>
-        
+
+        <div className="AA-form-group">
+        <label>Profile</label>
+          <div className="select-container">
+            <Select
+              label="profile"
+              value={profile}
+              onChange={(e) => setProfile(e.target.value)}
+            >
+              <MenuItem value="Super Admin">Super Admin</MenuItem>
+              <MenuItem value="Admin">Admin</MenuItem>
+              <MenuItem value="Manager">Manager</MenuItem>
+            </Select>
+          </div>
+          {errors.profile && <span className="AA-error-message">{errors.profile}</span>}
+        </div>
+
         <div className="AA-form-group">
           <label>Password</label>
           <input
@@ -109,7 +129,7 @@ const AddAdmin = () => {
           />
           {errors.password && <span className="AA-error-message">{errors.password}</span>}
         </div>
-        
+
         <div className="AA-form-group">
           <label>Confirm Password</label>
           <input
@@ -123,9 +143,9 @@ const AddAdmin = () => {
             <span className="AA-error-message">{errors.confirmPassword}</span>
           )}
         </div>
-        
-        <button 
-          type="submit" 
+
+        <button
+          type="submit"
           className="AA-submit-btn"
           disabled={isSubmitting}
         >

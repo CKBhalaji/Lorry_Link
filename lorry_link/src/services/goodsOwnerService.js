@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // src/services/goodsOwnerService.js
 const API_BASE_URL = 'http://localhost:8080/api/owners';
 
@@ -46,4 +48,23 @@ export const fetchOwnerProfile = async (ownerId) => {
   }
 };
 
+export const createOwnerDispute = async (disputeData) => {
+  try {
+    const response = await axios.post('/api/owner/disputes', disputeData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating owner dispute:', error);
+    throw error;
+  }
+};
+
+export const fetchOwnerDisputes = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/owner/disputes`);
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching owner disputes:', error);
+    throw error;
+  }
+};
 // Add more owner-related API calls as needed

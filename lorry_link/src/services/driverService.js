@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // src/services/driverService.js
 const API_BASE_URL = 'http://localhost:8080/api/drivers';
 
@@ -46,4 +48,23 @@ export const fetchDriverProfile = async (driverId) => {
   }
 };
 
+export const createDriverDispute = async (disputeData) => {
+  try {
+    const response = await axios.post('/api/driver/disputes', disputeData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating driver dispute:', error);
+    throw error;
+  }
+};
+
+export const fetchDriverDisputes = async () => {
+  try {
+    const response = await axios.get('/api/driver/disputes');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching driver disputes:', error);
+    throw error;
+  }
+};
 // Add more driver-related API calls as needed

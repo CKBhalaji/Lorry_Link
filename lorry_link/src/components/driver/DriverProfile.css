@@ -1,87 +1,88 @@
 /* src/components/driver/DriverProfile.css */
-.driver-profile {
+.DP-driver-profile {
     color: yellow;
     padding: 20px;
   }
   
-  .driver-profile h2 {
+  .DP-driver-profile h2 {
     margin-bottom: 20px;
     border-bottom: 1px solid yellow;
     padding-bottom: 10px;
   }
   
-  .profile-section {
+  .DP-profile-section {
     margin-bottom: 30px;
   }
   
-  .profile-section h3 {
+  .DP-profile-section h3 {
     color: #ffcc00;
     margin-bottom: 15px;
   }
   
-  .profile-grid {
+  .DP-profile-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
   }
   
-  .profile-field {
+  .DP-profile-field {
     margin-bottom: 15px;
   }
   
-  .profile-field label {
+  .DP-profile-field label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
     color: rgba(255, 255, 0, 0.8);
   }
   
-  .profile-field p {
+  .DP-profile-field p {
     background: rgba(255, 255, 0, 0.05);
     padding: 10px;
     border-radius: 4px;
     border-left: 3px solid yellow;
   }
   
-  .edit-btn {
+  .DP-edit-btn {
     background: yellow;
     color: black;
     border: none;
+    margin: 0px 5px;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     transition: background-color 0.3s;
   }
   
-  .edit-btn:hover {
+  .DP-edit-btn:hover {
     background: #ffcc00;
   }
   
-  .loading, .error {
+  .DP-loading, .DP-error {
     color: yellow;
     text-align: center;
     padding: 20px;
   }
   
-  .error {
+  .DP-error {
     color: #FF5252;
   }
   
   /* Responsive styles */
   @media (max-width: 768px) {
-    .profile-grid {
+    .DP-profile-grid {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
   }
   
   @media (max-width: 480px) {
-    .driver-profile {
+    .DP-driver-profile {
       padding: 15px;
     }
     
-    .profile-grid {
+    .DP-profile-grid {
       grid-template-columns: 1fr;
     }
   }

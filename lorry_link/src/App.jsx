@@ -8,7 +8,7 @@ import AdminLogin from './components/auth/AdminLogin';
 import SignUpDriver from './components/auth/SignUpDriver';
 import SignUpGoodsOwner from './components/auth/SignUpGoodsOwner';
 import DriverDashboard from './components/driver/Driver_Dashboard';
-import GoodsOwnerDashboard from './components/goods-owner/Goods_owner_Dashboard';
+import GoodsOwnerDashboard from './components/goods-owner/GODashboard';
 import AdminDashboard from './components/admin/Admin_Dashboard';
 // import ProtectedRoute from './components/common/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';

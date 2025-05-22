@@ -1,216 +1,240 @@
 /* src/components/admin/UserManagement.css */
-.user-management {
-    color: yellow;
-    padding: 20px;
+.UM-user-management {
+  color: yellow;
+  padding: 20px;
+}
+
+.UM-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.UM-filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.UM-filter-controls label {
+  font-weight: bold;
+}
+
+.UM-filter-controls select {
+  padding: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 0, 0.1);
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+.UM-filter-controls select option {
+  background-color: black;
+  color: yellow;
+}
+
+.UM-filter-controls select {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: black;
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+.UM-table-container {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 0, 0.3);
+  border-radius: 8px;
+}
+
+table {
+  width: max-content;
+  min-width: 100%;
+  border: 1px solid rgba(255, 255, 0, 0.3);  
+  border-radius: 8px;
+}
+
+.UM-user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.UM-user-table th,
+.UM-user-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.UM-user-table th {
+  background-color: rgba(255, 255, 0, 0.1);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 768px) {
+  .UM-table-container {
+    max-height: 100vh;
   }
-  
-  .management-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 15px;
+}
+
+.UM-user-table tr:hover {
+  background-color: rgba(255, 255, 0, 0.05);
+}
+
+.UM-status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.9em;
+}
+
+
+.UM-view-btn, .UM-delete-btn {
+  margin: 10px 5px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.UM-view-btn {
+  background: rgba(255, 255, 0, 0.1);
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+.UM-view-btn:hover {
+  background: rgba(255, 255, 0, 0.2);
+}
+
+.UM-delete-btn {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff5252;
+  border: 1px solid #ff5252;
+}
+
+.UM-delete-btn:hover {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.UM-role-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.UM-role-badge.UM-driver {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.UM-role-badge.UM-goodsOwner {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196f3;
+}
+
+.UM-role-badge.UM-admin {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.UM-status-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.UM-status-badge.active {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.UM-status-badge.suspended {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.UM-status-badge.pending {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.UM-no-results {
+  padding: 20px;
+  text-align: center;
+  color: rgba(255, 255, 0, 0.7);
+}
+
+.UM-loading {
+  color: yellow;
+  text-align: center;
+  padding: 20px;
+}
+
+/* @media (max-width: 1024px) {
+  .UM-table-header,
+  .UM-table-row {
+    grid-template-columns: 60px 1fr 1fr 100px 100px 140px;
   }
-  
-  .filter-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+} */
+
+@media (max-width: 768px) {
+  .UM-actions {
+    justify-content: flex-end;
+    margin-top: 10px;
   }
-  
-  .filter-controls label {
-    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .UM-management-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .filter-controls select {
-    padding: 8px;
-    border-radius: 4px;
-    background: rgba(255, 255, 0, 0.1);
-    color: yellow;
-    border: 1px solid yellow;
+
+  .UM-filter-controls {
+    width: 100%;
   }
-  
-  .users-table {
-    border: 1px solid rgba(255, 255, 0, 0.3);
-    border-radius: 8px;
-    overflow: hidden;
+
+  .UM-filter-controls select {
+    width: 100%;
   }
-  
-  .table-header {
-    display: grid;
-    grid-template-columns: 80px 1fr 1.5fr 120px 120px 150px;
-    background: rgba(255, 255, 0, 0.1);
-    font-weight: bold;
-    padding: 12px 15px;
-  }
-  
-  .header-cell {
-    padding: 5px;
-  }
-  
-  .table-row {
-    display: grid;
-    grid-template-columns: 80px 1fr 1.5fr 120px 120px 150px;
-    padding: 12px 15px;
-    border-bottom: 1px solid rgba(255, 255, 0, 0.1);
-    transition: background-color 0.3s;
-  }
-  
-  .table-row:hover {
-    background: rgba(255, 255, 0, 0.05);
-  }
-  
-  .table-cell {
-    padding: 5px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .view-btn, .delete-btn {
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-  }
-  
-  .view-btn {
-    background: rgba(255, 255, 0, 0.1);
-    color: yellow;
-    border: 1px solid yellow;
-  }
-  
-  .view-btn:hover {
-    background: rgba(255, 255, 0, 0.2);
-  }
-  
-  .delete-btn {
-    background: rgba(255, 0, 0, 0.1);
-    color: #FF5252;
-    border: 1px solid #FF5252;
-  }
-  
-  .delete-btn:hover {
-    background: rgba(255, 0, 0, 0.2);
-  }
-  
-  .role-badge {
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-  }
-  
-  .role-badge.driver {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4CAF50;
-  }
-  
-  .role-badge.goodsOwner {
-    background: rgba(33, 150, 243, 0.2);
-    color: #2196F3;
-  }
-  
-  .role-badge.admin {
-    background: rgba(255, 193, 7, 0.2);
-    color: #FFC107;
-  }
-  
-  .status-badge {
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-  }
-  
-  .status-badge.active {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4CAF50;
-  }
-  
-  .status-badge.suspended {
-    background: rgba(244, 67, 54, 0.2);
-    color: #F44336;
-  }
-  
-  .status-badge.pending {
-    background: rgba(255, 193, 7, 0.2);
-    color: #FFC107;
-  }
-  
-  .no-results {
-    padding: 20px;
-    text-align: center;
-    color: rgba(255, 255, 0, 0.7);
-  }
-  
-  .loading {
-    color: yellow;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 1024px) {
-    .table-header, .table-row {
-      grid-template-columns: 60px 1fr 1fr 100px 100px 140px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .users-table {
-      border: none;
-    }
-    
-    .table-header {
-      display: none;
-    }
-    
-    .table-row {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 15px;
-      border: 1px solid rgba(255, 255, 0, 0.3);
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-    
-    .table-cell {
-      display: flex;
-      justify-content: space-between;
-    }
-    
-    .table-cell::before {
-      content: attr(data-label);
-      font-weight: bold;
-      margin-right: 10px;
-      color: rgba(255, 255, 0, 0.7);
-    }
-    
-    .actions {
-      justify-content: flex-end;
-      margin-top: 10px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .management-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .filter-controls {
-      width: 100%;
-    }
-    
-    .filter-controls select {
-      width: 100%;
-    }
-  }
+}
+
+.UM-user-card {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  background-color: black;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 0, 0.3);
+}
+
+.UM-user-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.UM-close-button {
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #ff4444;
+  color: #fff;
+  border: none;
+  border-radius: 4px; 
+  cursor: pointer;
+}

@@ -4,7 +4,45 @@ import './LoadManagement.css';
 import { fetchAllLoads, updateLoadStatus } from '../../services/adminService';
 
 const LoadManagement = () => {
-  const [loads, setLoads] = useState([]);
+  // const [loads, setLoads] = useState([]);
+  const loads = [
+    {
+      id: 1,
+      goodsType: 'Electronics',
+      pickupLocation: 'New York',
+      deliveryLocation: 'Los Angeles',
+      ownerName: 'John Doe',
+      bidCount: 3,
+      status: 'Pending'
+    },
+    {
+      id: 2,
+      goodsType: 'Furniture',
+      pickupLocation: 'Chicago',
+      deliveryLocation: 'Houston',
+      ownerName: 'Jane Smith',
+      bidCount: 5,
+      status: 'Active'
+    },
+    {
+      id: 3,
+      goodsType: 'Clothing',
+      pickupLocation: 'Miami',
+      deliveryLocation: 'Seattle',
+      ownerName: 'Mike Johnson',
+      bidCount: 2,
+      status: 'Completed'
+    },
+    {
+      id: 4,
+      goodsType: 'Clothing',
+      pickupLocation: 'Miami',
+      deliveryLocation: 'Seattle',
+      ownerName: 'Mike Johnson',
+      bidCount: 2,
+      status: 'Cancelled'
+    }
+  ];
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
@@ -25,7 +63,7 @@ const LoadManagement = () => {
   const handleStatusChange = async (loadId, newStatus) => {
     try {
       await updateLoadStatus(loadId, newStatus);
-      setLoads(loads.map(load => 
+      setLoads(loads.map(load =>
         load.id === loadId ? { ...load, status: newStatus } : load
       ));
     } catch (error) {
@@ -33,20 +71,37 @@ const LoadManagement = () => {
     }
   };
 
-  const filteredLoads = Array.isArray(loads) ? (filter === 'all' 
-    ? loads 
-    : loads.filter(load => load.status === filter)) : [];
+  // const filteredLoads = Array.isArray(loads) ? (filter === 'all'
+  //   ? loads
+  //   : loads.filter(load => load.status === filter)) : [];
 
-  if (loading) return <div className="loading">Loading loads...</div>;
+  const [filteredLoads, setFilteredLoads] = useState(loads);
+
+  const handleFilter = (selectedStatus) => {
+    if (selectedStatus === "all") {
+      setFilteredLoads(loads);
+    } else {
+      const filtered = loads.filter(load => load.status.toLowerCase() === selectedStatus.toLowerCase());
+      setFilteredLoads(filtered);
+    }
+  };
+
+  const[selectedLoad, setSelectedLoad] = useState(null);
+
+  const handleViewDetails = (load) => {
+    setSelectedLoad(load);
+  };
+
+  if (loading) return <div className="LM-loading">Loading loads...</div>;
 
   return (
-    <div className="load-management">
-      <div className="management-header">
+    <div className="LM-load-management">
+      <div className="LM-management-header">
         <h2>Load Management</h2>
-        <div className="filter-controls">
+        <div className="LM-filter-controls">
           <label>Filter by status:</label>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value="all">All Loads</option>
+          <select onChange={(e) => handleFilter(e.target.value)}>
+            <option value="all">All</option>
             <option value="pending">Pending</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
@@ -55,51 +110,56 @@ const LoadManagement = () => {
         </div>
       </div>
 
-      <div className="loads-table">
-        <div className="table-header">
-          <div className="header-cell">ID</div>
-          <div className="header-cell">Goods Type</div>
-          <div className="header-cell">Route</div>
-          <div className="header-cell">Owner</div>
-          <div className="header-cell">Bids</div>
-          <div className="header-cell">Status</div>
-          <div className="header-cell actions">Actions</div>
+      {selectedLoad && (
+        <div className="LM-load-details-card">
+          <h3>Load Details</h3>
+          <p><strong>ID:</strong> {selectedLoad.id}</p>
+          <p><strong>Goods Type:</strong> {selectedLoad.goodsType}</p>
+          <p><strong>Route:</strong> {selectedLoad.pickupLocation} to {selectedLoad.deliveryLocation}</p>
+          <p><strong>Owner:</strong> {selectedLoad.ownerName}</p>
+          <p><strong>Status:</strong> {selectedLoad.status}</p>
+          <button onClick={() => setSelectedLoad(null)}>Close</button>
         </div>
+      )}
 
-        {filteredLoads.length === 0 ? (
-          <div className="no-results">No loads found</div>
-        ) : (
-          filteredLoads.map(load => (
-            <div key={load.id} className="table-row">
-              <div className="table-cell">{load.id}</div>
-              <div className="table-cell">{load.goodsType}</div>
-              <div className="table-cell">
-                {load.pickupLocation} → {load.deliveryLocation}
-              </div>
-              <div className="table-cell">{load.ownerName}</div>
-              <div className="table-cell">{load.bidCount}</div>
-              <div className="table-cell">
-                <span className={`status-badge ${load.status}`}>
-                  {load.status}
-                </span>
-              </div>
-              <div className="table-cell actions">
-                <select
-                  value={load.status}
-                  onChange={(e) => handleStatusChange(load.id, e.target.value)}
-                  className="status-select"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="active">Active</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-                <button className="view-btn">Details</button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      {filteredLoads.length === 0 ? (
+        <div className="LM-no-results">No loads found</div>
+      ) : (
+        <div className="LM-table-container">
+          <table className="LM-loads-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Goods Type</th>
+                <th>Route</th>
+                <th>Owner</th>
+                <th>Bids</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredLoads.map(load => (
+                <tr key={load.id} onClick={() => handleViewDetails(load)}>
+                  <td>{load.id}</td>
+                  <td>{load.goodsType}</td>
+                  <td>{load.pickupLocation} → {load.deliveryLocation}</td>
+                  <td>{load.ownerName}</td>
+                  <td>{load.bidCount}</td>
+                  <td>
+                    <span className={`status-badge ${load.status}`}>
+                      {load.status}
+                    </span>
+                  </td>
+                  <td>
+                    <button className="LM-view-btn">Details</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

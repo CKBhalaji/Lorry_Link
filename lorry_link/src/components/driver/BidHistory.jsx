@@ -6,19 +6,19 @@ import { fetchDriverBids } from '../../services/driverService';
 const BidHistory = () => {
   const [bids, setBids] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
-    const loadBids = async () => {
+    const fetchBids = async () => {
       try {
         const data = await fetchDriverBids();
-        setBids(data);
+        setBids(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching bids:', error);
-      } finally {
-        setLoading(false);
+        setBids([]);
       }
     };
-    loadBids();
+
+    fetchBids();
   }, []);
 
   if (loading) return <div className="loading">Loading your bids...</div>;

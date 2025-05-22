@@ -71,3 +71,54 @@ export const addNewAdmin = async (adminData) => {
     throw error;
   }
 };
+
+export const deleteAdmin = async (adminId) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/admins/${adminId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting admin:', error);
+    throw error;
+  }
+};
+
+export const fetchAdmins = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/admins`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching admins:', error);
+    throw error;
+  }
+};
+
+export const fetchAdminProfile = async (adminId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/admins/${adminId}/profile`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching admin profile:', error);
+    throw error;
+  }
+};
+
+export const updateAdminProfile = async (adminId, profileData) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/admins/${adminId}/profile`, profileData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating admin profile:', error);
+    throw error;
+  }
+};
+
+export const changeAdminPassword = async (adminId, passwordData) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/admins/${adminId}/password`, passwordData);
+    return response.data;
+  } catch (error) {
+    console.error('Error changing admin password:', error);
+    throw error;
+  }
+};
+

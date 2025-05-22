@@ -1,0 +1,355 @@
+/* src/components/driver/ManageDisputes.css and src/components/goods-owner/ManageDisputes.css */
+/* Common styles */
+.manage-disputes-driver,
+.manage-disputes-owner {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.disputes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.toggle-form-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.toggle-form-btn.add {
+  background: yellow;
+  color: black;
+  border: none;
+}
+
+.toggle-form-btn.add:hover {
+  background: #ffcc00;
+}
+
+.toggle-form-btn.cancel {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
+.toggle-form-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.create-dispute-form {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.disputes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dispute-card {
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dispute-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.dispute-header h3 {
+  margin: 0;
+}
+
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.dispute-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.dispute-details p {
+  margin: 5px 0;
+}
+
+.dispute-message {
+  margin-bottom: 15px;
+}
+
+.dispute-message p {
+  margin: 5px 0;
+}
+
+.dispute-resolution {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.dispute-resolution p {
+  margin: 5px 0;
+}
+
+.dispute-attachments {
+  margin-top: 10px;
+}
+
+.dispute-attachments a {
+  display: inline-block;
+  margin-left: 10px;
+  color: inherit;
+  text-decoration: underline;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-group input[type="file"] {
+  padding: 5px;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.error-message {
+  color: #F44336;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.no-disputes {
+  text-align: center;
+  padding: 30px;
+  font-style: italic;
+}
+
+.loading {
+  text-align: center;
+  padding: 30px;
+}
+
+/* Driver specific styles */
+.manage-disputes-driver {
+  color: yellow;
+}
+
+.manage-disputes-driver .create-dispute-form {
+  background: rgba(255, 255, 0, 0.1);
+  border: 1px solid yellow;
+}
+
+.manage-disputes-driver .dispute-card {
+  background: rgba(255, 255, 0, 0.05);
+  border: 1px solid rgba(255, 255, 0, 0.3);
+}
+
+.manage-disputes-driver .dispute-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 255, 0, 0.1);
+}
+
+.manage-disputes-driver .dispute-resolution {
+  background: rgba(255, 255, 0, 0.1);
+  border-left: 3px solid yellow;
+}
+
+.manage-disputes-driver .form-group input,
+.manage-disputes-driver .form-group select,
+.manage-disputes-driver .form-group textarea {
+  background: rgba(255, 255, 0, 0.1);
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+.manage-disputes-driver .submit-btn {
+  background: yellow;
+  color: black;
+  border: none;
+}
+
+.manage-disputes-driver .submit-btn:hover {
+  background: #ffcc00;
+}
+
+.manage-disputes-driver .status-badge.pending {
+  background: rgba(255, 193, 7, 0.2);
+  color: #FFC107;
+}
+
+.manage-disputes-driver .status-badge.accepted {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.manage-disputes-driver .status-badge.rejected {
+  background: rgba(244, 67, 54, 0.2);
+  color: #F44336;
+}
+
+.manage-disputes-driver .status-badge.resolved {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+}
+
+/* Goods Owner specific styles */
+.manage-disputes-owner {
+  color: black;
+  background: yellow;
+}
+
+.manage-disputes-owner .create-dispute-form {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid black;
+}
+
+.manage-disputes-owner .dispute-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.manage-disputes-owner .dispute-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.manage-disputes-owner .dispute-resolution {
+  background: rgba(0, 0, 0, 0.05);
+  border-left: 3px solid black;
+}
+
+.manage-disputes-owner .form-group input,
+.manage-disputes-owner .form-group select,
+.manage-disputes-owner .form-group textarea {
+  background: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.manage-disputes-owner .submit-btn {
+  background: black;
+  color: yellow;
+  border: none;
+}
+
+.manage-disputes-owner .submit-btn:hover {
+  background: #333;
+}
+
+.manage-disputes-owner .status-badge.pending {
+  background: rgba(255, 193, 7, 0.3);
+  color: #b28704;
+}
+
+.manage-disputes-owner .status-badge.accepted {
+  background: rgba(76, 175, 80, 0.3);
+  color: #2E7D32;
+}
+
+.manage-disputes-owner .status-badge.rejected {
+  background: rgba(244, 67, 54, 0.3);
+  color: #C62828;
+}
+
+.manage-disputes-owner .status-badge.resolved {
+  background: rgba(33, 150, 243, 0.3);
+  color: #1565C0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .manage-disputes-driver,
+  .manage-disputes-owner {
+    padding: 15px;
+  }
+  
+  .disputes-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .toggle-form-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .create-dispute-form {
+    padding: 15px;
+  }
+  
+  .dispute-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-disputes-driver,
+  .manage-disputes-owner {
+    padding: 10px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .submit-btn {
+    width: 100%;
+  }
+}

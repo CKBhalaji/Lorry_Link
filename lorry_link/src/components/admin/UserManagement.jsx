@@ -3,11 +3,44 @@ import React, { useState, useEffect } from 'react';
 import './UserManagement.css';
 import { fetchUsers, deleteUser } from '../../services/adminService';
 
+
 const UserManagement = () => {
-  const [users, setUsers] = useState([]);
+  const users = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'Admin',
+      status: 'Active'
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      role: 'Manager',
+      status: 'Inactive'
+    },
+    {
+      id: 3,
+      name: 'Bob Johnson',
+      email: 'bob@example.com',
+      role: 'User',
+      status: 'Active'
+    }
+  ];
+  // const [users, setUsers] = useState();
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [selectedRole, setSelectedRole] = useState('All');
+  const [selectedUser, setSelectedUser] = useState(null);
 
+  const handleView = (user) => {
+    setSelectedUser(user);
+  };
+
+  // const handleDelete = (userId) => {
+  //   setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+  // };
   useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -33,70 +66,94 @@ const UserManagement = () => {
     }
   };
 
-  const filteredUsers = Array.isArray(users) ? (filter === 'all' 
-    ? users 
-    : users.filter(user => user.role === filter)) : [];
+  // const filteredUsers = Array.isArray(users) ? (filter === 'all'
+  //   ? users
+  //   : users.filter(user => user.role === filter)) : [];
 
-  if (loading) return <div className="loading">Loading users...</div>;
+  const filteredUsers = selectedRole === 'All'
+    ? users
+    : users.filter(user => user.role === selectedRole);
+
+  if (loading) return <div className="UM-loading">Loading users...</div>;
 
   return (
-    <div className="user-management">
-      <div className="management-header">
+    <div className="UM-user-management">
+      <div className="UM-management-header">
         <h2>User Management</h2>
-        <div className="filter-controls">
+        <div className="UM-filter-controls">
           <label>Filter by role:</label>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value="all">All Users</option>
-            <option value="driver">Drivers</option>
-            <option value="goodsOwner">Goods Owners</option>
-            <option value="admin">Admins</option>
+          <select value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}>
+            <option value="All">All Roles</option>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="User">User</option>
           </select>
         </div>
       </div>
 
-      <div className="users-table">
-        <div className="table-header">
-          <div className="header-cell">ID</div>
-          <div className="header-cell">Name</div>
-          <div className="header-cell">Email</div>
-          <div className="header-cell">Role</div>
-          <div className="header-cell">Status</div>
-          <div className="header-cell actions">Actions</div>
+      {selectedUser && (
+        <div className="UM-user-card">
+          <h3>User Details</h3>
+          <div className="UM-user-details-grid">
+            <p><strong>Name:</strong> {selectedUser.name}</p>
+            <p><strong>Email:</strong> {selectedUser.email}</p>
+            <p><strong>Role:</strong> {selectedUser.role}</p>
+            <p><strong>Status:</strong> {selectedUser.status}</p>
+          </div>
+          <button className="UM-close-button" onClick={() => setSelectedUser(null)}>
+            Close
+          </button>
         </div>
+      )}
 
-        {filteredUsers.length === 0 ? (
-          <div className="no-results">No users found</div>
-        ) : (
-          filteredUsers.map(user => (
-            <div key={user.id} className="table-row">
-              <div className="table-cell">{user.id}</div>
-              <div className="table-cell">{user.name}</div>
-              <div className="table-cell">{user.email}</div>
-              <div className="table-cell">
-                <span className={`role-badge ${user.role}`}>
-                  {user.role}
-                </span>
-              </div>
-              <div className="table-cell">
-                <span className={`status-badge ${user.status}`}>
-                  {user.status}
-                </span>
-              </div>
-              <div className="table-cell actions">
-                <button className="view-btn">View</button>
-                <button 
-                  className="delete-btn"
-                  onClick={() => handleDelete(user.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+      {filteredUsers.length === 0 ? (
+        <div className="UM-no-results">No users found</div>
+      ) : (
+        <div className="UM-table-container">
+          <table className="UM-user-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers.map(user => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <span className={`role-badge ${user.role}`}>
+                      {user.role}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`status-badge ${user.status}`}>
+                      {user.status}
+                    </span>
+                  </td>
+                  <td>
+                    <button className="UM-view-btn" onClick={() => handleView(user)}>View</button>
+                    <button className="UM-delete-btn" onClick={() => handleDelete(user.id)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div >
   );
 };
-
 export default UserManagement;
+
+
+// In your JSX, add a role filter dropdown:
+
+
+// Use filteredUsers instead of users in your table:

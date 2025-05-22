@@ -4,7 +4,58 @@ import './DisputeResolution.css';
 import { fetchDisputes, resolveDispute } from '../../services/adminService';
 
 const DisputeResolution = () => {
-  const [disputes, setDisputes] = useState([]);
+  const disputes = [
+    {
+      id: 1,
+      loadId: 'L12345',
+      complainantName: 'John Doe',
+      againstName: 'Jane Smith',
+      date: '2023-10-01T09:00:00',
+      message: 'The load was delivered late without prior notice.',
+      status: 'open'
+    },
+    {
+      id: 2,
+      loadId: 'L67890',
+      complainantName: 'Alice Johnson',
+      againstName: 'Bob Williams',
+      date: '2023-10-05T14:30:00',
+      message: 'The load was damaged during transit.',
+      status: 'resolved',
+      resolution: 'approved',
+      resolvedDate: '2023-10-07T11:15:00'
+    },
+    {
+      id: 3,
+      loadId: 'L24680',
+      complainantName: 'Michael Brown',
+      againstName: 'Sarah Johnson',
+      date: '2023-10-10T16:45:00',
+      message: 'The load was delivered to the wrong location.',
+      status: 'open'
+    },
+    {
+      id: 4,
+      loadId: 'L13579',
+      complainantName: 'Emily Davis',
+      againstName: 'David Wilson',
+      date: '2023-10-12T11:20:00',
+      message: 'The load was incomplete upon delivery.',
+      status: 'resolved',
+      resolution: 'rejected',
+      resolvedDate: '2023-10-14T09:30:00'
+    },
+    {
+      id: 5,
+      loadId: 'L97531',
+      complainantName: 'Robert Taylor',
+      againstName: 'Jennifer Anderson',
+      date: '2023-10-15T13:15:00',
+      message: 'The load was damaged during loading.',
+      status: 'open'
+    }
+  ];
+  // const [disputes, setDisputes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('open');
 
@@ -25,15 +76,15 @@ const DisputeResolution = () => {
   const handleResolve = async (disputeId, resolution) => {
     try {
       await resolveDispute(disputeId, resolution);
-      setDisputes(disputes.map(dispute => 
+      setDisputes(disputes.map(dispute =>
         dispute.id === disputeId ? { ...dispute, status: 'resolved' } : dispute
-      ));
+      )); 
     } catch (error) {
       console.error('Error resolving dispute:', error);
     }
   };
 
-  const filteredDisputes = Array.isArray(disputes) ? disputes.filter(dispute => 
+  const filteredDisputes = Array.isArray(disputes) ? disputes.filter(dispute =>
     activeTab === 'open' ? dispute.status === 'open' : dispute.status === 'resolved'
   ) : [];
 
@@ -83,16 +134,16 @@ const DisputeResolution = () => {
                 <p><strong>Message:</strong></p>
                 <p>{dispute.message}</p>
               </div>
-              
+
               {dispute.status === 'open' && (
                 <div className="resolution-actions">
-                  <button 
+                  <button
                     className="resolve-btn approve"
                     onClick={() => handleResolve(dispute.id, 'approved')}
                   >
                     Approve Complaint
                   </button>
-                  <button 
+                  <button
                     className="resolve-btn reject"
                     onClick={() => handleResolve(dispute.id, 'rejected')}
                   >
@@ -100,7 +151,7 @@ const DisputeResolution = () => {
                   </button>
                 </div>
               )}
-              
+
               {dispute.status === 'resolved' && (
                 <div className="resolution-outcome">
                   <p><strong>Resolution:</strong> {dispute.resolution}</p>

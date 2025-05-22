@@ -93,3 +93,34 @@
       padding: 10px;
     }
   }
+
+.select-container {
+  margin: 16px 0;
+  display: block;
+  /* margin-top: 16px; */
+}
+
+.select-container .MuiSelect-select {
+  /* background-color:rgba(255, 255, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px; */
+  /* margin: 16px 0; */
+  padding: 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 0, 0.1);
+    color: yellow;
+    border: 1px solid yellow;
+}
+
+.select-container .MuiSelect-select:hover {
+  /* border-color: #999; */
+  outline: none;
+    border-color: #ffcc00;
+    box-shadow: 0 0 5px yellow;
+}
+
+.select-container .MuiOutlinedInput-notchedOutline {
+  border: none;
+}

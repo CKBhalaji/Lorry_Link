@@ -1,27 +1,25 @@
-// src/pages/driver/Dashboard.js
+// src/pages/goods-owner/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
-import './Driver_Dashboard.css';
-import AvailableLoads from './AvailableLoads';
-import DriverProfile from './DriverProfile';
-import BidHistory from './BidHistory';
-import ManageDisputes from './DriverManageDisputes';
+import './GODashboard.css';
+import PostLoad from './PostLoad';
+import MyLoads from './MyLoads';
+import OwnerProfile from './OwnerProfile';
+import ManageDisputes from './GOManageDisputes';
 
-const DriverDashboard = () => {
+const GoodsOwnerDashboard = () => {
   const location = useLocation();
-  // const [activeTab, setActiveTab] = useState('loads');
+  // const [activeTab, setActiveTab] = useState('post');
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const tabFromURL = searchParams.get('tab');
-  const [activeTab, setActiveTab] = useState(tabFromURL || 'loads');
-
+  const [activeTab, setActiveTab] = useState(tabFromURL || 'post');
 
   const handleTabClick = (tab) => {
     setSearchParams({ tab });
-    navigate(`/driver/dashboard?tab=${tab}`);
+    navigate(`/goods-owner/dashboard?tab=${tab}`);
   };
 
-  // Fetch driver data on component mount
   useEffect(() => {
     if (tabFromURL) {
       setActiveTab(tabFromURL);
@@ -29,15 +27,15 @@ const DriverDashboard = () => {
   }, [tabFromURL]);
 
   // const handleLogout = () => {
-  //   localStorage.removeItem('driverToken');
+  //   localStorage.removeItem('ownerToken');
   //   navigate('/login');
   // };
 
   return (
-    <div className="driver-dashboard-baground">
-      <div className="driver-dashboard">
+    <div className="owner-dashboard-baground">
+      <div className="owner-dashboard">
         {/* <header className="dashboard-header">
-          <h1>Driver Dashboard</h1>
+          <h1>Goods Owner Dashboard</h1>
           <button onClick={handleLogout} className="logout-button">
             Logout
           </button>
@@ -45,16 +43,16 @@ const DriverDashboard = () => {
 
         <div className="dashboard-tabs">
           <button
+            className={`tab-button ${activeTab === 'post' ? 'active' : ''}`}
+            onClick={() => {setActiveTab('post'); handleTabClick('post'); }}
+          >
+            Post New Load
+          </button>
+          <button
             className={`tab-button ${activeTab === 'loads' ? 'active' : ''}`}
             onClick={() => {setActiveTab('loads'); handleTabClick('loads'); }}
           >
-            Available Loads
-          </button>
-          <button
-            className={`tab-button ${activeTab === 'bids' ? 'active' : ''}`}
-            onClick={() => {setActiveTab('bids'); handleTabClick('bids'); }}
-          >
-            My Bids
+            My Loads
           </button>
           <button
             className={`tab-button ${activeTab === 'disputes'? 'active' : ''}`}
@@ -71,14 +69,14 @@ const DriverDashboard = () => {
         </div>
 
         <div className="dashboard-content">
-          {activeTab === 'loads' && <AvailableLoads />}
-          {activeTab === 'bids' && <BidHistory />}
+          {activeTab === 'post' && <PostLoad />}
+          {activeTab === 'loads' && <MyLoads />}
           {activeTab === 'disputes' && <ManageDisputes />}
-          {activeTab === 'profile' && <DriverProfile />}
+          {activeTab === 'profile' && <OwnerProfile />}
         </div>
       </div>
     </div>
   );
 };
 
-export default DriverDashboard;
+export default GoodsOwnerDashboard;

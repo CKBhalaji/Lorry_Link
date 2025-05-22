@@ -4,21 +4,21 @@ import './MyLoads.css';
 import { fetchOwnerLoads } from '../../services/goodsOwnerService';
 
 const MyLoads = () => {
-  const [loads, setLoads] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loads, setLoads] = useState([]);
 
   useEffect(() => {
-    const loadData = async () => {
+    const fetchLoads = async () => {
       try {
         const data = await fetchOwnerLoads();
-        setLoads(data);
+        setLoads(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching loads:', error);
-      } finally {
-        setLoading(false);
+        setLoads([]);
       }
     };
-    loadData();
+
+    fetchLoads();
   }, []);
 
   if (loading) return <div className="loading">Loading your loads...</div>;

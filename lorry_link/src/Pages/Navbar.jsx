@@ -1,7 +1,7 @@
 import { useAuth } from '../context/AuthContext';
-import { NavLink, Link} from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Navbar.css'; // Add this import
 import { ArrowRightOutlined } from '@ant-design/icons';
 
@@ -25,15 +25,18 @@ const Navbar = () => {
       <div className={`navbar-container ${userType === 'driver' ? 'driver' : userType === 'goodsOwner' ? 'goods-owner' : ''}`}>
         <div className="navbar-header">
           <div className="navbar-brand">
-          <h1>Lorry Link </h1>
+            <Link to="/">
+              <h1>Lorry Link </h1>
+            </Link>
             {/* <h1>Lorry Link<ArrowRightOutlined /> </h1> */}
-            {/* {userType && (
+            {userType && (
               <span className="user-type-indicator">
-                {userType === 'driver' ? 'Driver' : 
-                 userType === 'goodsOwner' ? 'Goods Owner' :
-                 userType === 'admin' ? 'Admin' : ''}
+                <ArrowRightOutlined />
+                {userType === 'driver' ? ' Driver Dashboard' : 
+                 userType === 'goodsOwner' ? ' Goods Owner' :
+                 userType === 'admin' ? ' Admin Dashboard' : ''}
               </span>
-            )} */}
+            )}
           </div>
           <div className="user-info">
             {isAuthenticated && userType ? (
