@@ -4,9 +4,45 @@ import './AvailableLoads.css';
 import { fetchAvailableLoads, placeBid } from '../../services/driverService';
 
 const AvailableLoads = () => {
-  const [loads, setLoads] = useState([]);
+  const sampleLoads = [
+    {
+      id: 1,
+      goodsType: 'Electronics',
+      pickupLocation: 'Mumbai',
+      deliveryLocation: 'Delhi',
+      weight: 500,
+      pickupDate: '2023-10-20T09:00:00Z',
+      deliveryDate: '2023-10-22T18:00:00Z',
+      currentHighestBid: 15000
+    },
+    {
+      id: 2,
+      goodsType: 'Furniture',
+      pickupLocation: 'Chennai',
+      deliveryLocation: 'Bangalore',
+      weight: 800,
+      pickupDate: '2023-10-18T11:00:00Z',
+      deliveryDate: '2023-10-19T20:00:00Z',
+      currentHighestBid: 20000
+    },
+    {
+      id: 3,
+      goodsType: 'Clothing',
+      pickupLocation: 'Kolkata',
+      deliveryLocation: 'Hyderabad',
+      weight: 300,
+      pickupDate: '2023-10-25T08:00:00Z',
+      deliveryDate: '2023-10-26T17:00:00Z',
+      currentHighestBid: 12000
+    }
+  ];
+
+  // In the component:
+  const [loads, setLoads] = useState(sampleLoads);
+  // const [loads, setLoads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bidAmounts, setBidAmounts] = useState({});
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
     const getLoads = async () => {
@@ -36,37 +72,77 @@ const AvailableLoads = () => {
     }));
   };
 
+  // const handleSubmitBid = async (loadId) => {
+  //   const amount = bidAmounts[loadId];
+  //   if (!amount || isNaN(amount)) {
+  //     alert('Please enter a valid bid amount');
+  //     return;
+  //   }
+
+  //   try {
+  //     await placeBid(loadId, parseFloat(amount));
+  //     alert('Bid placed successfully!');
+  //     // Refresh the loads list
+  //     const updatedLoads = await fetchAvailableLoads();
+  //     setLoads(updatedLoads);
+  //   } catch (error) {
+  //     console.error('Error placing bid:', error);
+  //     alert('Failed to place bid. Please try again.');
+  //   }
+  // };
+
   const handleSubmitBid = async (loadId) => {
     const amount = bidAmounts[loadId];
     if (!amount || isNaN(amount)) {
-      alert('Please enter a valid bid amount');
+      setSuccessMessage({ type: 'error', message: 'Please enter a valid bid amount' });
       return;
     }
-
+  
     try {
       await placeBid(loadId, parseFloat(amount));
-      alert('Bid placed successfully!');
-      // Refresh the loads list
+      setSuccessMessage({ 
+        type: 'success', 
+        message: 'Bid placed successfully!',
+        amount: amount,
+        loadId: loadId
+      });
       const updatedLoads = await fetchAvailableLoads();
       setLoads(updatedLoads);
+      setTimeout(() => setSuccessMessage(null), 3000); // Auto-hide after 3 seconds
     } catch (error) {
+      setSuccessMessage({ type: 'error', message: 'Failed to place bid. Please try again.' });
       console.error('Error placing bid:', error);
-      alert('Failed to place bid. Please try again.');
     }
   };
 
   if (loading) return <div>Loading available loads...</div>;
 
+  const successCard = successMessage && (
+    <div className={`DAL-success-card ${successMessage.type}`}>
+      <h3>{successMessage.message}</h3>
+      {successMessage.type === 'success' && (
+        <p>Bid Amount: ₹{successMessage.amount}</p>
+      )}
+      <button 
+        className="DAL-ok-button"
+        onClick={() => setSuccessMessage(null)}
+      >
+        OK
+      </button>
+    </div>
+  );
+
   return (
-    <div className="available-loads">
+    <div className="DAL-available-loads">
+      {successCard}
       <h2>Available Loads</h2>
       {loads.length === 0 ? (
         <p>No loads available at the moment.</p>
       ) : (
-        <div className="loads-list">
+        <div className="DAL-loads-list">
           {loads.map(load => (
-            <div key={load.id} className="load-card">
-              <div className="load-info">
+            <div key={load.id} className="DAL-load-card">
+              <div className="DAL-load-info">
                 <h3>{load.goodsType}</h3>
                 <p><strong>From:</strong> {load.pickupLocation}</p>
                 <p><strong>To:</strong> {load.deliveryLocation}</p>
@@ -75,8 +151,8 @@ const AvailableLoads = () => {
                 <p><strong>Delivery Date:</strong> {new Date(load.deliveryDate).toLocaleDateString()}</p>
                 <p><strong>Current Highest Bid:</strong> ₹{load.currentHighestBid || 'No bids yet'}</p>
               </div>
-              
-              <div className="bid-section">
+
+              <div className="DAL-bid-section">
                 <input
                   type="number"
                   placeholder="Enter your bid amount"

@@ -1,158 +1,162 @@
 .admin-profile {
-    color: yellow;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
+  color: yellow;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid yellow;
+  padding-bottom: 10px;
+}
+
+.edit-btn,
+.change-password-btn {
+  background: yellow;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.edit-btn:hover,
+.change-password-btn:hover {
+  background: #ffcc00;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detail-row {
+  display: flex;
+  padding: 10px;
+  background: rgba(255, 255, 0, 0.05);
+  border-radius: 5px;
+}
+
+.detail-label {
+  font-weight: bold;
+  width: 150px;
+  color: #ffcc00;
+}
+
+.detail-value {
+  flex: 1;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 0, 0.1);
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+.form-group input.error {
+  border-color: #f44336;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 0.9rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  background: transparent;
+  color: yellow;
+  border: 1px solid yellow;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.save-btn {
+  background: yellow;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn:hover {
+  background: #ffcc00;
+}
+
+.loading,
+.error {
+  color: yellow;
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: #f44336;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid yellow;
-    padding-bottom: 10px;
-  }
-  
-  .edit-btn, .change-password-btn {
-    background: yellow;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  .edit-btn:hover, .change-password-btn:hover {
-    background: #ffcc00;
-  }
-  
-  .profile-details {
-    display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 15px;
   }
-  
+
   .detail-row {
-    display: flex;
-    padding: 10px;
-    background: rgba(255, 255, 0, 0.05);
-    border-radius: 5px;
-  }
-  
-  .detail-label {
-    font-weight: bold;
-    width: 150px;
-    color: #ffcc00;
-  }
-  
-  .detail-value {
-    flex: 1;
-  }
-  
-  .profile-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .form-group {
-    display: flex;
     flex-direction: column;
     gap: 5px;
   }
-  
-  .form-group label {
-    font-weight: bold;
+
+  .detail-label {
+    width: 100%;
   }
-  
-  .form-group input {
-    padding: 10px;
-    border-radius: 4px;
-    background: rgba(255, 255, 0, 0.1);
-    color: yellow;
-    border: 1px solid yellow;
-  }
-  
-  .form-group input.error {
-    border-color: #F44336;
-  }
-  
-  .error-message {
-    color: #F44336;
-    font-size: 0.9rem;
-  }
-  
+}
+
+@media (max-width: 480px) {
   .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
+    flex-direction: column;
   }
-  
-  .cancel-btn {
-    background: transparent;
-    color: yellow;
-    border: 1px solid yellow;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .cancel-btn:hover {
-    background: rgba(255, 255, 0, 0.1);
-  }
-  
+
+  .cancel-btn,
   .save-btn {
-    background: yellow;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+    width: 100%;
   }
-  
-  .save-btn:hover {
-    background: #ffcc00;
-  }
-  
-  .loading, .error {
-    color: yellow;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .error {
-    color: #F44336;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .profile-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-    
-    .detail-row {
-      flex-direction: column;
-      gap: 5px;
-    }
-    
-    .detail-label {
-      width: 100%;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .form-actions {
-      flex-direction: column;
-    }
-    
-    .cancel-btn, .save-btn {
-      width: 100%;
-    }
-  }
+}

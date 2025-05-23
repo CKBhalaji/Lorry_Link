@@ -5,7 +5,7 @@ import { fetchDriverProfile } from '../../services/driverService';
 
 const DriverProfile = () => {
     // Sample data structure for reference:
-    const profile = {
+    const [originalProfile, setOriginalProfile] = useState({
         fullName: 'John Doe',
         email: 'john.doe@example.com',
         phone: '+91 9876543210',
@@ -18,69 +18,55 @@ const DriverProfile = () => {
         rcNumber: 'MH01AB1234',
         paymentMethod: 'UPI',
         paymentDetails: 'john.doe@upi'
-    };
+    });
     // const [profile, setProfile] = useState(null);
-    const [tempProfile, setTempProfile] = useState({});
-
-    useEffect(() => {
-        if (profile) {
-            setTempProfile(profile);
-        }
-    }, [profile]);
-
-    const handleInputChange = (field, value) => {
-        setTempProfile(prev => ({ ...prev, [field]: value }));
-    };
-    const [loading, setLoading] = useState(true);
+    const [profile, setProfile] = useState({ ...originalProfile });
+    const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [errors, setErrors] = useState({});
 
-    // const renderField = (field, label) => (
-    //     <div className="DP-profile-field">
-    //         <label>{label}</label>
-    //         {editingField === field ? (
-    //             <div>
-    //                 <input
-    //                     type="text"
-    //                     value={profile[field]}
-    //                     onChange={(e) => setProfile(prev => ({ ...prev, [field]: e.target.value }))}
-    //                 />
-    //                 <button onClick={() => handleSave(field, profile[field])}>Save</button>
-    //                 <button onClick={() => setEditingField(null)}>Cancel</button>
-    //             </div>
-    //         ) : (
-    //             <div>
-    //                 <p>{profile[field]}</p>
-    //                 <button onClick={() => handleEdit(field)}>Edit</button>
-    //             </div>
-    //         )}
-    //     </div>
-    // );
-    const renderField = (field, label) => (
-        <div className="DP-profile-field">
-            <label>{label}</label>
-            {isEditing ? (
-                <input
-                    type="text"
-                    value={tempProfile[field] || ''}
-                    onChange={(e) => handleInputChange(field, e.target.value)}
-                />
-            ) : (
-                <p>{profile[field]}</p>
-            )}
-        </div>
-    );
+    const validateFields = () => {
+        const newErrors = {};
+        if (!profile.fullName) newErrors.fullName = 'Full name is required';
+        if (!profile.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) newErrors.email = 'Invalid email address';
+        if (!profile.phone.match(/^[0-9]{10}$/)) newErrors.phone = 'Phone number must be 10 digits';
+        if (!profile.aadhar.match(/^[0-9]{12}$/)) newErrors.aadhar = 'Aadhar must be 12 digits';
+        if (profile.experience < 0) newErrors.experience = 'Experience cannot be negative';
+        if (!profile.vehicleType) newErrors.vehicleType = 'Vehicle type is required';
+        if (!profile.vehicleName) newErrors.vehicleName = 'Vehicle name is required';
+        if (profile.loadCapacity <= 0) newErrors.loadCapacity = 'Load capacity must be positive';
+        if (!profile.rcNumber) newErrors.rcNumber = 'RC number is required';
+        if (!profile.paymentMethod) newErrors.paymentMethod = 'Payment method is required';
+        if (!profile.paymentDetails) newErrors.paymentDetails = 'Payment details are required';
 
-    const handleEdit = () => {
-        setIsEditing(true);
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
-    const handleSave = () => {
-        setProfile(tempProfile);
-        setIsEditing(false);
-        // Add API call to save changes here
+
+    const handleEdit = async () => {
+        if (isEditing) {
+            if (!validateFields()) return;
+            try {
+                await saveDriverProfile(profile); // Add this API call
+                setOriginalProfile(profile);
+            } catch (error) {
+                console.error('Error saving profile:', error);
+            }
+        } else {
+            setProfile({ ...originalProfile });
+        }
+        setIsEditing(!isEditing);
     };
+
     const handleCancel = () => {
+        setProfile({ ...originalProfile });
+        setErrors({});
         setIsEditing(false);
-        // Optionally reset to original values
+    };
+
+    const handleChange = (field, value) => {
+        setProfile(prev => ({ ...prev, [field]: value }));
+        if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }));
     };
 
     useEffect(() => {
@@ -107,32 +93,81 @@ const DriverProfile = () => {
             <div className="DP-profile-section">
                 <h3>Personal Information</h3>
                 <div className="DP-profile-grid">
-                    {renderField('fullName', 'Full Name')}
-                    {renderField('email', 'Email')}
-                    {renderField('phone', 'Phone')}
-                    {renderField('aadhar', 'Aadhar Number')}
-                    {renderField('experience', 'Experience')}
-                    {/* {renderField('rating', 'Rating')} */}
-                    {/* <div className="DP-profile-field">
+                    <div className="DP-profile-field">
                         <label>Full Name</label>
-                        <p>{profile.fullName}</p>
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.fullName}
+                                    onChange={e => handleChange('fullName', e.target.value)}
+                                />
+                                {errors.fullName && <span className="DP-error">{errors.fullName}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.fullName}</p>
+                        )}
+                        {/* <p>{profile.fullName}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Email</label>
-                        <p>{profile.email}</p>
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.email}
+                                    onChange={e => handleChange('email', e.target.value)}
+                                />
+                                {errors.email && <span className="DP-error">{errors.email}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.email}</p>
+                        )}
+                        {/* <p>{profile.email}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Phone</label>
-                        <p>{profile.phone}</p>
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.phone}
+                                    onChange={e => handleChange('phone', e.target.value)}
+                                />
+                                {errors.phone && <span className="DP-error">{errors.phone}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.phone}</p>
+                        )}
+                        {/* <p>{profile.phone}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Aadhar Number</label>
-                        <p>{profile.aadhar}</p>
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.aadhar}
+                                    onChange={e => handleChange('aadhar', e.target.value)}
+                                />
+                                {errors.aadhar && <span className="DP-error">{errors.aadhar}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.aadhar}</p>
+                        )}
+                        {/* <p>{profile.aadhar}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Experience</label>
-                        <p>{profile.experience} years</p>
-                    </div>*/}
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.experience}
+                                    onChange={e => handleChange('experience', e.target.value)}
+                                />
+                                {errors.experience && <span className="DP-error">{errors.experience}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.experience} years</p>
+                        )}
+                        {/* <p>{profile.experience} years</p> */}
+                    </div>
                     <div className="DP-profile-field">
                         <label>Rating</label>
                         <p>{profile.rating || 'Not rated yet'}</p>
@@ -143,54 +178,124 @@ const DriverProfile = () => {
             <div className="DP-profile-section">
                 <h3>Vehicle Information</h3>
                 <div className="DP-profile-grid">
-                    {renderField('vehicleType', 'Vehicle Type')}
-                    {renderField('vehicleName', 'Vehicle Name')}
-                    {renderField('loadCapacity', 'Load Capacity')}
-                    {renderField('rcNumber', 'RC Number')}
-                    {/* <div className="DP-profile-field">
+                    <div className="DP-profile-field">
                         <label>Vehicle Type</label>
-                        <p>{profile.vehicleType}</p>
+                        {isEditing ? (
+                            <>
+                                <select
+                                    value={profile.vehicleType}
+                                    onChange={e => handleChange('vehicleType', e.target.value)}
+                                >
+                                    <option value="Truck">Truck</option>
+                                    <option value="Van">Van</option>
+                                    <option value="others">Others</option>
+                                </select>
+                                {errors.vehicleType && <span className="DP-error">{errors.vehicleType}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.vehicleType}</p>
+                        )}
+                        {/* <p>{profile.vehicleType}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Vehicle Name</label>
-                        <p>{profile.vehicleName}</p>
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.vehicleName}
+                                    onChange={e => handleChange('vehicleName', e.target.value)}
+                                />
+                                {errors.vehicleName && <span className="DP-error">{errors.vehicleName}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.vehicleName}</p>
+                        )}
+                        {/* <p>{profile.vehicleName}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Load Capacity</label>
-                        <p>{profile.loadCapacity} kg</p>
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.loadCapacity}
+                                    onChange={e => handleChange('loadCapacity', e.target.value)}
+                                />
+                                {errors.loadCapacity && <span className="DP-error">{errors.loadCapacity}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.loadCapacity} kg</p>
+                        )}
+                        {/* <p>{profile.loadCapacity} kg</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>RC Number</label>
-                        <p>{profile.rcNumber}</p>
-                    </div> */}
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.rcNumber}
+                                    onChange={e => handleChange('rcNumber', e.target.value)}
+                                />
+                                {errors.rcNumber && <span className="DP-error">{errors.rcNumber}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.rcNumber}</p>
+                        )}
+                        {/* <p>{profile.rcNumber}</p> */}
+                    </div>
                 </div>
             </div>
 
             <div className="DP-profile-section">
                 <h3>Payment Information</h3>
                 <div className="DP-profile-grid">
-                    {renderField('paymentMethod', 'Primary Payment Method')}
-                    {renderField('paymentDetails', 'Payment Details')}
-                    {/* <div className="DP-profile-field">
+                    <div className="DP-profile-field">
                         <label>Primary Payment Method</label>
-                        <p>{profile.paymentMethod}</p>
+                        {isEditing ? (
+                            <>
+                                <select
+                                    value={profile.paymentMethod}
+                                    onChange={e => handleChange('paymentMethod', e.target.value)}
+                                >
+                                    <option value="UPI">UPI</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Credit Card">Credit Card</option>
+                                </select>
+                                {errors.paymentMethod && <span className="DP-error">{errors.paymentMethod}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.paymentMethod}</p>
+                        )}
+                        {/* <p>{profile.paymentMethod}</p> */}
                     </div>
                     <div className="DP-profile-field">
                         <label>Payment Details</label>
-                        <p>{profile.paymentDetails}</p>
-                    </div> */}
+                        {isEditing ? (
+                            <>
+                                <input
+                                    value={profile.paymentDetails}
+                                    onChange={e => handleChange('paymentDetails', e.target.value)}
+                                />
+                                {errors.paymentDetails && <span className="DP-error">{errors.paymentDetails}</span>}
+                            </>
+                        ) : (
+                            <p>{profile.paymentDetails}</p>
+                        )}
+                        {/* <p>{profile.paymentDetails}</p> */}
+                    </div>
                 </div>
             </div>
 
             {/* <button className="DP-edit-btn" onClick={handleEdit}>Edit Profile</button> */}
-            {isEditing ? (
-                <div>
-                    <button className="DP-edit-btn" onClick={handleSave}>Save</button>
-                    <button className="DP-edit-btn" onClick={handleCancel}>Cancel</button>
-                </div>
-            ) : (
-                <button className="DP-edit-btn" onClick={handleEdit}>Edit Profile</button>
-            )}
+            <div className="DP-profile-actions">
+                <button className="DP-edit-btn" onClick={handleEdit}>
+                    {isEditing ? 'Save Changes' : 'Edit Profile'}
+                </button>
+                {isEditing && (
+                    <button className="DP-cancel-btn" onClick={handleCancel}>
+                        Cancel
+                    </button>
+                )}
+            </div>
         </div>
     );
 };

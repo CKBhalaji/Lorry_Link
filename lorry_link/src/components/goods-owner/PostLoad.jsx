@@ -69,84 +69,84 @@ const PostLoad = () => {
   };
 
   return (
-    <div className="post-load">
+    <div className="GOPL-post-load">
       <h2>Post New Load</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="GOPL-form-group">
           <label>Goods Type</label>
           <input
             type="text"
             name="goodsType"
             value={formData.goodsType}
             onChange={handleChange}
-            className={errors.goodsType ? 'error' : ''}
+            className={errors.goodsType ? 'GOPL-error' : ''}
           />
-          {errors.goodsType && <span className="error-message">{errors.goodsType}</span>}
+          {errors.goodsType && <span className="GOPL-error-message">{errors.goodsType}</span>}
         </div>
 
-        <div className="form-group">
+        <div className="GOPL-form-group">
           <label>Weight (kg)</label>
           <input
             type="number"
             name="weight"
             value={formData.weight}
             onChange={handleChange}
-            className={errors.weight ? 'error' : ''}
+            className={errors.weight ? 'GOPL-error' : ''}
           />
-          {errors.weight && <span className="error-message">{errors.weight}</span>}
+          {errors.weight && <span className="GOPL-error-message">{errors.weight}</span>}
         </div>
 
-        <div className="form-group">
+        <div className="GOPL-form-group">
           <label>Pickup Location</label>
           <input
             type="text"
             name="pickupLocation"
             value={formData.pickupLocation}
             onChange={handleChange}
-            className={errors.pickupLocation ? 'error' : ''}
+            className={errors.pickupLocation ? 'GOPL-error' : ''}
           />
-          {errors.pickupLocation && <span className="error-message">{errors.pickupLocation}</span>}
+          {errors.pickupLocation && <span className="GOPL-error-message">{errors.pickupLocation}</span>}
         </div>
 
-        <div className="form-group">
+        <div className="GOPL-form-group">
           <label>Delivery Location</label>
           <input
             type="text"
             name="deliveryLocation"
             value={formData.deliveryLocation}
             onChange={handleChange}
-            className={errors.deliveryLocation ? 'error' : ''}
+            className={errors.deliveryLocation ? 'GOPL-error' : ''}
           />
-          {errors.deliveryLocation && <span className="error-message">{errors.deliveryLocation}</span>}
+          {errors.deliveryLocation && <span className="GOPL-error-message">{errors.deliveryLocation}</span>}
         </div>
 
-        <div className="form-row">
-          <div className="form-group">
+        <div className="GOPL-form-row">
+          <div className="GOPL-form-group">
             <label>Pickup Date</label>
             <input
               type="date"
               name="pickupDate"
               value={formData.pickupDate}
               onChange={handleChange}
-              className={errors.pickupDate ? 'error' : ''}
+              className={errors.pickupDate ? 'GOPL-error' : ''}
             />
-            {errors.pickupDate && <span className="error-message">{errors.pickupDate}</span>}
+            {errors.pickupDate && <span className="GOPL-error-message">{errors.pickupDate}</span>}
           </div>
 
-          <div className="form-group">
+          <div className="GOPL-form-group">
             <label>Delivery Date</label>
             <input
               type="date"
               name="deliveryDate"
               value={formData.deliveryDate}
               onChange={handleChange}
-              className={errors.deliveryDate ? 'error' : ''}
+              className={errors.deliveryDate ? 'GOPL-error' : ''}
             />
-            {errors.deliveryDate && <span className="error-message">{errors.deliveryDate}</span>}
+            {errors.deliveryDate && <span className="GOPL-error-message">{errors.deliveryDate}</span>}
           </div>
         </div>
 
-        <div className="form-group">
+        <div className="GOPL-form-group">
           <label>Description (Optional)</label>
           <textarea
             name="description"
@@ -155,7 +155,7 @@ const PostLoad = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="GOPL-form-group">
           <label>Expected Price (₹)</label>
           <input
             type="number"

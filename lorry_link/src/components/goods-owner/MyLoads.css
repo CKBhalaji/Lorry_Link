@@ -1,27 +1,27 @@
 /* src/components/goods-owner/MyLoads.css */
-.my-loads {
+.GOML-my-loads {
   color: black;
   padding: 20px;
 }
 
-.my-loads h2 {
+.GOML-my-loads h2 {
   margin-bottom: 20px;
   border-bottom: 1px solid black;
   padding-bottom: 10px;
 }
 
-.no-loads {
+.GOML-no-loads {
   font-style: italic;
   color: rgba(0, 0, 0, 0.6);
 }
 
-.loads-list {
+.GOML-loads-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.load-card {
+.GOML-load-card {
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -30,74 +30,74 @@
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.load-card:hover {
+.GOML-load-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.load-card.ACTIVE {
+.GOML-load-card.ACTIVE {
   border-left: 4px solid #4caf50;
 }
 
-.load-card.COMPLETED {
+.GOML-load-card.COMPLETED {
   border-left: 4px solid #2196f3;
 }
 
-.load-card.CANCELLED {
+.GOML-load-card.CANCELLED {
   border-left: 4px solid #f44336;
 }
 
-.load-header {
+.GOML-load-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.load-header h3 {
+.GOML-load-header h3 {
   margin: 0;
   color: black;
 }
 
-.status-badge {
+.GOML-status-badge {
   padding: 3px 10px;
   border-radius: 12px;
   font-size: 0.8rem;
   font-weight: bold;
 }
 
-.status-badge.active {
+.GOML-status-badge.active {
   background-color: rgba(76, 175, 80, 0.2);
   color: #2e7d32;
 }
 
-.status-badge.completed {
+.GOML-status-badge.completed {
   background-color: rgba(33, 150, 243, 0.2);
   color: #1565c0;
 }
 
-.status-badge.cancelled {
+.GOML-status-badge.cancelled {
   background-color: rgba(244, 67, 54, 0.2);
   color: #c62828;
 }
 
-.load-details p {
+.GOML-load-details p {
   margin: 8px 0;
   color: rgba(0, 0, 0, 0.8);
 }
 
-.load-details strong {
+.GOML-load-details strong {
   color: black;
 }
 
-.load-actions {
+.GOML-load-actions {
   display: flex;
   gap: 10px;
   margin-top: 15px;
 }
 
-.view-bids-btn,
-.cancel-btn {
+.GOML-view-bids-btn,
+.GOML-cancel-btn {
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -105,27 +105,27 @@
   transition: all 0.3s;
 }
 
-.view-bids-btn {
+.GOML-view-bids-btn {
   background: black;
   color: yellow;
   border: 1px solid black;
 }
 
-.view-bids-btn:hover {
+.GOML-view-bids-btn:hover {
   background: #333;
 }
 
-.cancel-btn {
+.GOML-cancel-btn {
   background: transparent;
   color: #f44336;
   border: 1px solid #f44336;
 }
 
-.cancel-btn:hover {
+.GOML-cancel-btn:hover {
   background: rgba(244, 67, 54, 0.1);
 }
 
-.loading {
+.GOML-loading {
   color: black;
   text-align: center;
   padding: 20px;
@@ -133,26 +133,26 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  .loads-list {
+  .GOML-loads-list {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 
 @media (max-width: 480px) {
-  .my-loads {
+  .GOML-my-loads {
     padding: 15px;
   }
 
-  .loads-list {
+  .GOML-loads-list {
     grid-template-columns: 1fr;
   }
 
-  .load-actions {
+  .GOML-load-actions {
     flex-direction: column;
   }
 
-  .view-bids-btn,
-  .cancel-btn {
+  .GOML-view-bids-btn,
+  .GOML-cancel-btn {
     width: 100%;
   }
 }

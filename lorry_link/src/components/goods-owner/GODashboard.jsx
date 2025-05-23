@@ -32,43 +32,43 @@ const GoodsOwnerDashboard = () => {
   // };
 
   return (
-    <div className="owner-dashboard-baground">
-      <div className="owner-dashboard">
-        {/* <header className="dashboard-header">
+    <div className="GOD-owner-dashboard-baground">
+      <div className="GOD-owner-dashboard">
+        {/* <header className="GOD-dashboard-header">
           <h1>Goods Owner Dashboard</h1>
-          <button onClick={handleLogout} className="logout-button">
+          <button onClick={handleLogout} className="GOD-logout-button">
             Logout
           </button>
         </header> */}
 
-        <div className="dashboard-tabs">
+        <div className="GOD-dashboard-tabs">
           <button
-            className={`tab-button ${activeTab === 'post' ? 'active' : ''}`}
+            className={`GOD-tab-button ${activeTab === 'post' ? 'active' : ''}`}
             onClick={() => {setActiveTab('post'); handleTabClick('post'); }}
           >
             Post New Load
           </button>
           <button
-            className={`tab-button ${activeTab === 'loads' ? 'active' : ''}`}
+            className={`GOD-tab-button ${activeTab === 'loads' ? 'active' : ''}`}
             onClick={() => {setActiveTab('loads'); handleTabClick('loads'); }}
           >
             My Loads
           </button>
           <button
-            className={`tab-button ${activeTab === 'disputes'? 'active' : ''}`}
+            className={`GOD-tab-button ${activeTab === 'disputes'? 'active' : ''}`}
             onClick={() => {setActiveTab('disputes'); handleTabClick('disputes'); }}
           >
             Manage Disputes
           </button>
           <button
-            className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`}
+            className={`GOD-tab-button ${activeTab === 'profile' ? 'active' : ''}`}
             onClick={() => {setActiveTab('profile'); handleTabClick('profile'); }}
           >
             Profile
           </button>
         </div>
 
-        <div className="dashboard-content">
+        <div className="GOD-dashboard-content">
           {activeTab === 'post' && <PostLoad />}
           {activeTab === 'loads' && <MyLoads />}
           {activeTab === 'disputes' && <ManageDisputes />}

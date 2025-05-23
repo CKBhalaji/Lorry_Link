@@ -4,8 +4,49 @@ import './MyLoads.css';
 import { fetchOwnerLoads } from '../../services/goodsOwnerService';
 
 const MyLoads = () => {
-  const [loading, setLoading] = useState(true);
-  const [loads, setLoads] = useState([]);
+  const loads = [
+    {
+      id: 1,
+      goodsType: 'Electronics',
+      pickupLocation: 'Mumbai',
+      deliveryLocation: 'Delhi',
+      weight: 500,
+      pickupDate: '2023-10-20T09:00:00Z',
+      deliveryDate: '2023-10-22T18:00:00Z',
+      status: 'ACTIVE',
+      bidCount: 3,
+      highestBid: 15000
+    },
+    {
+      id: 2,
+      goodsType: 'Furniture',
+      pickupLocation: 'Chennai',
+      deliveryLocation: 'Bangalore',
+      weight: 800,
+      pickupDate: '2023-10-18T11:00:00Z',
+      deliveryDate: '2023-10-19T20:00:00Z',
+      status: 'COMPLETED',
+      bidCount: 5,
+      highestBid: 20000
+    },
+    {
+      id: 3,
+      goodsType: 'Clothing',
+      pickupLocation: 'Kolkata',
+      deliveryLocation: 'Hyderabad',
+      weight: 300,
+      pickupDate: '2023-10-25T08:00:00Z',
+      deliveryDate: '2023-10-26T17:00:00Z',
+      status: 'CANCELLED',
+      bidCount: 0
+    }
+  ];
+
+  // In the component:
+  // const [loads, setLoads] = useState(sampleLoads);
+  // const [loads, setLoads] = useState([]);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const fetchLoads = async () => {
@@ -21,22 +62,22 @@ const MyLoads = () => {
     fetchLoads();
   }, []);
 
-  if (loading) return <div className="loading">Loading your loads...</div>;
+  if (loading) return <div className="GOML-loading">Loading your loads...</div>;
 
   return (
-    <div className="my-loads">
+    <div className="GOML-my-loads">
       <h2>My Loads</h2>
       {loads.length === 0 ? (
-        <p className="no-loads">You haven't posted any loads yet.</p>
+        <p className="GOML-no-loads">You haven't posted any loads yet.</p>
       ) : (
-        <div className="loads-list">
+        <div className="GOML-loads-list">
           {loads.map(load => (
-            <div key={load.id} className={`load-card ${load.status.toLowerCase()}`}>
-              <div className="load-header">
+            <div key={load.id} className={`GOML-load-card ${load.status.toLowerCase()}`}>
+              <div className="GOML-load-header">
                 <h3>{load.goodsType}</h3>
-                <span className={`status-badge ${load.status.toLowerCase()}`}>{load.status}</span>
+                <span className={`GOML-status-badge ${load.status.toLowerCase()}`}>{load.status}</span>
               </div>
-              <div className="load-details">
+              <div className="GOML-load-details">
                 <p><strong>From:</strong> {load.pickupLocation}</p>
                 <p><strong>To:</strong> {load.deliveryLocation}</p>
                 <p><strong>Weight:</strong> {load.weight} kg</p>
@@ -46,12 +87,12 @@ const MyLoads = () => {
                   <p><strong>Highest Bid:</strong> ₹{load.highestBid}</p>
                 )}
               </div>
-              <div className="load-actions">
+              <div className="GOML-load-actions">
                 {load.status === 'ACTIVE' && (
-                  <button className="view-bids-btn">View Bids</button>
+                  <button className="GOML-view-bids-btn">View Bids</button>
                 )}
                 {load.status === 'ACTIVE' && (
-                  <button className="cancel-btn">Cancel Load</button>
+                  <button className="GOML-cancel-btn">Cancel Load</button>
                 )}
               </div>
             </div>

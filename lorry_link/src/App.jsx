@@ -1,16 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './Pages/Home';
 import Navbar from './Pages/Navbar';
 import Footer from './Pages/Footer';
 import Login from './components/auth/Login';
 import AdminLogin from './components/auth/AdminLogin';
 import SignUpDriver from './components/auth/SignUpDriver';
 import SignUpGoodsOwner from './components/auth/SignUpGoodsOwner';
-import DriverDashboard from './components/driver/Driver_Dashboard';
+import DriverDashboard from './components/driver/DriverDashboard';
 import GoodsOwnerDashboard from './components/goods-owner/GODashboard';
 import AdminDashboard from './components/admin/Admin_Dashboard';
 // import ProtectedRoute from './components/common/ProtectedRoute';
+import AboutUs from './components/common/AboutUs';
+import Contact from './components/common/Contact';
+import PrivacyPolicy from './components/common/PrivacyPolicy';
+import TermsOfService from './components/common/TermsOfService';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -30,6 +34,11 @@ function App() {
               <Route path="/driver/*" element={<DriverDashboard />} />
               <Route path="/goods-owner/*" element={<GoodsOwnerDashboard />} />
               <Route path="/admin/*" element={<AdminDashboard />} />
+
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
             </Routes>
           </main>
           <Footer />

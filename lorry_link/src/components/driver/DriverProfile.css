@@ -1,88 +1,103 @@
 /* src/components/driver/DriverProfile.css */
 .DP-driver-profile {
-    color: yellow;
-    padding: 20px;
-  }
-  
-  .DP-driver-profile h2 {
-    margin-bottom: 20px;
-    border-bottom: 1px solid yellow;
-    padding-bottom: 10px;
-  }
-  
-  .DP-profile-section {
-    margin-bottom: 30px;
-  }
-  
-  .DP-profile-section h3 {
-    color: #ffcc00;
-    margin-bottom: 15px;
-  }
-  
+  color: yellow;
+  padding: 20px;
+}
+
+.DP-driver-profile h2 {
+  margin-bottom: 20px;
+  border-bottom: 1px solid yellow;
+  padding-bottom: 10px;
+}
+
+.DP-profile-section {
+  margin-bottom: 30px;
+}
+
+.DP-profile-section h3 {
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+.DP-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.DP-profile-field {
+  margin-bottom: 15px;
+}
+
+.DP-profile-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 0, 0.8);
+}
+
+.DP-profile-field p {
+  background: rgba(255, 255, 0, 0.05);
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 3px solid yellow;
+}
+
+.DP-profile-actions .DP-edit-btn {
+  background: yellow;
+  color: black;
+  border: none;
+  margin: 0px 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  /* margin-top: 20px; */
+  transition: background-color 0.3s;
+}
+
+.DP-profile-actions .DP-edit-btn:hover {
+  background: #ffcc00;
+}
+
+.DP-profile-actions .DP-cancel-btn {
+  background: #c62828;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.DP-profile-actions .DP-cancel-btn:hover {
+  background: #a81c1c;
+}
+
+.DP-loading,
+.DP-error {
+  color: yellow;
+  text-align: center;
+  padding: 20px;
+}
+
+.DP-error {
+  color: #ff5252;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .DP-profile-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  
-  .DP-profile-field {
-    margin-bottom: 15px;
+}
+
+@media (max-width: 480px) {
+  .DP-driver-profile {
+    padding: 15px;
   }
-  
-  .DP-profile-field label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: rgba(255, 255, 0, 0.8);
+
+  .DP-profile-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .DP-profile-field p {
-    background: rgba(255, 255, 0, 0.05);
-    padding: 10px;
-    border-radius: 4px;
-    border-left: 3px solid yellow;
-  }
-  
-  .DP-edit-btn {
-    background: yellow;
-    color: black;
-    border: none;
-    margin: 0px 5px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    /* margin-top: 20px; */
-    transition: background-color 0.3s;
-  }
-  
-  .DP-edit-btn:hover {
-    background: #ffcc00;
-  }
-  
-  .DP-loading, .DP-error {
-    color: yellow;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .DP-error {
-    color: #FF5252;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .DP-profile-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .DP-driver-profile {
-      padding: 15px;
-    }
-    
-    .DP-profile-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+}

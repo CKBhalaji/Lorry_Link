@@ -13,6 +13,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     navigate('/login');
+    window.location.reload();
     console.log('User logged out successfully');
   };
 
@@ -29,13 +30,27 @@ const Navbar = () => {
               <h1>Lorry Link </h1>
             </Link>
             {/* <h1>Lorry Link<ArrowRightOutlined /> </h1> */}
-            {userType && (
+            {/* {userType && (
               <span className="user-type-indicator">
                 <ArrowRightOutlined />
                 {userType === 'driver' ? ' Driver Dashboard' : 
                  userType === 'goodsOwner' ? ' Goods Owner' :
                  userType === 'admin' ? ' Admin Dashboard' : ''}
               </span>
+            )} */}
+            {userType && (
+              <Link to={
+                userType === 'driver' ? '/driver' :
+                  userType === 'goodsOwner' ? '/goods-owner' :
+                    userType === 'admin' ? '/admin' : '/'
+              }>
+                <span className="user-type-indicator">
+                  <ArrowRightOutlined />
+                  {userType === 'driver' ? ' Driver Dashboard' :
+                    userType === 'goodsOwner' ? ' Goods Owner' :
+                      userType === 'admin' ? ' Admin Dashboard' : ''}
+                </span>
+              </Link>
             )}
           </div>
           <div className="user-info">

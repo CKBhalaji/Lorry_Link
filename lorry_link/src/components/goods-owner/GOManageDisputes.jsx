@@ -1,11 +1,69 @@
 // src/components/goods-owner/ManageDisputes.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ManageDisputes.css';
+import './GOManageDisputes.css';
 import { fetchOwnerDisputes, createOwnerDispute } from '../../services/goodsOwnerService';
 
 const ManageDisputes = () => {
-  const [disputes, setDisputes] = useState([]);
+  const [disputes, setDisputes] = useState([
+  {
+    id: 1,
+    driverId: 'DRV123',
+    loadId: 'LOAD456',
+    type: 'Payment',
+    status: 'pending',
+    message: 'The payment amount is incorrect.',
+    createdAt: '2023-10-01T09:00:00Z',
+    resolution: '',
+    resolvedAt: null,
+    attachments: {
+      name: 'invoice.pdf',
+      url: 'https://example.com/invoice.pdf'
+    }
+  },
+  {
+    id: 2,
+    driverId: 'DRV789',
+    loadId: 'LOAD101',
+    type: 'Delivery',
+    status: 'resolved',
+    message: 'Package was damaged during delivery.',
+    createdAt: '2023-09-28T14:30:00Z',
+    resolution: 'Compensation provided.',
+    resolvedAt: '2023-09-29T10:15:00Z',
+    attachments: null
+  },
+  {
+    id: 3,
+    driverId: 'DRV456',
+    loadId: 'LOAD789',
+    type: 'Service',
+    status: 'accepted',
+    message: 'Driver arrived late for pickup.',
+    createdAt: '2023-09-25T11:45:00Z',
+    resolution: 'Driver warned about punctuality.',
+    resolvedAt: '2023-09-26T09:30:00Z',
+    attachments: null
+  },
+  {
+    id: 4,
+    driverId: 'DRV101',
+    loadId: 'LOAD112',
+    type: 'Documentation',
+    status: 'rejected',
+    message: 'Missing delivery confirmation signature.',
+    createdAt: '2023-09-20T16:20:00Z',
+    resolution: 'Signature not required for this delivery.',
+    resolvedAt: '2023-09-21T10:00:00Z',
+    attachments: {
+      name: 'delivery_note.pdf',
+      url: 'https://example.com/delivery_note.pdf'
+    }
+  }
+]);
+
+// ... existing code ...
+  // const [disputes, setDisputes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -88,20 +146,20 @@ const ManageDisputes = () => {
       resolved: 'resolved'
     };
     return (
-      <span className={`status-badge ${statusClasses[status] || ''}`}>
+      <span className={`GOMD-status-badge ${statusClasses[status] || ''}`}>
         {status}
       </span>
     );
   };
 
-  if (loading) return <div className="loading">Loading disputes...</div>;
+  if (loading) return <div className="GOMD-loading">Loading disputes...</div>;
 
   return (
-    <div className="manage-disputes-owner">
-      <div className="disputes-header">
+    <div className="GOMD-manage-disputes-owner">
+      <div className="GOMD-disputes-header">
         <h2>My Disputes</h2>
         <button
-          className={`toggle-form-btn ${showCreateForm ? 'cancel' : 'add'}`}
+          className={`GOMD-toggle-form-btn ${showCreateForm ? 'cancel' : 'add'}`}
           onClick={() => setShowCreateForm(!showCreateForm)}
         >
           {showCreateForm ? 'Cancel' : 'Add New Dispute'}
@@ -109,10 +167,10 @@ const ManageDisputes = () => {
       </div>
 
       {showCreateForm && (
-        <div className="create-dispute-form">
+        <div className="GOMD-create-dispute-form">
           <h3>Create New Dispute</h3>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="GOMD-form-group">
               <label>Driver ID</label>
               <input
                 type="text"
@@ -121,10 +179,10 @@ const ManageDisputes = () => {
                 onChange={handleChange}
                 className={errors.driverId ? 'error' : ''}
               />
-              {errors.driverId && <span className="error-message">{errors.driverId}</span>}
+              {errors.driverId && <span className="GOMD-error-message">{errors.driverId}</span>}
             </div>
             
-            <div className="form-group">
+            <div className="GOMD-form-group">
               <label>Load ID</label>
               <input
                 type="text"
@@ -133,10 +191,10 @@ const ManageDisputes = () => {
                 onChange={handleChange}
                 className={errors.loadId ? 'error' : ''}
               />
-              {errors.loadId && <span className="error-message">{errors.loadId}</span>}
+              {errors.loadId && <span className="GOMD-error-message">{errors.loadId}</span>}
             </div>
             
-            <div className="form-group">
+            <div className="GOMD-form-group">
               <label>Dispute Type</label>
               <select
                 name="disputeType"
@@ -151,7 +209,7 @@ const ManageDisputes = () => {
               </select>
             </div>
             
-            <div className="form-group">
+            <div className="GOMD-form-group">
               <label>Message</label>
               <textarea
                 name="message"
@@ -161,13 +219,13 @@ const ManageDisputes = () => {
                 rows="5"
                 placeholder="Describe your dispute in detail..."
               />
-              <div className="char-count">
+              <div className="GOMD-char-count">
                 {formData.message.length}/500 characters
               </div>
-              {errors.message && <span className="error-message">{errors.message}</span>}
+              {errors.message && <span className="GOMD-error-message">{errors.message}</span>}
             </div>
             
-            <div className="form-group">
+            <div className="GOMD-form-group">
               <label>Attachment (Optional)</label>
               <input
                 type="file"
@@ -177,10 +235,10 @@ const ManageDisputes = () => {
               <small>Upload supporting documents (max 5MB)</small>
             </div>
             
-            <div className="form-actions">
+            <div className="GOMD-form-actions">
               <button
                 type="submit"
-                className="submit-btn"
+                className="GOMD-submit-btn"
               >
                 Submit Dispute
               </button>
@@ -189,29 +247,29 @@ const ManageDisputes = () => {
         </div>
       )}
 
-      <div className="disputes-list">
+      <div className="GOMD-disputes-list">
         {disputes.length === 0 ? (
-          <div className="no-disputes">
+          <div className="GOMD-no-disputes">
             {showCreateForm ? '' : 'You have no disputes yet.'}
           </div>
         ) : (
           disputes.map(dispute => (
-            <div key={dispute.id} className="dispute-card">
-              <div className="dispute-header">
+            <div key={dispute.id} className="GOMD-dispute-card">
+              <div className="GOMD-dispute-header">
                 <h3>Dispute #{dispute.id}</h3>
                 {getStatusBadge(dispute.status)}
               </div>
-              <div className="dispute-details">
+              <div className="GOMD-dispute-details">
                 <p><strong>Driver ID:</strong> {dispute.driverId}</p>
                 <p><strong>Load ID:</strong> {dispute.loadId}</p>
                 <p><strong>Type:</strong> {dispute.type}</p>
                 <p><strong>Date:</strong> {new Date(dispute.createdAt).toLocaleDateString()}</p>
               </div>
-              <div className="dispute-message">
+              <div className="GOMD-dispute-message">
                 <p><strong>Message:</strong> {dispute.message}</p>
               </div>
               {dispute.resolution && (
-                <div className="dispute-resolution">
+                <div className="GOMD-dispute-resolution">
                   <p><strong>Resolution:</strong> {dispute.resolution}</p>
                   {dispute.resolvedAt && (
                     <p><strong>Resolved on:</strong> {new Date(dispute.resolvedAt).toLocaleDateString()}</p>
@@ -219,7 +277,7 @@ const ManageDisputes = () => {
                 </div>
               )}
               {dispute.attachments && (
-                <div className="dispute-attachments">
+                <div className="GOMD-dispute-attachments">
                   <strong>Attachments:</strong>
                   <a href={dispute.attachments.url} target="_blank" rel="noopener noreferrer">
                     {dispute.attachments.name}
