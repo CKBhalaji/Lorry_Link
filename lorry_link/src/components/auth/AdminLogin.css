@@ -17,15 +17,26 @@
     max-width: 400px;
     box-shadow: 0 4px 20px yellow;
   }
-  
-  .AL-admin-login-box h1 {
+
+  .AL-admin-login-container h1 {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: yellow;
     text-align: center;
     margin-bottom: 30px;
   }
   
+  /* .AL-admin-login-box h1 {
+    color: yellow;
+    text-align: center;
+    margin-bottom: 30px;
+  } */
+  
   .AL-form-group {
     margin-bottom: 20px;
+    padding: 10px;
   }
   
   .AL-form-group label {
@@ -37,11 +48,11 @@
   
   .AL-form-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid yellow;
+    padding: 10px;
+    border: 2px solid yellow;
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.5);
-    color: yellow;
+    background: white;
+    color: black;
     font-size: 16px;
   }
   
@@ -56,8 +67,8 @@
     padding: 12px;
     background: yellow;
     color: black;
-    border: none;
-    border-radius: 5px;
+    border: 2px solid black;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;

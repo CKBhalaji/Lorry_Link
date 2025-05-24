@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUpDriver.css';
+import { signUpDriver } from '../../services/authService';
+import { sendOTP, verifyOTP } from '../../services/authService';
 
 const SignUpDriver = () => {
   const [email, setEmail] = useState('');
@@ -26,32 +28,22 @@ const SignUpDriver = () => {
       return;
     }
 
-    const code = Math.floor(1000 + Math.random() * 9000);
-    setGeneratedCode(code);
-
     try {
-      await fetch('http://localhost:5000/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: email,
-          subject: 'Email Verification Code',
-          text: `Your verification code is: ${code}`,
-        }),
-      });
-      alert('Verification code sent to your email!');
+      const otp = await sendOTP(email);
+      setGeneratedCode(otp);
+      alert('OTP sent to your email!');
     } catch (error) {
       console.error('Error sending email:', error);
-      alert('Failed to send verification email. Please try again.');
+      alert('Failed to send OTP. Please try again.');
     }
   };
 
   const handleVerifyCode = () => {
-    if (parseInt(verificationCode) === generatedCode) {
+    if (verifyOTP(verificationCode, generatedCode)) {
       setIsVerified(true);
       alert('Email verified successfully!');
     } else {
-      alert('Invalid verification code. Please try again.');
+      alert('Invalid OTP. Please try again.');
     }
   };
 
@@ -174,22 +166,12 @@ const SignUpDriver = () => {
       };
 
       try {
-        const response = await fetch('http://localhost:8080/api/signup-driver', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          alert('Driver signed up successfully!');
-          navigate(-1);
-        } else {
-          const errorData = await response.json();
-          alert(`Error: ${errorData.error}`);
-        }
+        await signUpDriver(formData);
+        alert('Driver signed up successfully!');
+        navigate(-1);
       } catch (error) {
         console.error('Error submitting form:', error);
-        alert('Failed to sign up. Please try again.');
+        alert(`Failed to sign up: ${error.message}`);
       }
     } else {
       alert('Please fix the errors in the form.');

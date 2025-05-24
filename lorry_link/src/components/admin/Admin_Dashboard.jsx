@@ -87,12 +87,12 @@ const AdminDashboard = () => {
           >
             Admin Profile
           </button>
-          <button
+          {/* <button
             className={`tab-button ${activeTab === 'change-password' ? 'active' : ''}`}
             onClick={() => { setActiveTab('change-password'); handleTabClick('change-password'); }}
           >
             Change Password
-          </button>
+          </button> */}
         </div>
 
         <div className="dashboard-content">

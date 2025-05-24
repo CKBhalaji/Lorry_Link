@@ -14,25 +14,27 @@ const AdminLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     const userData = {
-        type: 'admin',
-        username: username,
-        // Add other necessary fields
-      };
-      console.log('Attempting admin login with:', userData);
-      login(userData);
+      type: 'admin',
+      username: username,
+      // Add other necessary fields
+    };
+    console.log('Attempting admin login with:', userData);
+    login(userData);
     navigate('/admin/dashboard');
   };
 
   return (
     <div className="AL-admin-login-container">
+      <h1>Admin Login</h1>
       <div className="AL-admin-login-box">
-        <h1>Admin Login</h1>
+        {/* <h1>Admin Login</h1> */}
         <form onSubmit={handleLogin}>
           <div className="AL-form-group">
             <label htmlFor="username">Username</label>
             <input
               id="username"
               type="text"
+              placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -43,6 +45,7 @@ const AdminLogin = () => {
             <input
               id="password"
               type="password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

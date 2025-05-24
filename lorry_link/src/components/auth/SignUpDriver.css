@@ -1,7 +1,7 @@
 /* Container for the driver sign-up page */
 .driver-signup-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +83,7 @@
   border: 2px solid yellow;
   border-radius: 5px;
   background-color:  white;
-  color: yellow;
+  color: black;
   font-family: 'Winky Rough', sans-serif;
 }
 

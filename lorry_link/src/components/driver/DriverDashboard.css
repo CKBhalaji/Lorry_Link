@@ -79,12 +79,15 @@
   }
 
   .DD-dashboard-tabs {
-    flex-wrap: wrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: no-wrap;
   }
 
   .DD-tab-button {
     padding: 6px 12px;
     font-size: 14px;
+    flex: 0 0 auto;
   }
 }
 
@@ -96,4 +99,17 @@
   .DD-dashboard-content {
     padding: 15px;
   }
+}
+
+.DD-dashboard-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.DD-dashboard-tabs::-webkit-scrollbar-thumb {
+  background-color: yellow;
+  border-radius: 4px;
+}
+
+.DD-dashboard-tabs::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 0, 0.1);
 }

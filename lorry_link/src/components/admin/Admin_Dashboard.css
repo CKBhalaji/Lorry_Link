@@ -1,120 +1,119 @@
 /* src/pages/admin/Dashboard.css */
 .admin-dashboard-baground {
-    background-color: black;
+  background-color: black;
 }
 
-
 .admin-dashboard {
-    background-color: black;
-    max-width: 1200px;
-    margin: 0 auto;
-    color: yellow;
-    min-height: 100vh;
-    padding: 20px;
+  background-color: black;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: yellow;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.admin-dashboard .dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid yellow;
+}
+
+.admin-dashboard .logout-button {
+  background-color: yellow;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.admin-dashboard .logout-button:hover {
+  background-color: #ffcc00;
+}
+
+.admin-dashboard .dashboard-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+  padding-bottom: 10px;
+}
+
+.admin-dashboard .tab-button {
+  background: transparent;
+  color: yellow;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.admin-dashboard .tab-button:hover {
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.admin-dashboard .tab-button.active {
+  background: yellow;
+  color: black;
+  font-weight: bold;
+}
+
+.admin-dashboard .dashboard-content {
+  background: rgba(255, 255, 0, 0.05);
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 0, 0.2);
+}
+
+/* Add these responsive styles */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 15px;
   }
-  
-  .admin-dashboard .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid yellow;
+
+  .dashboard-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
   }
-  
-  .admin-dashboard .logout-button {
-    background-color: yellow;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+
+  .tab-button {
+    flex: 0 0 auto;
   }
-  
-  .admin-dashboard .logout-button:hover {
-    background-color: #ffcc00;
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 10px;
   }
-  
-  .admin-dashboard .dashboard-tabs {
-    display: flex;
+
+  /* .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 0, 0.3);
-    padding-bottom: 10px;
-  }
-  
-  .admin-dashboard .tab-button {
-    background: transparent;
-    color: yellow;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: all 0.3s;
-  }
-  
-  .admin-dashboard .tab-button:hover {
-    background: rgba(255, 255, 0, 0.1);
-  }
-  
-  .admin-dashboard .tab-button.active {
-    background: yellow;
-    color: black;
-    font-weight: bold;
-  }
-  
-  .admin-dashboard .dashboard-content {
-    background: rgba(255, 255, 0, 0.05);
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 0, 0.2);
-  }
-  
-  /* Add these responsive styles */
-  @media (max-width: 768px) {
-    .admin-dashboard {
-      padding: 15px;
-    }
-  
-    .dashboard-tabs {
-      overflow-x: auto;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-    }
-  
-    .tab-button {
-      flex: 0 0 auto;
-    }
-  }
+  } */
 
-  @media (max-width: 480px) {
-    .admin-dashboard {
-      padding: 10px;
-    }
-  
-    .dashboard-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-  
-    .dashboard-content {
-      padding: 10px;
-    }
+  .dashboard-content {
+    padding: 10px;
   }
+}
 
-  .dashboard-tabs::-webkit-scrollbar {
-    height: 8px;
-  }
-  
-  .dashboard-tabs::-webkit-scrollbar-thumb {
-    background-color: yellow;
-    border-radius: 4px;
-  }
-  
-  .dashboard-tabs::-webkit-scrollbar-track {
-    background-color: rgba(255, 255, 0, 0.1);
-  }
+.dashboard-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.dashboard-tabs::-webkit-scrollbar-thumb {
+  background-color: yellow;
+  border-radius: 4px;
+}
+
+.dashboard-tabs::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 0, 0.1);
+}
