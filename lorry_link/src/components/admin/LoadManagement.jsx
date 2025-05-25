@@ -13,7 +13,7 @@ const LoadManagement = () => {
       deliveryLocation: 'Los Angeles',
       ownerName: 'John Doe',
       bidCount: 3,
-      status: 'Pending'
+      status: 'pending'
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ const LoadManagement = () => {
       deliveryLocation: 'Houston',
       ownerName: 'Jane Smith',
       bidCount: 5,
-      status: 'Active'
+      status: 'active'
     },
     {
       id: 3,
@@ -31,7 +31,7 @@ const LoadManagement = () => {
       deliveryLocation: 'Seattle',
       ownerName: 'Mike Johnson',
       bidCount: 2,
-      status: 'Completed'
+      status: 'completed'
     },
     {
       id: 4,
@@ -40,7 +40,7 @@ const LoadManagement = () => {
       deliveryLocation: 'Seattle',
       ownerName: 'Mike Johnson',
       bidCount: 2,
-      status: 'Cancelled'
+      status: 'cancelled'
     }
   ];
   const [loading, setLoading] = useState(true);
@@ -147,7 +147,7 @@ const LoadManagement = () => {
                   <td>{load.ownerName}</td>
                   <td>{load.bidCount}</td>
                   <td>
-                    <span className={`status-badge ${load.status}`}>
+                    <span className={`LM-status-badge ${load.status}`}>
                       {load.status}
                     </span>
                   </td>

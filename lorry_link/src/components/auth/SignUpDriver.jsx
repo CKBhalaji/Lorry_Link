@@ -38,14 +38,24 @@ const SignUpDriver = () => {
     }
   };
 
-  const handleVerifyCode = () => {
-    if (verifyOTP(verificationCode, generatedCode)) {
-      setIsVerified(true);
-      alert('Email verified successfully!');
-    } else {
-      alert('Invalid OTP. Please try again.');
-    }
-  };
+  // const handleVerifyCode = () => {
+  //   if (verifyOTP(email, verificationCode)) {
+  //     setIsVerified(false);
+  //     // alert('Email verified successfully!');
+  //   } else {
+  //     alert('Invalid OTP. Please try again.');
+  //   }
+  // };
+
+  const handleVerifyCode = async () => {
+  try {
+    await verifyOTP(email, verificationCode);
+    setIsVerified(true);
+  } catch (error) {
+    setIsVerified(false);
+    alert('Invalid OTP. Please try again.');
+  }
+};
 
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];

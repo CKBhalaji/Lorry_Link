@@ -1,22 +1,92 @@
-/* src/components/common/Navbar.css */
-.navbar {
-  background-color: black;
+:root {
+  --primary-bg: yellow;
+  --primary-text: #333333;
+  --card-bg: rgba(255, 255, 0, 0.3);
+  --accent-color: #ffd700;
+  --border-color: black;
+  --hover-bg: rgba(255, 255, 0, 0.1);
+  --button-text: yellow;
+  --button-bg: black;
+  --button-hover-bg: rgba(0, 0, 0, 0.8);
+  --button-hover-text: rgba(255, 255, 0, 0.3);
+}
+
+[data-theme="dark"] {
+  --primary-bg: black;
+  --primary-text: yellow;
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --border-color: yellow;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --button-text: rgba(0, 0, 0, 1);
+  --button-bg: yellow;
+  --button-hover-bg: #ffcc00;
+  --button-hover-text: rgba(0, 0, 0, 0.1);
+}
+
+/* .navbar {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  transition: all 0.3s ease;
+} */
+
+/* .navbar-brand h1 {
+  color: var(--primary-text);
+} */
+
+/* .user-type-indicator {
+  color: var(--primary-text);
+} */
+
+.NAV-theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 3px;
+  margin: 0 10px;
+  color: var(--primary-text);
+  transition: transform 0.3s ease;
+}
+
+.NAV-theme-toggle:hover {
+  transform: scale(1.0);
+}
+
+/* .NAV-logout-btn {
+  background-color: var(--accent-color);
+  color: #000;
+} */
+
+/* Maintain existing role-based colors */
+/* .NAV-navbar-container.NAV-driver {
+  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
   color: yellow;
+}
+
+.NAV-navbar-container.NAV-goods-owner {
+  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+  color: #ffffff;
+} */
+
+.NAV-navbar {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
   padding: 0 20px;
-  border-bottom: 2px solid yellow;
+  border-bottom: 2px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.navbar-container {
+.NAV-navbar-container {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
-.navbar-header {
+.NAV-navbar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,29 +94,30 @@
   /* margin-top: -10px; */
 }
 
-.navbar-header h1 {
+.NAV-navbar-header h1 {
   margin: 0;
   font-size: 1.5rem;
-  color: yellow;
+  color: var(--primary-text);
   /* margin-top: -10px; */
 }
 
-.user-info {
+.NAV-user-info {
   display: flex;
   align-items: center;
   gap: 15px;
+  /* margin-right: 20px; */
   /* margin-top: -20px; */
 }
 
-.username {
+.NAV-username {
   font-weight: bold;
   /* padding: 5px 10px */
   margin-top: 10px !important;
 }
 
-.logout-btn {
-  background-color: yellow;
-  color: black;
+.NAV-logout-btn {
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -55,56 +126,56 @@
   transition: background-color 0.3s;
 }
 
-.logout-btn:hover {
-  background-color: #ffcc00;
+.NAV-logout-btn:hover {
+  background-color: var(--button-hover-bg);
 }
 
-.navbar-links {
+.NAV-navbar-links {
   display: flex;
   gap: 20px;
   padding: 10px 0;
-  border-top: 1px solid rgba(255, 255, 0, 0.3);
+  /* border-top: 1px solid rgba(255, 255, 0, 0.3); */
 }
 
-.nav-link {
-  color: yellow;
+.NAV-nav-link {
+  color: var(--primary-text);
   text-decoration: none;
   padding: 5px 10px;
   position: relative;
   transition: color 0.3s;
 }
 
-.nav-link:hover {
-  color: #ffcc00;
+.NAV-nav-link:hover {
+  color: var(--primary-text);
 }
 
-.nav-link::after {
+.NAV-nav-link::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background-color: yellow;
+  background-color: var(--primary-text);
   transition: width 0.3s;
 }
 
-.nav-link:hover::after {
+.NAV-nav-link:hover::after {
   width: 100%;
 }
 
-.nav-link.active {
+.NAV-nav-link.active {
   font-weight: bold;
   color: #007bff;
   border-bottom: 2px solid #007bff;
 }
 
-.register-dropdown {
+.NAV-register-dropdown {
   position: relative;
   display: inline-block;
 }
 
-.register-dropdown-content {
+.NAV-register-dropdown-content {
   display: none;
   position: absolute;
   background-color: black;
@@ -112,85 +183,85 @@
   /* padding: 12px 16px; */
   border-radius: 8px;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   /* margin-left: 30px; */
 }
 
-.register-dropdown-content a {
+.NAV-register-dropdown-content a {
   color: yellow;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.register-dropdown:hover .register-dropdown-content {
+.NAV-register-dropdown:hover .NAV-register-dropdown-content {
   /* background-color: #f9f9f9; */
   display: block;
 }
 
-.register-dropdown-content a:hover {
+.NAV-register-dropdown-content a:hover {
   background-color: rgba(255, 255, 0, 0.3);
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  .navbar-header {
+  .NAV-navbar-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
 
-  .user-info {
+  .NAV-user-info {
     width: 100%;
     justify-content: space-between;
   }
 
-  .navbar-links {
+  .NAV-navbar-links {
     overflow-x: auto;
     padding-bottom: 15px;
   }
 
-  .nav-link {
+  .NAV-nav-link {
     white-space: nowrap;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar-header h1 {
+  .NAV-navbar-header h1 {
     font-size: 1.3rem;
   }
 }
 
-/* .navbar-container.driver {
+/* .NAV-navbar-container.driver {
   background-color: yellow;
   color: black;
 }
 
-.navbar-container.goods-owner {
+.NAV-navbar-container.goods-owner {
   background-color: black;
   color: white;
 } */
 
-.navbar-brand {
+.NAV-navbar-brand {
   display: flex;
   align-items: center;
 }
 
-.navbar a {
+.NAV-navbar a {
   text-decoration: none;
 }
 
-.user-type-indicator {
+.NAV-user-type-indicator {
   margin-left: 10px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: yellow;
+  color: var(--primary-text);
   /* text-decoration: none!important; */
 }
 
 @media (max-width: 768px) {
-  .user-type-indicator {
+  .NAV-user-type-indicator {
     margin-left: 5px;
     font-size: 1.5rem;
   }

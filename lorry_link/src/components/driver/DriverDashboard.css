@@ -1,9 +1,9 @@
 /* src/pages/driver/Dashboard.css */
 .DD-driver-dashboard-baground {
-    background-color: black;
+    background-color: var(--primary-bg);
 }
 .DD-driver-dashboard {
-  color: yellow;
+  color: var(--primary-text);
   min-height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
@@ -16,12 +16,12 @@
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 2px solid yellow;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .DD-logout-button {
-  background-color: yellow;
-  color: black;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 8px 16px;
   border-radius: 5px;
@@ -31,20 +31,20 @@
 }
 
 .DD-logout-button:hover {
-  background-color: #ffcc00;
+  background-color: var(--button-hover-bg);
 }
 
 .DD-dashboard-tabs {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
 .DD-tab-button {
   background: transparent;
-  color: yellow;
+  color: var(--button-bg);
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -54,20 +54,20 @@
 }
 
 .DD-tab-button:hover {
-  background: rgba(255, 255, 0, 0.1);
+  background: var(--tab-hover-bg);
 }
 
 .DD-tab-button.active {
-  background: yellow;
-  color: black;
+  background: var(--tab-bg);
+  color: var(--tab-text);
   font-weight: bold;
 }
 
 .DD-dashboard-content {
-  background: rgba(255, 255, 0, 0.05);
+  background: var(--dashboard-bg);
   border-radius: 10px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 0, 0.2);
+  border: 1px solid var(--dashboard-border);
 }
 
 /* Responsive styles */
@@ -106,10 +106,10 @@
 }
 
 .DD-dashboard-tabs::-webkit-scrollbar-thumb {
-  background-color: yellow;
+  background-color: var(--tab-bg);
   border-radius: 4px;
 }
 
 .DD-dashboard-tabs::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 0, 0.1);
+  background-color: var(--tab-hover-bg);
 }

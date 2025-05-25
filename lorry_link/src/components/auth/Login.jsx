@@ -56,7 +56,6 @@ const Login = () => {
                 placeholder="Enter your username"
                 value={driverUsername}
                 onChange={(e) => setDriverUsername(e.target.value)}
-                autoComplete="off"
               />
               <label htmlFor="password-driver">Password</label>
               <input
@@ -89,7 +88,6 @@ const Login = () => {
                 placeholder="Enter your username"
                 value={goodsOwnerUsername}
                 onChange={(e) => setGoodsOwnerUsername(e.target.value)}
-                autoComplete="off"
               />
               <label htmlFor="password-owner">Password</label>
               <input
@@ -98,7 +96,6 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={goodsOwnerPassword}
                 onChange={(e) => setGoodsOwnerPassword(e.target.value)}
-                autoComplete="off"
               />
             </form>
             <button onClick={handleGoodsOwnerLogin}>Login</button>
@@ -142,7 +139,6 @@ const Login = () => {
                   placeholder="Enter your username"
                   value={driverUsername}
                   onChange={(e) => setDriverUsername(e.target.value)}
-                  autoComplete="off"
                 />
                 <label htmlFor="password-driver">Password</label>
                 <input
@@ -151,7 +147,6 @@ const Login = () => {
                   placeholder="Enter your password"
                   value={driverPassword}
                   onChange={(e) => setDriverPassword(e.target.value)}
-                  autoComplete="off"
                 />
               </form>
               <button onClick={handleDriverLogin}>Login</button>
@@ -172,7 +167,6 @@ const Login = () => {
                   placeholder="Enter your username"
                   value={goodsOwnerUsername}
                   onChange={(e) => setGoodsOwnerUsername(e.target.value)}
-                  autoComplete="off"
                 />
                 <label htmlFor="password-owner">Password</label>
                 <input
@@ -181,7 +175,6 @@ const Login = () => {
                   placeholder="Enter your password"
                   value={goodsOwnerPassword}
                   onChange={(e) => setGoodsOwnerPassword(e.target.value)}
-                  autoComplete="off"
                 />
               </form>
               <button onClick={handleGoodsOwnerLogin}>Login</button>

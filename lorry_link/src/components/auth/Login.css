@@ -6,60 +6,61 @@
 html,
 body,
 #root {
-  height: 100vh; 
-  margin: 0; 
-  padding: 0; 
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   font-family: "Winky Rough", sans-serif;
 }
 
 .container {
-  display: flex; /* Use flexbox for layout */
-  flex-direction: row; /* Default: Arrange child elements in a horizontal row */
-  align-items: center; /* Center child elements vertically */
-  justify-content: center; /* Center child elements horizontally */
-  height: 100%; /* Set the height to fill the parent container */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .black,
 .yellow {
-  width: 50%; /* Each section takes half the width of the container */
-  height: 100vh; /* Each section fills the height of the container */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Arrange child elements in a vertical column */
-  align-items: center; /* Center child elements horizontally */
-  justify-content: center; /* Center child elements vertically */
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .black {
-  background-color: black; /* Set the background color to black */
-  color: yellow; /* Set the text color to yellow */
+  background-color: var(--login-bg);
+  color: var(--primary-text);
+  border: 2px solid var(--border-color);
 }
 
 .yellow {
-  background-color: yellow; /* Set the background color to yellow */
-  color: black; /* Set the text color to black */
+  background-color: var(--login-bg);
+  color: var(--primary-text);
+  border: 2px solid var(--border-color);
 }
 
-/* Login box styles */
 #login {
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  /* background: rgba(255, 255, 255, 0.1);  */
   padding: 30px; /* Add padding inside the login box */
   border-radius: 12px; /* Round the corners of the login box */
   width: 80%; /* Set the width to 80% of the parent container */
-  max-width: 300px; /* Limit the maximum width to 300px */
+  max-width: 300px; /* Limit the maxFimum width to 300px */
   border: 2px solid; /* Add a border */
 }
 
-/* Black box styles */
 .black #login {
-  border-color: yellow; /* Set the border color for the black section */
-  box-shadow: 0 4px 20px yellow; /* Yellow box shadow for the black box */
+  border-color: var(--login-border);
+  box-shadow: 0 4px 20px var(--login-border); 
+  background-color: var(--login-card-bg); 
 }
 
-/* Yellow box styles */
 .yellow #login {
-  border-color: black; /* Set the border color for the yellow section */
-  box-shadow: 0 4px 40px black; /* Black box shadow for the yellow box */
+  border-color: var(--login-border);
+  box-shadow: 0 4px 20px var(--login-border);
+  background-color: var(--login-card-bg);
 }
 
 form {
@@ -79,11 +80,11 @@ input {
 }
 
 .black input {
-  border-color: yellow; /* Set the border color for inputs in the black section */
+  border-color: var(--login-border);
 }
 
 .yellow input {
-  border-color: black; /* Set the border color for inputs in the yellow section */
+  border-color: var(--login-border);
 }
 
 input:focus {
@@ -95,7 +96,7 @@ input:focus {
 button {
   margin-top: 15px; /* Add spacing above the button */
   padding: 10px; /* Add padding inside the button */
-  color: white; /* Set the text color to white */
+  color: var(--button-text); /* Set the text color to white */
   border: 2px solid transparent; /* Default border with no visible color */
   border-radius: 5px; /* Round the corners of the button */
   cursor: pointer; /* Change the cursor to a pointer on hover */
@@ -104,18 +105,21 @@ button {
 }
 
 .black button {
-  border-color: yellow; /* Set the border color for buttons in the black section */
-  background-color: yellow; /* Set the background color to yellow */
-  color: black; /* Set the text color to black */
+  border-color: var(--border-color);
+  background-color: var(--button-bg);
+  color: var(--button-text);
 }
 
 .yellow button {
-  border-color: black; /* Set the border color for buttons in the yellow section */
-  background-color: black; /* Set the background color to black */
+  border-color: var(--border-color);
+  background-color: var(--button-bg);
+  color: var(--button-text);
 }
 
 button:hover {
-  background-color: #666; /* Change the background color to gray on hover */
+  background-color: var(
+    --button-hover-bg
+  ); /* Change the background color to gray on hover */
   /*border-color: #00ff00;  Optional: Highlight border on hover */
 }
 
@@ -125,12 +129,14 @@ p {
 }
 
 .ds {
-  color: yellow; /* Set the text color for links in the black section */
-  text-decoration: unset; /* Remove the underline */
+  color: var(--button-text);
+  text-decoration: unset;
 }
 
 .gs {
-  color: black; /* Set the text color for links in the yellow section */
+  color: var(
+    --button-text
+  ); /* Set the text color for links in the yellow section */
   text-decoration: unset; /* Remove the underline */
 }
 
@@ -143,7 +149,8 @@ p {
 }
 
 .ds {
-  color: #ffd700; /* Gold color for the "Sign up" link in the black section */
+  /* color: #ffd700;  */
+  color: #0000ff;
 }
 
 .gs {
@@ -167,13 +174,13 @@ p {
 }
 
 .full-size.black {
-  background-color: black; /* Set the background color to black */
-  color: yellow; /* Set the text color to yellow */
+  background-color: var(--login-bg);
+  color: var(--primary-text);
 }
 
 .full-size.yellow {
-  background-color: yellow; /* Set the background color to yellow */
-  color: black; /* Set the text color to black */
+  background-color: var(--login-bg);
+  color: var(--primary-text);
 }
 
 /* Mobile-specific styles */
@@ -184,22 +191,23 @@ p {
   }
 
   .mobile-section {
-    width: 100%; /* Set the width to fill the parent container */
-    height: 50vh; /* Set the height to half the viewport height */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Arrange child elements in a vertical column */
-    align-items: center; /* Center child elements horizontally */
-    justify-content: center; /* Center child elements vertically */
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .mobile-section.black {
-    background-color: black; /* Set the background color to black */
-    color: yellow; /* Set the text color to yellow */
+    background-color: var(--login-bg);
+    color: var(--primary-text);
+    border-bottom: 2px solid var(--border-color);
   }
 
   .mobile-section.yellow {
-    background-color: yellow; /* Set the background color to yellow */
-    color: black; /* Set the text color to black */
+    background-color: var(--login-bg);
+    color: var(--primary-text);
   }
 
   .mobile-section h1 {

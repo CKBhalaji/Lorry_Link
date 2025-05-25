@@ -1,11 +1,11 @@
 /* src/components/driver/AvailableLoads.css */
 .DAL-available-loads {
-  color: yellow;
+  color: var(--primary-text);
 }
 
 .DAL-available-loads h2 {
   margin-bottom: 20px;
-  border-bottom: 1px solid yellow;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
@@ -16,21 +16,22 @@
 }
 
 .DAL-load-card {
-  background: rgba(255, 255, 0, 0.05);
-  border: 1px solid rgba(255, 255, 0, 0.2);
+  background: var(--dashboard-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 15px;
   transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 2px var(--primary-text);
 }
 
 .DAL-load-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(255, 255, 0, 0.1);
+  box-shadow: 0 5px 15px var(--primary-text);
 }
 
 .DAL-load-info h3 {
   margin-top: 0;
-  color: yellow;
+  color: var(--primary-text);
   font-size: 1.2rem;
 }
 
@@ -39,7 +40,7 @@
 }
 
 .DAL-load-info strong {
-  color: #ffcc00;
+  color: var(--input-focus);
 }
 
 .DAL-bid-section {
@@ -51,15 +52,15 @@
 .DAL-bid-section input {
   flex: 1;
   padding: 8px;
-  border: 1px solid yellow;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.5);
-  color: yellow;
+  background: var(--input-inside);
+  color: var(--primary-text);
 }
 
 .DAL-bid-section button {
-  background: yellow;
-  color: black;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 8px 15px;
   border-radius: 4px;
@@ -69,7 +70,7 @@
 }
 
 .DAL-bid-section button:hover {
-  background: #ffcc00;
+  background: var(--button-hover-bg);
 }
 
 /* Responsive styles */
@@ -104,7 +105,7 @@
   animation: slideIn 0.5s ease-out;
   z-index: 999; */
   /* background-color: black; */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--primary-text));
   border-radius: 8px;
   z-index: 1000;
   /* animation: slideIn 0.5s ease-out; */
@@ -113,16 +114,16 @@
 
 .DAL-success-card.success {
   /* background-color: #d4edda; */
-  background-color: black;
-  border: 1px solid rgba(255, 255, 0, 0.3);
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border-color);
   color: #155724;
 }
 
 .DAL-success-card.error {
   /* background-color: #f8d7da; */
-  background-color: black;
-  border: 1px solid rgba(255, 255, 0, 0.3);
-  color: red;
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border-color);
+  color: var(primary-text);
 }
 
 .DAL-ok-button {
@@ -130,13 +131,13 @@
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: yellow;
-  color: black;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   cursor: pointer;
 }
 
 .DAL-ok-button:hover {
-  background-color: #ffcc00;
+  background-color: var(--button-hover-bg);
 }
 
 @keyframes slideIn {

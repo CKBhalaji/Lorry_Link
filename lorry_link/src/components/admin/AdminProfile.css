@@ -1,23 +1,23 @@
-.admin-profile {
-  color: yellow;
+.AP-admin-profile {
+  color: var(--primary-text);
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
 }
 
-.profile-header {
+.AP-profile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 1px solid yellow;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
-.edit-btn,
-.change-password-btn {
-  background: yellow;
-  color: black;
+.AP-edit-btn,
+.AP-change-password-btn {
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 8px 16px;
   border-radius: 5px;
@@ -26,89 +26,89 @@
   transition: background-color 0.3s;
 }
 
-.edit-btn:hover,
-.change-password-btn:hover {
-  background: #ffcc00;
+.AP-edit-btn:hover,
+.AP-change-password-btn:hover {
+  background: var(--button-hover-bg);
 }
 
-.profile-details {
+.AP-profile-details {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.detail-row {
+.AP-detail-row {
   display: flex;
   padding: 10px;
-  background: rgba(255, 255, 0, 0.05);
+  background: var(--tab-hover-bg);
   border-radius: 5px;
 }
 
-.detail-label {
+.AP-detail-label {
   font-weight: bold;
   width: 150px;
-  color: #ffcc00;
+  color: var(--input-focus);
 }
 
-.detail-value {
+.AP-detail-value {
   flex: 1;
 }
 
-.profile-form {
+.AP-profile-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.form-group {
+.AP-form-group {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.form-group label {
+.AP-form-group label {
   font-weight: bold;
 }
 
-.form-group input {
+.AP-form-group input {
   padding: 10px;
   border-radius: 4px;
-  background: rgba(255, 255, 0, 0.1);
-  color: yellow;
-  border: 1px solid yellow;
+  background: var(--tab-heder);
+  color: var(--input-text);
+  border: 1px solid var(--border-color);
 }
 
-.form-group input.error {
+.AP-form-group input.AP-error {
   border-color: #f44336;
 }
 
-.error-message {
+.AP-error-message {
   color: #f44336;
   font-size: 0.9rem;
 }
 
-.form-actions {
+.AP-form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }
 
-.cancel-btn {
+.AP-cancel-btn {
   background: transparent;
-  color: yellow;
-  border: 1px solid yellow;
+  color: var(--primary-text);
+  border: 1px solid var(--border-color);
   padding: 8px 16px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.cancel-btn:hover {
-  background: rgba(255, 255, 0, 0.1);
+.AP-cancel-btn:hover {
+  background: var(--button-hover-bg);
 }
 
-.save-btn {
-  background: yellow;
+.AP-save-btn {
+  background: green;
   color: black;
   border: none;
   padding: 8px 16px;
@@ -117,46 +117,46 @@
   font-weight: bold;
 }
 
-.save-btn:hover {
-  background: #ffcc00;
+.AP-save-btn:hover {
+  background: var(--button-hover-bg);
 }
 
-.loading,
-.error {
-  color: yellow;
+.AP-loading,
+.AP-error {
+  color: var(--primary-text);
   text-align: center;
   padding: 20px;
 }
 
-.error {
+.AP-error {
   color: #f44336;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  .profile-header {
+  .AP-profile-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
 
-  .detail-row {
+  .AP-detail-row {
     flex-direction: column;
     gap: 5px;
   }
 
-  .detail-label {
+  .AP-detail-label {
     width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .form-actions {
+  .AP-form-actions {
     flex-direction: column;
   }
 
-  .cancel-btn,
-  .save-btn {
+  .AP-cancel-btn,
+  .AP-save-btn {
     width: 100%;
   }
 }

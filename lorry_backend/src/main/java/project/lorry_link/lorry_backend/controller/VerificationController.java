@@ -16,14 +16,15 @@ import project.lorry_link.lorry_backend.service.EmailService;
 public class VerificationController {
     @Autowired
     private VerificationService verificationService;
+    @Autowired
     private EmailService emailService;
 
     @PostMapping("/send")
-public ResponseEntity<String> sendVerificationEmail(@RequestParam String email) {
-    String token = verificationService.createVerificationToken(email);
-    emailService.sendEmail(email, "Verification Code", "Your verification code is: " + token);
-    return ResponseEntity.ok("Verification email sent");
-}
+    public ResponseEntity<String> sendVerificationEmail(@RequestParam String email) {
+        String token = verificationService.createVerificationToken(email);
+        emailService.sendEmail(email, "Verification Code", "Your verification code is: " + token);
+        return ResponseEntity.ok("Verification email sent");
+    }
 
     @PostMapping("/verify")
     public ResponseEntity<String> verifyToken(@RequestParam String email, @RequestParam String token) {

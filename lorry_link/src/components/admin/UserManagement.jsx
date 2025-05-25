@@ -10,22 +10,22 @@ const UserManagement = () => {
       id: 1,
       name: 'John Doe',
       email: 'john@example.com',
-      role: 'Admin',
-      status: 'Active'
+      role: 'driver',
+      status: 'active'
     },
     {
       id: 2,
       name: 'Jane Smith',
       email: 'jane@example.com',
-      role: 'Manager',
-      status: 'Inactive'
+      role: 'goodsOwner',
+      status: 'pending'
     },
     {
       id: 3,
       name: 'Bob Johnson',
       email: 'bob@example.com',
-      role: 'User',
-      status: 'Active'
+      role: 'admin',
+      status: 'suspended'
     }
   ];
   // const [users, setUsers] = useState();
@@ -84,9 +84,9 @@ const UserManagement = () => {
           <label>Filter by role:</label>
           <select value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}>
             <option value="All">All Roles</option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
-            <option value="User">User</option>
+            <option value="admin">Admin</option>
+            <option value="goodsOwner">Goods Owner</option>
+            <option value="driver">Driver</option>
           </select>
         </div>
       </div>
@@ -128,12 +128,12 @@ const UserManagement = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    <span className={`role-badge ${user.role}`}>
+                    <span className={`UM-role-badge ${user.role}`}>
                       {user.role}
                     </span>
                   </td>
                   <td>
-                    <span className={`status-badge ${user.status}`}>
+                    <span className={`UM-status-badge ${user.status}`}>
                       {user.status}
                     </span>
                   </td>

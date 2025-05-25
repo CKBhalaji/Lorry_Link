@@ -55,10 +55,10 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="change-password">
+    <div className="ACP-change-password">
       <h2>Change Password</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="ACP-form-group">
           <label>Current Password</label>
           <input
             type="password"
@@ -68,11 +68,11 @@ const ChangePassword = () => {
             className={errors.currentPassword ? 'error' : ''}
           />
           {errors.currentPassword && (
-            <span className="error-message">{errors.currentPassword}</span>
+            <span className="ACP-error-message">{errors.currentPassword}</span>
           )}
         </div>
         
-        <div className="form-group">
+        <div className="ACP-form-group">
           <label>New Password</label>
           <input
             type="password"
@@ -82,11 +82,11 @@ const ChangePassword = () => {
             className={errors.newPassword ? 'error' : ''}
           />
           {errors.newPassword && (
-            <span className="error-message">{errors.newPassword}</span>
+            <span className="ACP-error-message">{errors.newPassword}</span>
           )}
         </div>
         
-        <div className="form-group">
+        <div className="ACP-form-group">
           <label>Confirm New Password</label>
           <input
             type="password"
@@ -96,21 +96,21 @@ const ChangePassword = () => {
             className={errors.confirmPassword ? 'error' : ''}
           />
           {errors.confirmPassword && (
-            <span className="error-message">{errors.confirmPassword}</span>
+            <span className="ACP-error-message">{errors.confirmPassword}</span>
           )}
         </div>
         
-        <div className="form-actions">
+        <div className="ACP-form-actions">
           <button 
             type="button"
-            className="cancel-btn"
+            className="ACP-cancel-btn"
             onClick={() => navigate('/admin/profile')}
           >
             Cancel
           </button>
           <button 
             type="submit" 
-            className="save-btn"
+            className="ACP-save-btn"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Changing...' : 'Change Password'}

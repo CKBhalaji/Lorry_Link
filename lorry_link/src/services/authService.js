@@ -36,10 +36,11 @@ export const login = async (credentials) => {
 
 export const sendOTP = async (email) => {
   try {
-    const otp = Math.floor(100000 + Math.random() * 900000);
+    const otp = Math.floor(1000 + Math.random() * 9000);
     const response = await fetch(`http://localhost:8080/api/verification/send?email=${email}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, token: otp.toString() }),
     });
     if (!response.ok) throw new Error('Failed to send OTP');
     return otp;
@@ -50,16 +51,16 @@ export const sendOTP = async (email) => {
 
 export const verifyOTP = async (email, otp) => {
   try {
-    const response = await fetch('http://localhost:8080/api/verification/verify', {
+    const response = await fetch(`http://localhost:8080/api/verification/verify?email=${email}&token=${otp}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        token: otp,
-      }),
     });
-    if (!response.ok) throw new Error('Failed to verify OTP');
-    return response.json();
+    if (!response.ok) {
+      const errorText = await response.text();
+      alert(errorText || 'OTP is not correct');
+      throw new Error('Failed to verify OTP');
+    }
+    return response.text();
   } catch (error) {
     throw error;
   }

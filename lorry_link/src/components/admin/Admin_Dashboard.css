@@ -1,13 +1,13 @@
 /* src/pages/admin/Dashboard.css */
 .admin-dashboard-baground {
-  background-color: black;
+  background-color: var(--primary-bg);
 }
 
 .admin-dashboard {
-  background-color: black;
+  background-color: var(--primary-bg);
   max-width: 1200px;
   margin: 0 auto;
-  color: yellow;
+  color: var(--primary-text);
   min-height: 100vh;
   padding: 20px;
 }
@@ -18,10 +18,10 @@
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 2px solid yellow;
+  border-bottom: 2px solid var(--border-color);
 }
 
-.admin-dashboard .logout-button {
+/* .admin-dashboard .logout-button {
   background-color: yellow;
   color: black;
   border: none;
@@ -30,23 +30,23 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
-}
+} */
 
-.admin-dashboard .logout-button:hover {
+/* .admin-dashboard .logout-button:hover {
   background-color: #ffcc00;
-}
+} */
 
 .admin-dashboard .dashboard-tabs {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
 .admin-dashboard .tab-button {
   background: transparent;
-  color: yellow;
+  color: var(--button-bg);
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -56,20 +56,23 @@
 }
 
 .admin-dashboard .tab-button:hover {
-  background: rgba(255, 255, 0, 0.1);
+  /* background: rgba(255, 255, 0, 0.1); */
+  background: var(--tab-hover-bg);
 }
 
 .admin-dashboard .tab-button.active {
-  background: yellow;
-  color: black;
+  background: var(--tab-bg);
+  color: var(--tab-text);
   font-weight: bold;
 }
 
 .admin-dashboard .dashboard-content {
-  background: rgba(255, 255, 0, 0.05);
+  /* background: rgba(255, 255, 0, 0.05); */
+  background: var(--dashboard-bg);
   border-radius: 10px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 0, 0.2);
+  /* border: 1px solid rgba(255, 255, 0, 0.2); */
+  border: 1px solid var(--dashboard-border);
 }
 
 /* Add these responsive styles */
@@ -110,10 +113,10 @@
 }
 
 .dashboard-tabs::-webkit-scrollbar-thumb {
-  background-color: yellow;
+  background-color: var(--tab-bg);
   border-radius: 4px;
 }
 
 .dashboard-tabs::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 0, 0.1);
+  background-color: var(--tab-hover-bg);
 }

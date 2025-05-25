@@ -4,6 +4,7 @@ import Home from './Pages/Home';
 import Navbar from './Pages/Navbar';
 import Footer from './Pages/Footer';
 import Login from './components/auth/Login';
+import Login_old from './components/auth/Login_old';
 import AdminLogin from './components/auth/AdminLogin';
 import SignUpDriver from './components/auth/SignUpDriver';
 import SignUpGoodsOwner from './components/auth/SignUpGoodsOwner';
@@ -28,13 +29,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/login-old" element={<Login_old />} />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/signup-driver" element={<SignUpDriver />} />
               <Route path="/signup-goods-owner" element={<SignUpGoodsOwner />} />
               <Route path="/driver/*" element={<DriverDashboard />} />
               <Route path="/goods-owner/*" element={<GoodsOwnerDashboard />} />
               <Route path="/admin/*" element={<AdminDashboard />} />
-
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />

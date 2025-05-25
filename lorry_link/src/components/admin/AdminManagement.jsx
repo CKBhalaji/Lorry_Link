@@ -83,14 +83,14 @@ const AdminManagement = () => {
     admin.email.toLowerCase().includes(searchTerm.toLowerCase())
   ) : [];
 
-  if (loading) return <div className="loading">Loading admins...</div>;
+  if (loading) return <div className="ADM-loading">Loading admins...</div>;
 
   return (
-    <div className="admin-management">
-      <div className="management-header">
+    <div className="ADM-admin-management">
+      <div className="ADM-management-header">
         <h2>Admin Management</h2>
-        <div className="header-actions">
-          <div className="search-box">
+        <div className="ADM-header-actions">
+          <div className="ADM-search-box">
             <input
               type="text"
               placeholder="Search admins..."
@@ -99,15 +99,15 @@ const AdminManagement = () => {
             />
           </div>
           <button 
-            className="add-admin-btn"
+            className="ADM-add-admin-btn"
             onClick={() => navigate('?tab=addAdmin')}
           >
             Add New Admin
           </button>
         </div>
       </div>
-      <div className="AM-table-container">
-        <table className="AM-admins-table">
+      <div className="ADM-table-container">
+        <table className="ADM-admins-table">
           <thead>
             <tr>
               <th>ID</th>
@@ -122,7 +122,7 @@ const AdminManagement = () => {
           <tbody>
             {filteredAdmins.length === 0 ? (
               <tr>
-                <td colSpan="7" className="no-results">No admins found</td>
+                <td colSpan="7" className="ADM-no-results">No admins found</td>
               </tr>
             ) : (
               filteredAdmins.map(admin => (
@@ -137,13 +137,13 @@ const AdminManagement = () => {
                   </td>
                   <td>
                     <button
-                      className="edit-btn"
+                      className="ADM-edit-btn"
                       onClick={() => handleEdit(admin)}
                     >
                       Edit
                     </button>
                     <button
-                      className="delete-btn"
+                      className="ADM-delete-btn"
                       onClick={() => handleDelete(admin.id)}
                       disabled={admin.isCurrentUser}
                     >
@@ -164,11 +164,11 @@ const AdminManagement = () => {
             // Handle save logic
           }}
         >
-          <div className="edit-modal-overlay">
-            <div className="edit-modal">
+          <div className="ADM-edit-modal-overlay">
+            <div className="ADM-edit-modal">
               <h3>Edit Admin Profile</h3>
               <form>
-                <div className="form-group">
+                <div className="ADM-form-group">
                   <label>Name</label>
                   <input
                     type="text"
@@ -177,7 +177,7 @@ const AdminManagement = () => {
                   />
                 </div>
                 {isSuperAdmin && (
-                  <div className="form-group">
+                  <div className="ADM-form-group">
                     <label>Profile</label>
                     <input
                       type="text"
@@ -186,7 +186,7 @@ const AdminManagement = () => {
                     />
                   </div>
                 )}
-                <div className="form-group">
+                <div className="ADM-form-group">
                   <label>Email</label>
                   <input
                     type="email"
@@ -194,7 +194,7 @@ const AdminManagement = () => {
                     onChange={(e) => setSelectedAdmin({ ...selectedAdmin, email: e.target.value })}
                   />
                 </div>
-                <div className="form-group">
+                <div className="ADM-form-group">
                   <label>Phone Number</label>
                   <input
                     type="tel"
@@ -202,7 +202,7 @@ const AdminManagement = () => {
                     onChange={(e) => setSelectedAdmin({ ...selectedAdmin, phone: e.target.value })}
                   />
                 </div>
-                <div className="modal-actions">
+                <div className="ADM-modal-actions">
                   <button onClick={() => setShowEditModal(false)}>Cancel</button>
                   <button type="submit">Save</button>
                 </div>

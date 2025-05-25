@@ -73,16 +73,16 @@ const AdminProfile = () => {
   // window.location.reload(); // Force immediate refresh
 };
 
-  if (loading) return <div className="loading">Loading profile...</div>;
-  if (!profile) return <div className="error">Failed to load profile</div>;
+  if (loading) return <div className="AP-loading">Loading profile...</div>;
+  if (!profile) return <div className="AP-error">Failed to load profile</div>;
 
   return (
-    <div className="admin-profile">
-      <div className="profile-header">
+    <div className="AP-admin-profile">
+      <div className="AP-profile-header">
         <h2>Admin Profile</h2>
         {!editMode && (
           <button
-            className="edit-btn"
+            className="AP-edit-btn"
             onClick={() => setEditMode(true)}
           >
             Edit Profile
@@ -91,8 +91,8 @@ const AdminProfile = () => {
       </div>
 
       {editMode ? (
-        <form onSubmit={handleSubmit} className="profile-form">
-          <div className="form-group">
+        <form onSubmit={handleSubmit} className="AP-profile-form">
+          <div className="AP-form-group">
             <label>Full Name</label>
             <input
               type="text"
@@ -101,10 +101,10 @@ const AdminProfile = () => {
               onChange={handleChange}
               className={errors.name ? 'error' : ''}
             />
-            {errors.name && <span className="error-message">{errors.name}</span>}
+            {errors.name && <span className="AP-error-message">{errors.name}</span>}
           </div>
 
-          <div className="form-group">
+          <div className="AP-form-group">
             <label>Email</label>
             <input
               type="email"
@@ -113,10 +113,10 @@ const AdminProfile = () => {
               onChange={handleChange}
               className={errors.email ? 'error' : ''}
             />
-            {errors.email && <span className="error-message">{errors.email}</span>}
+            {errors.email && <span className="AP-error-message">{errors.email}</span>}
           </div>
 
-          <div className="form-group">
+          <div className="AP-form-group">
             <label>Profile</label>
             <select
               name="profile"
@@ -131,7 +131,7 @@ const AdminProfile = () => {
             </select>
           </div>
 
-          <div className="form-group">
+          <div className="AP-form-group">
             <label>Phone Number</label>
             <input
               type="tel"
@@ -140,52 +140,52 @@ const AdminProfile = () => {
               onChange={handleChange}
               className={errors.phone ? 'error' : ''}
             />
-            {errors.phone && <span className="error-message">{errors.phone}</span>}
+            {errors.phone && <span className="AP-error-message">{errors.phone}</span>}
           </div>
 
-          <div className="form-actions">
+          <div className="AP-form-actions">
             <button
               type="button"
-              className="cancel-btn"
+              className="AP-cancel-btn"
               onClick={() => setEditMode(false)}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="save-btn"
+              className="AP-save-btn"
             >
               Save Changes
             </button>
           </div>
         </form>
       ) : (
-        <div className="profile-details">
-          <div className="detail-row">
-            <span className="detail-label">Name:</span>
-            <span className="detail-value">{profile.name}</span>
+        <div className="AP-profile-details">
+          <div className="AP-detail-row">
+            <span className="AP-detail-label">Name:</span>
+            <span className="AP-detail-value">{profile.name}</span>
           </div>
-          <div className="detail-row">
-            <span className="detail-label">Email:</span>
-            <span className="detail-value">{profile.email}</span>
+          <div className="AP-detail-row">
+            <span className="AP-detail-label">Email:</span>
+            <span className="AP-detail-value">{profile.email}</span>
           </div>
-          <div className="detail-row">
-            <span className="detail-label">Profile:</span>
-            <span className="detail-value">{profile.profile}</span>
+          <div className="AP-detail-row">
+            <span className="AP-detail-label">Profile:</span>
+            <span className="AP-detail-value">{profile.profile}</span>
           </div>
-          <div className="detail-row">
-            <span className="detail-label">Phone:</span>
-            <span className="detail-value">{profile.phone}</span>
+          <div className="AP-detail-row">
+            <span className="AP-detail-label">Phone:</span>
+            <span className="AP-detail-value">{profile.phone}</span>
           </div>
-          <div className="detail-row">
-            <span className="detail-label">Admin Since:</span>
-            <span className="detail-value">
+          <div className="AP-detail-row">
+            <span className="AP-detail-label">Admin Since:</span>
+            <span className="AP-detail-value">
               {new Date(profile.createdAt).toLocaleDateString()}
             </span>
           </div>
 
           <button
-            className="change-password-btn"
+            className="AP-change-password-btn"
             onClick={handlePasswordChange}
           >
             Change Password

@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
 import './Navbar.css'; // Add this import
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined ,MoonOutlined, SunOutlined, MoonFilled ,SunFilled} from '@ant-design/icons';
 
 
 const Navbar = () => {
@@ -21,17 +21,28 @@ const Navbar = () => {
     // Force re-render when authentication state changes
   }, [isAuthenticated, userType]);
 
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <nav className="navbar">
-      <div className={`navbar-container ${userType === 'driver' ? 'driver' : userType === 'goodsOwner' ? 'goods-owner' : ''}`}>
-        <div className="navbar-header">
-          <div className="navbar-brand">
+    <nav className="NAV-navbar">
+      <div className={`NAV-navbar-container ${userType === 'driver' ? 'driver' : userType === 'goodsOwner' ? 'goods-owner' : ''}`}>
+        <div className="NAV-navbar-header">
+          <div className="NAV-navbar-brand">
             <Link to="/">
               <h1>Lorry Link </h1>
             </Link>
             {/* <h1>Lorry Link<ArrowRightOutlined /> </h1> */}
             {/* {userType && (
-              <span className="user-type-indicator">
+              <span className="NAV-user-type-indicator">
                 <ArrowRightOutlined />
                 {userType === 'driver' ? ' Driver Dashboard' : 
                  userType === 'goodsOwner' ? ' Goods Owner' :
@@ -44,7 +55,7 @@ const Navbar = () => {
                   userType === 'goodsOwner' ? '/goods-owner' :
                     userType === 'admin' ? '/admin' : '/'
               }>
-                <span className="user-type-indicator">
+                <span className="NAV-user-type-indicator">
                   <ArrowRightOutlined />
                   {userType === 'driver' ? ' Driver Dashboard' :
                     userType === 'goodsOwner' ? ' Goods Owner' :
@@ -53,19 +64,29 @@ const Navbar = () => {
               </Link>
             )}
           </div>
-          <div className="user-info">
+          <div className="NAV-user-info">
             {isAuthenticated && userType ? (
               <>
-                <span className="username">Welcome, {username}</span>
-                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                <span className="NAV-username">Welcome, {username}</span>
+                <button className="NAV-theme-toggle" onClick={toggleTheme}>
+                  {theme === 'light' ? <MoonFilled /> : <SunFilled />}
+                </button>
+                <button className="NAV-logout-btn" onClick={handleLogout}>Logout</button>
               </>
+              // <>
+              //   <span className="NAV-username">Welcome, {username}</span>
+              //   <button className="NAV-logout-btn" onClick={handleLogout}>Logout</button>
+              // </>
             ) : (
-              <div className="auth-links">
-                <Link className="nav-link" to="/login">Login</Link>
-                {/* <Link className="nav-link" to="/register">Register</Link> */}
-                <div className="register-dropdown">
+              <div className="NAV-auth-links">
+                <button className="NAV-theme-toggle" onClick={toggleTheme}>
+                  {theme === 'light' ? <MoonFilled /> : <SunFilled />}
+                </button>
+                <Link className="NAV-nav-link" to="/login">Login</Link>
+                {/* <Link className="NAV-nav-link" to="/register">Register</Link> */}
+                <div className="NAV-register-dropdown">
                   <span>Register</span>
-                  <div className="register-dropdown-content">
+                  <div className="NAV-register-dropdown-content">
                     <Link to="/signup-goods-owner">Goods Owner</Link>
                     <Link to="/signup-driver">Driver</Link>
                   </div>
@@ -76,7 +97,7 @@ const Navbar = () => {
         </div>
 
         {/* {isAuthenticated && (
-          <div className="navbar-links">
+          <div className="NAV-navbar-links">
             {userType === 'driver' && (
               <>
                 <NavLink 
@@ -85,22 +106,22 @@ const Navbar = () => {
                 >
                   Available Loads
                 </NavLink>
-                <Link to="/driver/bids" className="nav-link">My Bids</Link>
-                <Link to="/driver/profile" className="nav-link">Profile</Link>
+                <Link to="/driver/bids" className="NAV-nav-link">My Bids</Link>
+                <Link to="/driver/profile" className="NAV-nav-link">Profile</Link>
               </>
             )}
             {userType === 'goodsOwner' && (
               <>
-                <Link to="/goods-owner/post" className="nav-link">Post Load</Link>
-                <Link to="/goods-owner/loads" className="nav-link">My Loads</Link>
-                <Link to="/goods-owner/profile" className="nav-link">Profile</Link>
+                <Link to="/goods-owner/post" className="NAV-nav-link">Post Load</Link>
+                <Link to="/goods-owner/loads" className="NAV-nav-link">My Loads</Link>
+                <Link to="/goods-owner/profile" className="NAV-nav-link">Profile</Link>
               </>
             )}
             {userType === 'admin' && (
               <>
-                <Link to="/admin/users" className="nav-link">User Management</Link>
-                <Link to="/admin/loads" className="nav-link">Load Management</Link>
-                <Link to="/admin/disputes" className="nav-link">Dispute Resolution</Link>
+                <Link to="/admin/users" className="NAV-nav-link">User Management</Link>
+                <Link to="/admin/loads" className="NAV-nav-link">Load Management</Link>
+                <Link to="/admin/disputes" className="NAV-nav-link">Dispute Resolution</Link>
               </>
             )}
           </div>

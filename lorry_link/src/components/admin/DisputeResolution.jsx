@@ -88,21 +88,21 @@ const DisputeResolution = () => {
     activeTab === 'open' ? dispute.status === 'open' : dispute.status === 'resolved'
   ) : [];
 
-  if (loading) return <div className="loading">Loading disputes...</div>;
+  if (loading) return <div className="ADR-loading">Loading disputes...</div>;
 
   return (
-    <div className="dispute-resolution">
-      <div className="management-header">
+    <div className="ADR-dispute-resolution">
+      <div className="ADR-management-header">
         <h2>Dispute Resolution</h2>
-        <div className="tabs">
+        <div className="ADR-tabs">
           <button
-            className={`tab-button ${activeTab === 'open' ? 'active' : ''}`}
+            className={`ADR-tab-button ${activeTab === 'open' ? 'active' : ''}`}
             onClick={() => setActiveTab('open')}
           >
             Open Disputes
           </button>
           <button
-            className={`tab-button ${activeTab === 'resolved' ? 'active' : ''}`}
+            className={`ADR-tab-button ${activeTab === 'resolved' ? 'active' : ''}`}
             onClick={() => setActiveTab('resolved')}
           >
             Resolved Disputes
@@ -111,40 +111,40 @@ const DisputeResolution = () => {
       </div>
 
       {filteredDisputes.length === 0 ? (
-        <div className="no-results">
+        <div className="ADR-no-results">
           No {activeTab} disputes found
         </div>
       ) : (
-        <div className="disputes-list">
+        <div className="ADR-disputes-list">
           {filteredDisputes.map(dispute => (
-            <div key={dispute.id} className="dispute-card">
-              <div className="dispute-header">
+            <div key={dispute.id} className="ADR-dispute-card">
+              <div className="ADR-dispute-header">
                 <h3>Dispute #{dispute.id}</h3>
-                <span className={`status-badge ${dispute.status}`}>
+                <span className={`ADR-status-badge ${dispute.status}`}>
                   {dispute.status}
                 </span>
               </div>
-              <div className="dispute-details">
+              <div className="ADR-dispute-details">
                 <p><strong>Load ID:</strong> {dispute.loadId}</p>
                 <p><strong>Complainant:</strong> {dispute.complainantName}</p>
                 <p><strong>Against:</strong> {dispute.againstName}</p>
                 <p><strong>Date:</strong> {new Date(dispute.date).toLocaleString()}</p>
               </div>
-              <div className="dispute-message">
+              <div className="ADR-dispute-message">
                 <p><strong>Message:</strong></p>
                 <p>{dispute.message}</p>
               </div>
 
               {dispute.status === 'open' && (
-                <div className="resolution-actions">
+                <div className="ADR-resolution-actions">
                   <button
-                    className="resolve-btn approve"
+                    className="ADR-resolve-btn approve"
                     onClick={() => handleResolve(dispute.id, 'approved')}
                   >
                     Approve Complaint
                   </button>
                   <button
-                    className="resolve-btn reject"
+                    className="ADR-resolve-btn reject"
                     onClick={() => handleResolve(dispute.id, 'rejected')}
                   >
                     Reject Complaint
@@ -153,7 +153,7 @@ const DisputeResolution = () => {
               )}
 
               {dispute.status === 'resolved' && (
-                <div className="resolution-outcome">
+                <div className="ADR-resolution-outcome">
                   <p><strong>Resolution:</strong> {dispute.resolution}</p>
                   <p><strong>Resolved on:</strong> {new Date(dispute.resolvedDate).toLocaleString()}</p>
                 </div>

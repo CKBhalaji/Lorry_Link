@@ -1,7 +1,7 @@
 /* src/pages/goods-owner/Dashboard.css */
 .GOD-owner-dashboard {
   /* background-color: yellow; */
-  color: black;
+  color: var(--primary-text);
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
@@ -9,7 +9,7 @@
 }
 
 .GOD-owner-dashboard-baground {
-  background-color: yellow;
+  background-color: var(--primary-bg);
   /* color: black;
     max-width: 1200px; */
 }
@@ -20,7 +20,7 @@
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .GOD-owner-dashboard .GOD-logout-button {
@@ -42,13 +42,13 @@
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
 .GOD-owner-dashboard .GOD-tab-button {
   background: transparent;
-  color: black;
+  color: var(--button-bg);
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -58,20 +58,20 @@
 }
 
 .GOD-owner-dashboard .GOD-tab-button:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--tab-hover-bg);
 }
 
 .GOD-owner-dashboard .GOD-tab-button.active {
-  background: black;
-  color: yellow;
+  background: var(--tab-bg);
+  color: var(--tab-text);
   font-weight: bold;
 }
 
 .GOD-owner-dashboard .GOD-dashboard-content {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--dashboard-bg);
   border-radius: 10px;
   padding: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--dashboard-border);
 }
 
 /* Responsive styles */
@@ -110,10 +110,10 @@
 }
 
 .GOD-dashboard-tabs::-webkit-scrollbar-thumb {
-  background-color: black;
+  background-color: var(--tab-bg);
   border-radius: 4px;
 }
 
 .GOD-dashboard-tabs::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 0, 50);
+  background-color: rvar(--tab-hover-bg);
 }

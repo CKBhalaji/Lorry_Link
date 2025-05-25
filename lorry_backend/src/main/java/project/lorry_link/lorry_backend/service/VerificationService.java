@@ -2,6 +2,7 @@ package project.lorry_link.lorry_backend.service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ public class VerificationService {
     private VerificationTokenRepository tokenRepository;
 
     public String createVerificationToken(String email) {
-        String token = UUID.randomUUID().toString();
+    	int otp = 1000 + new Random().nextInt(9000);
+    	String token = String.valueOf(otp);
+//        String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setEmail(email);
         verificationToken.setToken(token);
@@ -27,7 +30,7 @@ public class VerificationService {
 
     public boolean validateToken(String email, String token) {
         Optional<VerificationToken> verificationToken = tokenRepository.findByEmailAndToken(email, token);
-        return verificationToken.isPresent() && 
-               verificationToken.get().getExpiryDate().isAfter(LocalDateTime.now());
+        return verificationToken.isPresent() &&
+                verificationToken.get().getExpiryDate().isAfter(LocalDateTime.now());
     }
 }
