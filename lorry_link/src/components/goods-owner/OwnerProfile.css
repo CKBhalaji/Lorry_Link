@@ -1,12 +1,12 @@
 /* src/components/goods-owner/OwnerProfile.css */
 .GOPowner-profile {
-  color: black;
+  color: var(--primary-text);
   padding: 20px;
 }
 
 .GOPowner-profile h2 {
   margin-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .GOPprofile-section h3 {
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--input-focus);
   margin-bottom: 15px;
 }
 
@@ -33,20 +33,42 @@
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--primary-text);
 }
 
 .GOPprofile-field p {
-  background: white;
+  background: var(--input-inside);
   padding: 10px;
   border-radius: 4px;
-  border-left: 3px solid black;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 3px solid var(--border-color);
+  box-shadow: 0 1px 3px var(--primary-text);
+}
+
+.GOPprofile-field input,
+.GOPprofile-field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-inside);
+  color: var(--primary-text);
+}
+
+.GOPprofile-field select option {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.GOPprofile-field input:focus,
+.GOPprofile-field select:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 2px 2px var(--primary-text);
 }
 
 .GOPprofile-actions .GOPedit-btn {
-  background: black;
-  color: yellow;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -57,7 +79,7 @@
 }
 
 .GOPprofile-actions .GOPedit-btn:hover {
-  background: #333;
+  background: var(--button-hover-bg);
 }
 
 .GOPprofile-actions .GOPcancel-btn {
@@ -76,7 +98,7 @@
 
 .GOPloading,
 .GOPerror {
-  color: black;
+  color: var(--primary-text);
   text-align: center;
   padding: 20px;
 }

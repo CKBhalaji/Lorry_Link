@@ -6,63 +6,63 @@ import { fetchOwnerDisputes, createOwnerDispute } from '../../services/goodsOwne
 
 const ManageDisputes = () => {
   const [disputes, setDisputes] = useState([
-  {
-    id: 1,
-    driverId: 'DRV123',
-    loadId: 'LOAD456',
-    type: 'Payment',
-    status: 'pending',
-    message: 'The payment amount is incorrect.',
-    createdAt: '2023-10-01T09:00:00Z',
-    resolution: '',
-    resolvedAt: null,
-    attachments: {
-      name: 'invoice.pdf',
-      url: 'https://example.com/invoice.pdf'
+    {
+      id: 1,
+      driverId: 'DRV123',
+      loadId: 'LOAD456',
+      type: 'Payment',
+      status: 'pending',
+      message: 'The payment amount is incorrect.',
+      createdAt: '2023-10-01T09:00:00Z',
+      resolution: '',
+      resolvedAt: null,
+      attachments: {
+        name: 'invoice.pdf',
+        url: 'https://example.com/invoice.pdf'
+      }
+    },
+    {
+      id: 2,
+      driverId: 'DRV789',
+      loadId: 'LOAD101',
+      type: 'Delivery',
+      status: 'resolved',
+      message: 'Package was damaged during delivery.',
+      createdAt: '2023-09-28T14:30:00Z',
+      resolution: 'Compensation provided.',
+      resolvedAt: '2023-09-29T10:15:00Z',
+      attachments: null
+    },
+    {
+      id: 3,
+      driverId: 'DRV456',
+      loadId: 'LOAD789',
+      type: 'Service',
+      status: 'accepted',
+      message: 'Driver arrived late for pickup.',
+      createdAt: '2023-09-25T11:45:00Z',
+      resolution: 'Driver warned about punctuality.',
+      resolvedAt: '2023-09-26T09:30:00Z',
+      attachments: null
+    },
+    {
+      id: 4,
+      driverId: 'DRV101',
+      loadId: 'LOAD112',
+      type: 'Documentation',
+      status: 'rejected',
+      message: 'Missing delivery confirmation signature.',
+      createdAt: '2023-09-20T16:20:00Z',
+      resolution: 'Signature not required for this delivery.',
+      resolvedAt: '2023-09-21T10:00:00Z',
+      attachments: {
+        name: 'delivery_note.pdf',
+        url: 'https://example.com/delivery_note.pdf'
+      }
     }
-  },
-  {
-    id: 2,
-    driverId: 'DRV789',
-    loadId: 'LOAD101',
-    type: 'Delivery',
-    status: 'resolved',
-    message: 'Package was damaged during delivery.',
-    createdAt: '2023-09-28T14:30:00Z',
-    resolution: 'Compensation provided.',
-    resolvedAt: '2023-09-29T10:15:00Z',
-    attachments: null
-  },
-  {
-    id: 3,
-    driverId: 'DRV456',
-    loadId: 'LOAD789',
-    type: 'Service',
-    status: 'accepted',
-    message: 'Driver arrived late for pickup.',
-    createdAt: '2023-09-25T11:45:00Z',
-    resolution: 'Driver warned about punctuality.',
-    resolvedAt: '2023-09-26T09:30:00Z',
-    attachments: null
-  },
-  {
-    id: 4,
-    driverId: 'DRV101',
-    loadId: 'LOAD112',
-    type: 'Documentation',
-    status: 'rejected',
-    message: 'Missing delivery confirmation signature.',
-    createdAt: '2023-09-20T16:20:00Z',
-    resolution: 'Signature not required for this delivery.',
-    resolvedAt: '2023-09-21T10:00:00Z',
-    attachments: {
-      name: 'delivery_note.pdf',
-      url: 'https://example.com/delivery_note.pdf'
-    }
-  }
-]);
+  ]);
 
-// ... existing code ...
+  // ... existing code ...
   // const [disputes, setDisputes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -76,11 +76,28 @@ const ManageDisputes = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const loadDisputes = async () => {
+  //     try {
+  //       const data = await fetchOwnerDisputes();
+  //       setDisputes(data);
+  //     } catch (error) {
+  //       console.error('Error fetching disputes:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   loadDisputes();
+  // }, []);
+
   useEffect(() => {
     const loadDisputes = async () => {
       try {
         const data = await fetchOwnerDisputes();
-        setDisputes(data);
+        // Only set data if it exists and is an array
+        if (Array.isArray(data) && data.length) {
+          setDisputes(data);
+        }
       } catch (error) {
         console.error('Error fetching disputes:', error);
       } finally {
@@ -89,7 +106,7 @@ const ManageDisputes = () => {
     };
     loadDisputes();
   }, []);
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -111,7 +128,7 @@ const ManageDisputes = () => {
     if (!formData.loadId) newErrors.loadId = 'Load ID is required';
     if (!formData.message) newErrors.message = 'Message is required';
     if (formData.message.length > 500) newErrors.message = 'Message too long (max 500 chars)';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -181,7 +198,7 @@ const ManageDisputes = () => {
               />
               {errors.driverId && <span className="GOMD-error-message">{errors.driverId}</span>}
             </div>
-            
+
             <div className="GOMD-form-group">
               <label>Load ID</label>
               <input
@@ -193,7 +210,7 @@ const ManageDisputes = () => {
               />
               {errors.loadId && <span className="GOMD-error-message">{errors.loadId}</span>}
             </div>
-            
+
             <div className="GOMD-form-group">
               <label>Dispute Type</label>
               <select
@@ -208,7 +225,7 @@ const ManageDisputes = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-            
+
             <div className="GOMD-form-group">
               <label>Message</label>
               <textarea
@@ -224,7 +241,7 @@ const ManageDisputes = () => {
               </div>
               {errors.message && <span className="GOMD-error-message">{errors.message}</span>}
             </div>
-            
+
             <div className="GOMD-form-group">
               <label>Attachment (Optional)</label>
               <input
@@ -234,7 +251,7 @@ const ManageDisputes = () => {
               />
               <small>Upload supporting documents (max 5MB)</small>
             </div>
-            
+
             <div className="GOMD-form-actions">
               <button
                 type="submit"
@@ -248,44 +265,49 @@ const ManageDisputes = () => {
       )}
 
       <div className="GOMD-disputes-list">
-        {disputes.length === 0 ? (
-          <div className="GOMD-no-disputes">
-            {showCreateForm ? '' : 'You have no disputes yet.'}
-          </div>
-        ) : (
-          disputes.map(dispute => (
-            <div key={dispute.id} className="GOMD-dispute-card">
-              <div className="GOMD-dispute-header">
-                <h3>Dispute #{dispute.id}</h3>
-                {getStatusBadge(dispute.status)}
-              </div>
-              <div className="GOMD-dispute-details">
-                <p><strong>Driver ID:</strong> {dispute.driverId}</p>
-                <p><strong>Load ID:</strong> {dispute.loadId}</p>
-                <p><strong>Type:</strong> {dispute.type}</p>
-                <p><strong>Date:</strong> {new Date(dispute.createdAt).toLocaleDateString()}</p>
-              </div>
-              <div className="GOMD-dispute-message">
-                <p><strong>Message:</strong> {dispute.message}</p>
-              </div>
-              {dispute.resolution && (
-                <div className="GOMD-dispute-resolution">
-                  <p><strong>Resolution:</strong> {dispute.resolution}</p>
-                  {dispute.resolvedAt && (
-                    <p><strong>Resolved on:</strong> {new Date(dispute.resolvedAt).toLocaleDateString()}</p>
-                  )}
-                </div>
-              )}
-              {dispute.attachments && (
-                <div className="GOMD-dispute-attachments">
-                  <strong>Attachments:</strong>
-                  <a href={dispute.attachments.url} target="_blank" rel="noopener noreferrer">
-                    {dispute.attachments.name}
-                  </a>
-                </div>
-              )}
+        {/* {Array.isArray(disputes) ? ( */}
+        {disputes && disputes.length > 0 ? (
+          disputes.length === 0 ? (
+            <div className="GOMD-no-disputes">
+              {showCreateForm ? '' : 'You have no disputes yet.'}
             </div>
-          ))
+          ) : (
+            disputes.map(dispute => (
+              <div key={dispute.id} className="GOMD-dispute-card">
+                <div className="GOMD-dispute-header">
+                  <h3>Dispute #{dispute.id}</h3>
+                  {getStatusBadge(dispute.status)}
+                </div>
+                <div className="GOMD-dispute-details">
+                  <p><strong>Driver ID:</strong> {dispute.driverId}</p>
+                  <p><strong>Load ID:</strong> {dispute.loadId}</p>
+                  <p><strong>Type:</strong> {dispute.type}</p>
+                  <p><strong>Date:</strong> {new Date(dispute.createdAt).toLocaleDateString()}</p>
+                </div>
+                <div className="GOMD-dispute-message">
+                  <p><strong>Message:</strong> {dispute.message}</p>
+                </div>
+                {dispute.resolution && (
+                  <div className="GOMD-dispute-resolution">
+                    <p><strong>Resolution:</strong> {dispute.resolution}</p>
+                    {dispute.resolvedAt && (
+                      <p><strong>Resolved on:</strong> {new Date(dispute.resolvedAt).toLocaleDateString()}</p>
+                    )}
+                  </div>
+                )}
+                {dispute.attachments && (
+                  <div className="GOMD-dispute-attachments">
+                    <strong>Attachments:</strong>
+                    <a href={dispute.attachments.url} target="_blank" rel="noopener noreferrer">
+                      {dispute.attachments.name}
+                    </a>
+                  </div>
+                )}
+              </div>
+            ))
+          )
+        ) : (
+          <div className="GOMD-no-disputes">Loading disputes...</div>
         )}
       </div>
     </div>

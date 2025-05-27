@@ -1,13 +1,13 @@
 /* src/components/goods-owner/PostLoad.css */
 .GOPL-post-load {
-  color: black;
+  color: var(--primary-text);
   overflow-y: auto;
   height: 100%;
 }
 
 .GOPL-post-load h2 {
   margin-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
@@ -31,10 +31,18 @@
 .GOPL-form-group textarea,
 .GOPL-form-group select {
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background: white;
-  color: black;
+  background: var(--input-inside);
+  color: var(--primary-text);
+}
+
+.GOPL-form-group input:focus,
+.GOPL-form-group textarea:focus,
+.GOPL-form-group select:focus {
+  outline: none;
+  /* border-color: var(--primary-text); */
+  box-shadow: 0 2px 2px var(--primary-text);
 }
 
 .GOPL-form-group textarea {
@@ -61,8 +69,8 @@
 }
 
 .GOPL-post-load button {
-  background: black;
-  color: yellow;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 12px;
   border-radius: 5px;
@@ -74,7 +82,7 @@
 }
 
 .GOPL-post-load button:hover {
-  background: #333;
+  background: var(--button-hover-bg);
 }
 
 .GOPL-post-load button:disabled {

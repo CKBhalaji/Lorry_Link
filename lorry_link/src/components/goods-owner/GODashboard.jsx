@@ -6,6 +6,7 @@ import PostLoad from './PostLoad';
 import MyLoads from './MyLoads';
 import OwnerProfile from './OwnerProfile';
 import ManageDisputes from './GOManageDisputes';
+import ChangePassword from './GOChangePassword';
 
 const GoodsOwnerDashboard = () => {
   const location = useLocation();
@@ -73,6 +74,7 @@ const GoodsOwnerDashboard = () => {
           {activeTab === 'loads' && <MyLoads />}
           {activeTab === 'disputes' && <ManageDisputes />}
           {activeTab === 'profile' && <OwnerProfile />}
+          {activeTab === 'change-password' && <ChangePassword />}
         </div>
       </div>
     </div>

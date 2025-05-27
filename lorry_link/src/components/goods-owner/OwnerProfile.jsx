@@ -1,9 +1,10 @@
 // src/components/goods-owner/OwnerProfile.js
 import React, { useState, useEffect } from 'react';
-import './OwnerProfile.css';
+import { useNavigate } from 'react-router-dom';import './OwnerProfile.css';
 import { fetchOwnerProfile } from '../../services/goodsOwnerService';
 
 const OwnerProfile = () => {
+  const navigate = useNavigate();
   // const [profile, setProfile] = useState(null);
   const [originalProfile, setOriginalProfile] = useState({
     fullName: 'John Doe',
@@ -65,6 +66,10 @@ const OwnerProfile = () => {
     loadProfile();
   }, []);
 
+  const handlePasswordChange_owner = () => {
+    navigate('/driver/dashboard?tab=change-password', { state: { activeTab: 'change-password' } });
+    // window.location.reload(); // Force immediate refresh
+};
   if (loading) return <div className="GOPloading">Loading profile...</div>;
   if (!profile) return <div className="GOPerror">Failed to load profile</div>;
 
@@ -200,6 +205,12 @@ const OwnerProfile = () => {
           </button>
         )}
       </div>
+      <button
+                className="AP-change-password-btn"
+                onClick={handlePasswordChange_owner}
+            >
+                Change Password
+            </button>
     </div>
   );
 };

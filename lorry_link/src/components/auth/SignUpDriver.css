@@ -1,4 +1,3 @@
-/* Container for the driver sign-up page */
 .driver-signup-container {
   width: 100%;
   height: 100%;
@@ -6,11 +5,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: black;
-  color: yellow;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
   overflow-y: auto;
   padding: 20px;
   box-sizing: border-box;
+  /* max-width: 1200px;
+  margin: 0 auto; */
 }
 
 /* Title styles */
@@ -47,10 +48,10 @@
 .driver-signup-left {
   flex: 1;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid yellow;
+  background: var(--dashboard-bg);
+  border: 2px solid var(--login-border);
   border-radius: 12px;
-  box-shadow: 0 4px 20px yellow; /* Yellow box shadow */
+  box-shadow: 0 4px 20px var(--login-border);
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -59,15 +60,15 @@
 
 /* Right section: Other details */
 .driver-signup-right {
-  flex: 1; /* Takes up the remaining space */
+  flex: 1; 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Aligns content to the top */
+  justify-content: flex-start; 
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid yellow;
+  background: var(--dashboard-bg);
+  border: 2px solid var(--login-border) ;
   border-radius: 12px;
-  box-shadow: 0 4px 20px yellow; /* Yellow box shadow */
+  box-shadow: 0 4px 20px var(--login-border); 
   box-sizing: border-box;
 }
 
@@ -80,11 +81,17 @@
 /* Input styles */
 .driver-signup-input {
   padding: 10px;
-  border: 2px solid yellow;
+  border: 2px solid var(--login-border);
   border-radius: 5px;
-  background-color:  white;
-  color: black;
+  background-color: var(--input-inside);
+  color: var(--primary-text);
   font-family: 'Winky Rough', sans-serif;
+}
+
+.driver-signup-input:focus {
+  outline: none;
+  border-color: var(--primary-text);
+  box-shadow: 0 2px 2px var(--primary-text);
 }
 
 /* Error styles for invalid inputs */
@@ -94,17 +101,17 @@
 
 /* Placeholder text styles */
 .driver-signup-input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--input-placeholder);
   font-style: italic;
 }
 
 /* Select styles */
 .driver-signup-select {
   padding: 10px;
-  border: 2px solid yellow;
+  border: 2px solid var(--primary-text);
   border-radius: 5px;
-  background-color: white;
-  color: black;
+  background-color: var(--dashboard-bg);
+  color: var(--primary-text);
   font-family: 'Winky Rough', sans-serif;
 }
 
@@ -125,8 +132,8 @@
 .driver-signup-button {
   /* align-self: flex-start; */
   padding: 10px;
-  background-color: yellow;
-  color: black;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -137,21 +144,21 @@
 
 /* Button hover effect */
 .driver-signup-button:hover {
-  background-color: #ffcc00;
+  background-color: var(--button-hover-bg);
 }
 
 /* Password strength container */
 .password-strength_driver {
   margin-top: 10px;
   font-size: 0.9rem;
-  color: yellow;
+  color: var(--primary-text);
 }
 
 /* Password progress bar container */
 .password-progress-bar {
   width: 100%;
   height: 8px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--dashboard-border);
   border-radius: 5px;
   margin-top: 5px;
   overflow: hidden;
@@ -160,7 +167,7 @@
 /* Password progress bar fill */
 .password-progress {
   height: 100%;
-  background-color: green;
+  background-color: var(--primary-text);
   transition: width 0.3s ease;
 }
 
@@ -169,4 +176,26 @@
   color: red;
   font-size: 0.9rem;
   margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .driver-signup-layout {
+    flex-direction: column; /* Stack columns vertically */
+    gap: 10px; /* Reduce gap between stacked sections */
+  }
+
+  .driver-signup-left,
+  .driver-signup-right {
+    width: 100%; /* Make both sections full width */
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+
+  .driver-signup-title {
+    font-size: 1.5rem; /* Reduce title size for mobile */
+    margin-bottom: 15px;
+  }
+
+  .driver-signup-input {
+    font-size: 14px; /* Slightly reduce font size for inputs */
+  }
 }

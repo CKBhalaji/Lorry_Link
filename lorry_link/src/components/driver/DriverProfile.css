@@ -1,12 +1,12 @@
 /* src/components/driver/DriverProfile.css */
 .DP-driver-profile {
-  color: yellow;
+  color: var(--primary-text);
   padding: 20px;
 }
 
 .DP-driver-profile h2 {
   margin-bottom: 20px;
-  border-bottom: 1px solid yellow;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .DP-profile-section h3 {
-  color: #ffcc00;
+  color: var(--input-focus);
   margin-bottom: 15px;
 }
 
@@ -33,19 +33,42 @@
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: rgba(255, 255, 0, 0.8);
+  color: var(--primary-text);
 }
 
 .DP-profile-field p {
-  background: rgba(255, 255, 0, 0.05);
+  background: var(--input-inside);
   padding: 10px;
   border-radius: 4px;
-  border-left: 3px solid yellow;
+  border-left: 3px solid var(--border-color);
+  box-shadow: 0 1px 3px var(--primary-text);
+}
+
+.DP-profile-field input,
+.DP-profile-field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-inside);
+  color: var(--primary-text);
+}
+
+.DP-profile-field select option {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.DP-profile-field input:focus,
+.DP-profile-field select:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 2px 2px var(--primary-text);
 }
 
 .DP-profile-actions .DP-edit-btn {
-  background: yellow;
-  color: black;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   margin: 0px 5px;
   padding: 10px 20px;
@@ -57,7 +80,7 @@
 }
 
 .DP-profile-actions .DP-edit-btn:hover {
-  background: #ffcc00;
+  background: var(--button-hover-bg);
 }
 
 .DP-profile-actions .DP-cancel-btn {
@@ -76,7 +99,7 @@
 
 .DP-loading,
 .DP-error {
-  color: yellow;
+  color: var(--primary-text);
   text-align: center;
   padding: 20px;
 }

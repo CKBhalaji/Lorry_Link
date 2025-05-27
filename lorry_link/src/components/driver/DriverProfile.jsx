@@ -1,10 +1,13 @@
 // src/components/driver/DriverProfile.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DriverProfile.css';
 import { fetchDriverProfile } from '../../services/driverService';
 
+
 const DriverProfile = () => {
     // Sample data structure for reference:
+    const navigate = useNavigate();
     const [originalProfile, setOriginalProfile] = useState({
         fullName: 'John Doe',
         email: 'john.doe@example.com',
@@ -24,6 +27,7 @@ const DriverProfile = () => {
     const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [errors, setErrors] = useState({});
+    
 
     const validateFields = () => {
         const newErrors = {};
@@ -82,6 +86,11 @@ const DriverProfile = () => {
         };
         loadProfile();
     }, []);
+
+    const handlePasswordChange_driver = () => {
+        navigate('/driver/dashboard?tab=change-password', { state: { activeTab: 'change-password' } });
+        // window.location.reload(); // Force immediate refresh
+    };
 
     if (loading) return <div className="DP-loading">Loading profile...</div>;
     if (!profile) return <div className="DP-error">Failed to load profile</div>;
@@ -296,6 +305,12 @@ const DriverProfile = () => {
                     </button>
                 )}
             </div>
+            <button
+                className="AP-change-password-btn"
+                onClick={handlePasswordChange_driver}
+            >
+                Change Password
+            </button>
         </div>
     );
 };

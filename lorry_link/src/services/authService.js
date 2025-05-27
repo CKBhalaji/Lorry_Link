@@ -1,17 +1,40 @@
+
+
 export const signUpDriver = async (formData) => {
   try {
-    const response = await fetch('http://localhost:8080/api/signup-driver', {
+    const response = await fetch('http://localhost:8080/api/drivers/signup', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        username: formData.username,
+        phoneNumber: formData.phoneNumber,
+        aadharNumber: formData.aadharNumber,
+        email: formData.email,
+        experience: formData.experience,
+        drivingLicenseFileName: formData.drivingLicenseFileName,
+        insuranceFileName: formData.insuranceFileName,
+        rcCardFileName: formData.rcCardFileName,
+        vehicleType: formData.vehicleType,
+        customVehicleType: formData.customVehicleType,
+        loadCapacityKg: formData.loadCapacityKg,
+        gpayId: formData.gpayId,
+        paytmId: formData.paytmId,
+        upiId: formData.upiId,
+        password: formData.password
+      })
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error);
+      throw new Error(errorData.message || 'Signup failed');
     }
+
     return await response.json();
   } catch (error) {
+    console.error('Error during signup:', error);
     throw error;
   }
 };

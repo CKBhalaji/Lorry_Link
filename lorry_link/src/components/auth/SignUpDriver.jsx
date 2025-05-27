@@ -38,24 +38,15 @@ const SignUpDriver = () => {
     }
   };
 
-  // const handleVerifyCode = () => {
-  //   if (verifyOTP(email, verificationCode)) {
-  //     setIsVerified(false);
-  //     // alert('Email verified successfully!');
-  //   } else {
-  //     alert('Invalid OTP. Please try again.');
-  //   }
-  // };
-
   const handleVerifyCode = async () => {
-  try {
-    await verifyOTP(email, verificationCode);
-    setIsVerified(true);
-  } catch (error) {
-    setIsVerified(false);
-    alert('Invalid OTP. Please try again.');
-  }
-};
+    try {
+      await verifyOTP(email, verificationCode);
+      setIsVerified(true);
+    } catch (error) {
+      setIsVerified(false);
+      alert('Invalid OTP. Please try again.');
+    }
+  };
 
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];
@@ -161,19 +152,19 @@ const SignUpDriver = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const formData = {
-        email,
-        username: document.getElementById('driver-username').value,
-        phone: document.getElementById('driver-phone').value,
-        aadhar: document.getElementById('driver-aadhar').value,
-        experience: document.getElementById('driver-experience').value,
-        vehicleType,
-        customVehicleType,
-        loadCapacity: document.getElementById('vehicle-load').value,
-        paymentMethod: selectedPayment,
-        paymentDetails: document.querySelector('input[name="payment-method"]:checked').value,
-        password,
-      };
+      // const formData = {
+      //   email,
+      //   username: document.getElementById('driver-username').value,
+      //   phone: document.getElementById('driver-phone').value,
+      //   aadhar: document.getElementById('driver-aadhar').value,
+      //   experience: document.getElementById('driver-experience').value,
+      //   vehicleType,
+      //   customVehicleType,
+      //   loadCapacity: document.getElementById('vehicle-load').value,
+      //   paymentMethod: selectedPayment,
+      //   paymentDetails: document.querySelector('input[name="payment-method"]:checked').value,
+      //   password,
+      // };
 
       try {
         await signUpDriver(formData);
@@ -202,8 +193,8 @@ const SignUpDriver = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="off"
             required
+            disabled={isVerified}
           />
           {!isVerified && (
             <>
@@ -218,7 +209,7 @@ const SignUpDriver = () => {
                 placeholder="Enter the code sent to your email"
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value)}
-                autoComplete="off"
+
                 required
               />
               <button type="button" onClick={handleVerifyCode} className="driver-signup-button">
@@ -230,14 +221,13 @@ const SignUpDriver = () => {
 
         {/* Right Section: Other Details */}
         <div className={`driver-signup-right ${isVerified ? '' : 'disabled'}`}>
-          <form className="driver-signup-form" onSubmit={handleSubmit} autoComplete="off">
+          <form className="driver-signup-form" onSubmit={handleSubmit} >
             <label htmlFor="driver-username" className="driver-signup-label">Username</label>
             <input
               id="driver-username"
               type="text"
               className={`driver-signup-input ${errors.username ? 'error' : ''}`}
               placeholder="Enter your username"
-              autoComplete="off"
               required
               disabled={!isVerified}
             />
@@ -250,7 +240,7 @@ const SignUpDriver = () => {
               className={`driver-signup-input ${errors.phone ? 'error' : ''}`}
               placeholder="Enter your phone number"
               pattern="[0-9]{10}"
-              autoComplete="off"
+
               required
               disabled={!isVerified}
             />
@@ -263,7 +253,7 @@ const SignUpDriver = () => {
               className={`driver-signup-input ${errors.aadhar ? 'error' : ''}`}
               placeholder="Enter your 12-digit Aadhar number"
               pattern="[0-9]{12}"
-              autoComplete="off"
+
               required
               disabled={!isVerified}
             />
@@ -276,7 +266,7 @@ const SignUpDriver = () => {
               className={`driver-signup-input ${errors.experience ? 'error' : ''}`}
               placeholder="Enter your experience"
               min="0"
-              autoComplete="off"
+
               required
               disabled={!isVerified}
             />
@@ -323,7 +313,7 @@ const SignUpDriver = () => {
             {/* Vehicle Info */}
             <h3 className="driver-signup-section-title">Vehicle Info</h3>
             <label htmlFor="vehicle-name" className="driver-signup-label">Name</label>
-            <input id="vehicle-name" type="text" className="driver-signup-input" placeholder="Enter vehicle name" autoComplete="off" required disabled={!isVerified} />
+            <input id="vehicle-name" type="text" className="driver-signup-input" placeholder="Enter vehicle name" required disabled={!isVerified} />
 
             <label htmlFor="vehicle-type" className="driver-signup-label">Vehicle Type</label>
             <select
@@ -355,7 +345,7 @@ const SignUpDriver = () => {
             )}
 
             <label htmlFor="vehicle-load" className="driver-signup-label">Load Capacity (in kg)</label>
-            <input id="vehicle-load" type="number" className="driver-signup-input" placeholder="Enter load capacity" min="0" autoComplete="off" required disabled={!isVerified} />
+            <input id="vehicle-load" type="number" className="driver-signup-input" placeholder="Enter load capacity" min="0" required disabled={!isVerified} />
 
             {/* Payment Details */}
             <h3 className="driver-signup-section-title">Payment Details</h3>
@@ -366,7 +356,7 @@ const SignUpDriver = () => {
                 value="gpay"
                 checked={selectedPayment === 'gpay'}
                 onChange={() => handlePaymentChange('gpay')}
-                autoComplete="off"
+
                 disabled={!isVerified}
               /> GPay
             </label>
@@ -377,7 +367,7 @@ const SignUpDriver = () => {
                 value="paytm"
                 checked={selectedPayment === 'paytm'}
                 onChange={() => handlePaymentChange('paytm')}
-                autoComplete="off"
+
                 disabled={!isVerified}
               /> Paytm
             </label>
@@ -388,7 +378,7 @@ const SignUpDriver = () => {
                 value="upi"
                 checked={selectedPayment === 'upi'}
                 onChange={() => handlePaymentChange('upi')}
-                autoComplete="off"
+
                 disabled={!isVerified}
               /> UPI ID
             </label>
@@ -399,7 +389,7 @@ const SignUpDriver = () => {
                 type="text"
                 className="driver-signup-input"
                 placeholder={`Enter your ${selectedPayment} details`}
-                autoComplete="off"
+
                 required
                 disabled={!isVerified}
               />
@@ -414,7 +404,7 @@ const SignUpDriver = () => {
               placeholder="Enter your password"
               value={password}
               onChange={handlePasswordChange}
-              autoComplete="off"
+
               required
               disabled={!isVerified}
             />

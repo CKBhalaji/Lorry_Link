@@ -6,7 +6,7 @@
   justify-content: center;
 }
 
-.static-page:not(.goods-owner) {
+.static-page {
   /* background: radial-gradient(
     ellipse at bottom right,
     #fcd34d,
@@ -14,13 +14,8 @@
     #000000
   ); */
   /* background: radial-gradient(ellipse at top, #fcd34d, #000000, #000000); */
-  background: radial-gradient(ellipse at top, #fb923c, #000000, #000000);
-  color: yellow;
-}
-
-.static-page.goods-owner {
-  background-color: yellow;
-  color: black;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
 }
 
 .static-content {

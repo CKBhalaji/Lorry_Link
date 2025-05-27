@@ -3,14 +3,13 @@ package project.lorry_link.lorry_backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 import project.lorry_link.lorry_backend.service.VerificationService;
 import project.lorry_link.lorry_backend.service.EmailService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/verification")
 public class VerificationController {
@@ -22,7 +21,9 @@ public class VerificationController {
     @PostMapping("/send")
     public ResponseEntity<String> sendVerificationEmail(@RequestParam String email) {
         String token = verificationService.createVerificationToken(email);
-        emailService.sendEmail(email, "Verification Code", "Your verification code is: " + token);
+        String emailContent = "Welcome to Lorry Link!\n\nYour verification code is: " + token;
+        emailService.sendEmail(email, "Lorry Link Verification Code", emailContent);
+//        emailService.sendEmail(email, "Lorry Link verification Code", "Welcome to Lorry Link! \n\n Your verification code is: " + token);
         return ResponseEntity.ok("Verification email sent");
     }
 

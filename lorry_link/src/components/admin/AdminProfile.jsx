@@ -69,9 +69,9 @@ const AdminProfile = () => {
   };
 
   const handlePasswordChange = () => {
-  navigate('/admin/dashboard?tab=change-password', { state: { activeTab: 'change-password' } });
-  // window.location.reload(); // Force immediate refresh
-};
+    navigate('/admin/dashboard?tab=change-password', { state: { activeTab: 'change-password' } });
+    // window.location.reload(); // Force immediate refresh
+  };
 
   if (loading) return <div className="AP-loading">Loading profile...</div>;
   if (!profile) return <div className="AP-error">Failed to load profile</div>;

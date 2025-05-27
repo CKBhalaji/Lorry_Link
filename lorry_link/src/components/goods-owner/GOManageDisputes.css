@@ -1,5 +1,3 @@
-/* src/components/driver/ManageDisputes.css and src/components/goods-owner/ManageDisputes.css */
-/* Common styles */
 .GOMD-manage-disputes-owner {
   padding: 20px;
   max-width: 1200px;
@@ -24,13 +22,13 @@
 }
 
 .GOMD-toggle-form-btn.add {
-  background: yellow;
-  color: black;
-  border: 1.5px solid black;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1.5px solid var(--button-bg);
 }
 
 .GOMD-toggle-form-btn.add:hover {
-  background: #ffcc00;
+  background: var(--button-hover-bg);
 }
 
 .GOMD-toggle-form-btn.cancel {
@@ -40,7 +38,7 @@
 }
 
 .GOMD-toggle-form-btn.cancel:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--button-hover-bg);
 }
 
 .GOMD-create-dispute-form {
@@ -186,49 +184,57 @@
 
 /* Goods Owner specific styles */
 .GOMD-manage-disputes-owner {
-  color: black;
+  color: var(--primary-text);
   /* background: yellow; */
-  background: rgba(0, 0, 0, 0);
+  /* background: var(--dashboard-bg); */
   /* transition: background-color 0.3s; */
 }
 
 .GOMD-manage-disputes-owner .GOMD-create-dispute-form {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid black;
+  background: var(--dashboard-bg);
+  border: 1px solid var(--border-color);
 }
 
 .GOMD-manage-disputes-owner .GOMD-dispute-card {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: var(--dashboard-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 2px var(--primary-text);
 }
 
 .GOMD-manage-disputes-owner .GOMD-dispute-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px var(--primary-text);
 }
 
 .GOMD-manage-disputes-owner .GOMD-dispute-resolution {
-  background: rgba(0, 0, 0, 0.05);
-  border-left: 3px solid black;
+  background: var(--table-header);
+  border-left: 3px solid var(--primary-text);
 }
 
 .GOMD-manage-disputes-owner .GOMD-form-group input,
 .GOMD-manage-disputes-owner .GOMD-form-group select,
 .GOMD-manage-disputes-owner .GOMD-form-group textarea {
-  background: white;
-  color: black;
-  border: 1px solid black;
+  background: var(--input-inside);
+  color: var(--primary-text);
+  border: 1px solid var(--border-color);
+}
+
+.GOMD-manage-disputes-owner .GOMD-form-group input:focus,
+.GOMD-manage-disputes-owner.GOMD-form-group select:focus,
+.GOMD-manage-disputes-owner.GOMD-form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-text);
+  box-shadow: 0 5px 15px var(--primary-text);
 }
 
 .GOMD-manage-disputes-owner .GOMD-submit-btn {
-  background: black;
-  color: yellow;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
 }
 
 .GOMD-manage-disputes-owner .GOMD-submit-btn:hover {
-  background: #333;
+  background: var(--button-hover-bg);
 }
 
 .GOMD-manage-disputes-owner .GOMD-status-badge.pending {
@@ -290,4 +296,20 @@
   .GOMD-submit-btn {
     width: 100%;
   }
+}
+
+.GOMD-form-group select option {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.GOMD-form-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  /* padding: 8px; */
+  /* border-radius: 4px; */
+  /* background-color: black;
+  color: yellow; */
+  border: 1px solid yellow;
 }

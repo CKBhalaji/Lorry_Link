@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './SignUpGoodsOwner.css';
+import { signUpDriver } from '../../services/authService';
+import { sendOTP, verifyOTP } from '../../services/authService';
 
 const SignUpGoodsOwner = () => {
   const [name, setName] = useState('');
@@ -19,38 +21,40 @@ const SignUpGoodsOwner = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const sendVerificationEmail = async () => {
-    // Validate email format
     if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       alert('Incorrect email. Please correct the email.');
-      return; // Stop execution if the email is invalid
+      return;
     }
-    
-    const code = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit random number
-    setGeneratedCode(code);
 
-      try {
-        const response = await fetch('http://localhost:8080/api/signup-goods-owner', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
+    try {
+      const otp = await sendOTP(email);
+      setGeneratedCode(otp);
+      alert('OTP sent to your email!');
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('Failed to send OTP. Please try again.');
+    }
+  };
 
-        if (response.ok) {
-          alert('Goods owner signed up successfully!');
-          navigate(-1); // Redirect to the previous page
-        } else if (response.status === 409) {
-          // Handle email already taken
-          alert('Email already taken!');
-        } else {
-          const errorData = await response.json();
-          alert(`Error: ${errorData.error}`);
-        }
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('Failed to sign up. Please try again.');
-        }
-      };
-      
+  // const handleVerifyCode = () => {
+  //   if (verifyOTP(email, verificationCode)) {
+  //     setIsVerified(false);
+  //     // alert('Email verified successfully!');
+  //   } else {
+  //     alert('Invalid OTP. Please try again.');
+  //   }
+  // };
+
+  const handleVerifyCode = async () => {
+    try {
+      await verifyOTP(email, verificationCode);
+      setIsVerified(true);
+    } catch (error) {
+      setIsVerified(false);
+      alert('Invalid OTP. Please try again.');
+    }
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -159,6 +163,7 @@ const SignUpGoodsOwner = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={isVerified}
           />
           {!isVerified && (
             <>
@@ -175,9 +180,9 @@ const SignUpGoodsOwner = () => {
                 onChange={(e) => setVerificationCode(e.target.value)}
                 required
               />
-              {/* <button type="button" onClick={handleVerifyCode} className="goods-owner-signup-button">
+              <button type="button" onClick={handleVerifyCode} className="goods-owner-signup-button">
                 Verify Code
-              </button> */}
+              </button>
             </>
           )}
         </div>
@@ -241,8 +246,8 @@ const SignUpGoodsOwner = () => {
                 style={{
                   width: `${progress}%`,
                   backgroundColor: strength === 'Low' ? 'red' :
-                                  strength === 'Mid' ? 'orange' :
-                                  strength === 'Strong' ? 'green' : 'transparent',
+                    strength === 'Mid' ? 'orange' :
+                      strength === 'Strong' ? 'green' : 'transparent',
                 }}
               ></div>
             </div>
