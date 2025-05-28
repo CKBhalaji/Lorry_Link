@@ -5,7 +5,7 @@ import './AdminLogin.css';
 import { useAuth } from '../../context/AuthContext';
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const AdminLogin = () => {
     e.preventDefault();
     const userData = {
       type: 'admin',
-      username: username,
+      email: email,
       // Add other necessary fields
     };
     console.log('Attempting admin login with:', userData);
@@ -30,13 +30,13 @@ const AdminLogin = () => {
         {/* <h1>Admin Login</h1> */}
         <form onSubmit={handleLogin}>
           <div className="AL-form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              id="username"
+              id="email"
               type="text"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>

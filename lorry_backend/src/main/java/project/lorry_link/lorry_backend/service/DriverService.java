@@ -19,4 +19,6 @@ public interface DriverService {
     DriverDto updatePassword(String email, DriverDto updateDriver);
 
     void deleteDriver(String email);
+
+    boolean checkEmailExists(String email);
 }

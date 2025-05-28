@@ -7,7 +7,7 @@ import { ArrowRightOutlined ,MoonOutlined, SunOutlined, MoonFilled ,SunFilled} f
 
 
 const Navbar = () => {
-  const { logout, isAuthenticated, userType, username } = useAuth();
+  const { logout, isAuthenticated, userType, email } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -67,14 +67,14 @@ const Navbar = () => {
           <div className="NAV-user-info">
             {isAuthenticated && userType ? (
               <>
-                <span className="NAV-username">Welcome, {username}</span>
+                <span className="NAV-email">Welcome, {email}</span>
                 <button className="NAV-theme-toggle" onClick={toggleTheme}>
                   {theme === 'light' ? <MoonFilled /> : <SunFilled />}
                 </button>
                 <button className="NAV-logout-btn" onClick={handleLogout}>Logout</button>
               </>
               // <>
-              //   <span className="NAV-username">Welcome, {username}</span>
+              //   <span className="NAV-email">Welcome, {email}</span>
               //   <button className="NAV-logout-btn" onClick={handleLogout}>Logout</button>
               // </>
             ) : (

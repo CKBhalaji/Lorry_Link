@@ -22,23 +22,22 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public DriverDto registerDriver(DriverDto driverDto) {
-
         Driver driver = DriverMapper.mapToDriver(driverDto);
-        Driver registDriver = driverRepository.save(driver);
-        return DriverMapper.mapToDriverDto(registDriver);
+        Driver savedDriver = driverRepository.save(driver);
+        return DriverMapper.mapToDriverDto(savedDriver);
     }
 
     @Override
     public DriverDto getDriverBYUsername(String username) {
         Driver driver = driverRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database"+ username));
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database" + username));
         return DriverMapper.mapToDriverDto(driver);
     }
 
     @Override
     public DriverDto gerDriverByUserEmail(String email) {
         Driver driver = driverRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database"+ email));
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database" + email));
         return DriverMapper.mapToDriverDto(driver);
     }
 
@@ -51,7 +50,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public DriverDto updateDriver(String email, DriverDto updateDriver) {
         Driver driver = driverRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database"+ email));
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database" + email));
         driver.setUsername(updateDriver.getUsername());
         driver.setPhoneNumber(updateDriver.getPhoneNumber());
         driver.setAadharNumber(updateDriver.getAadharNumber());
@@ -76,7 +75,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public DriverDto updatePassword(String email, @org.jetbrains.annotations.NotNull DriverDto updateDriver) {
         Driver driver = driverRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database"+ email));
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Exist in the database" + email));
         if (updateDriver.getUsername() != null && !updateDriver.getUsername().isEmpty()) {
             driver.setUsername(updateDriver.getUsername());
         }
@@ -119,5 +118,9 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = driverRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Driver not found with email: " + email));
         driverRepository.delete(driver);
+    }
+
+    public boolean checkEmailExists(String email) {
+        return driverRepository.existsByEmail(email);
     }
 }

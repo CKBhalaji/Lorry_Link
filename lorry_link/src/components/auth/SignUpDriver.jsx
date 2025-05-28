@@ -14,9 +14,12 @@ const SignUpDriver = () => {
   const [strength, setStrength] = useState('');
   const [progress, setProgress] = useState(0);
   const [selectedPayment, setSelectedPayment] = useState('');
+  const [vehicleName, setVehicleName] = useState('');
   const [vehicleType, setVehicleType] = useState('');
   const [customVehicleType, setCustomVehicleType] = useState('');
   const [fileErrors, setFileErrors] = useState({});
+  const [drivingLicenseFile, setDrivingLicenseFile] = useState(null);
+  const [insuranceFile, setInsuranceFile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -24,17 +27,37 @@ const SignUpDriver = () => {
 
   const sendVerificationEmail = async () => {
     if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      alert('Incorrect email. Please correct the email.');
+      alert('Please enter a valid email address');
       return;
     }
-
+  
     try {
-      const otp = await sendOTP(email);
-      setGeneratedCode(otp);
-      alert('OTP sent to your email!');
+      // This endpoint should check email existence and send OTP
+      const response = await fetch(`http://localhost:8080/api/drivers/check-email?email=${email}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({email}),
+      });
+  
+      if (response.status === 409) {
+        throw new Error('Email already registered');
+      }
+      
+      if (!response.ok) {
+        throw new Error('Email check failed');
+      }
+  
+      // Proceed with OTP
+      await sendOTP(email);
+      alert('OTP sent successfully');
+      
     } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Failed to send OTP. Please try again.');
+      if (error.message.includes('already registered')) {
+        alert(error.message);
+        setEmail('');
+      } else {
+        alert('Error: ' + error.message);
+      }
     }
   };
 
@@ -50,11 +73,26 @@ const SignUpDriver = () => {
 
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];
-    if (file && file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-      setFileErrors((prev) => ({ ...prev, [fieldName]: true }));
-    } else {
+    if (file) {
+      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        setFileErrors((prev) => ({ ...prev, [fieldName]: true }));
+        return;
+      }
+      // Store the file based on field name
+      switch (fieldName) {
+        case 'driver-license':
+          setDrivingLicenseFile(file);
+          break;
+        case 'driver-insurance':
+          setInsuranceFile(file);
+          break;
+      }
       setFileErrors((prev) => ({ ...prev, [fieldName]: false }));
     }
+  };
+
+  const handleVehicleNameChange = (e) => {
+    setVehicleName(e.target.value);
   };
 
   const checkPasswordStrength = (value) => {
@@ -141,7 +179,12 @@ const SignUpDriver = () => {
 
       if (fileErrors['driver-license']) newErrors.driverLicense = true;
       if (fileErrors['driver-insurance']) newErrors.driverInsurance = true;
-      if (fileErrors['driver-rc-card']) newErrors.driverRcCard = true;
+
+      const rcCard = document.getElementById('driver-rc-card').value;
+      if (!rcCard.match(/^[A-Za-z0-9]{8,20}$/)) newErrors.rcCard = true;
+
+      const vehicleName = document.getElementById('vehicle-name').value;
+      if (!vehicleName) newErrors.vehicleName = true;
     }
 
     setErrors(newErrors);
@@ -152,19 +195,29 @@ const SignUpDriver = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      // const formData = {
-      //   email,
-      //   username: document.getElementById('driver-username').value,
-      //   phone: document.getElementById('driver-phone').value,
-      //   aadhar: document.getElementById('driver-aadhar').value,
-      //   experience: document.getElementById('driver-experience').value,
-      //   vehicleType,
-      //   customVehicleType,
-      //   loadCapacity: document.getElementById('vehicle-load').value,
-      //   paymentMethod: selectedPayment,
-      //   paymentDetails: document.querySelector('input[name="payment-method"]:checked').value,
-      //   password,
-      // };
+      const formData = new FormData();
+
+      const driverData = {
+        username: document.getElementById('driver-username').value,
+        phoneNumber: document.getElementById('driver-phone').value,
+        aadharNumber: document.getElementById('driver-aadhar').value,
+        email,
+        experience: document.getElementById('driver-experience').value,
+        rcCardNumber: document.getElementById('driver-rc-card').value, // RC number
+        customVehicleType: vehicleName,
+        vehicleType: vehicleType === 'others' ? customVehicleType : vehicleType,
+        loadCapacityKg: document.getElementById('vehicle-load').value,
+        payemtDetail: document.querySelector('input[name="payment-method"]:checked').value,
+        paymentID: document.getElementById('payment-id').value, // Add this input field
+        password
+      };
+
+      formData.append('driver', new Blob([JSON.stringify(driverData)], {
+        type: 'application/json'
+      }));
+
+      if (drivingLicenseFile) formData.append('drivingLicense', drivingLicenseFile);
+      if (insuranceFile) formData.append('insurance', insuranceFile);
 
       try {
         await signUpDriver(formData);
@@ -297,23 +350,30 @@ const SignUpDriver = () => {
             />
             {fileErrors['driver-insurance'] && <p className="error-message">File size must be less than 15 MB.</p>}
 
-            {/* RC Card */}
-            <label htmlFor="driver-rc-card" className="driver-signup-label">RC Card</label>
+            {/* RC Card Number */}
+            <label htmlFor="driver-rc-card" className="driver-signup-label">RC Card Number</label>
             <input
               id="driver-rc-card"
-              type="file"
-              className={`driver-signup-input ${fileErrors['driver-rc-card'] ? 'error' : ''}`}
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, 'driver-rc-card')}
+              type="text"
+              className={`driver-signup-input ${errors.rcCard ? 'error' : ''}`}
+              placeholder="Enter RC card number"
+              pattern="[A-Za-z0-9]{8,20}"
               required
               disabled={!isVerified}
             />
-            {fileErrors['driver-rc-card'] && <p className="error-message">File size must be less than 15 MB.</p>}
-
             {/* Vehicle Info */}
             <h3 className="driver-signup-section-title">Vehicle Info</h3>
             <label htmlFor="vehicle-name" className="driver-signup-label">Name</label>
-            <input id="vehicle-name" type="text" className="driver-signup-input" placeholder="Enter vehicle name" required disabled={!isVerified} />
+            <input
+              id="vehicle-name"
+              type="text"
+              className={`driver-signup-input ${errors.vehicleName ? 'error' : ''}`}
+              placeholder="Enter vehicle name"
+              value={vehicleName}
+              onChange={handleVehicleNameChange}
+              required
+              disabled={!isVerified}
+            />
 
             <label htmlFor="vehicle-type" className="driver-signup-label">Vehicle Type</label>
             <select
@@ -386,10 +446,10 @@ const SignUpDriver = () => {
             {/* Show input box based on selected payment method */}
             {selectedPayment && (
               <input
+                id="payment-id"
                 type="text"
                 className="driver-signup-input"
                 placeholder={`Enter your ${selectedPayment} details`}
-
                 required
                 disabled={!isVerified}
               />

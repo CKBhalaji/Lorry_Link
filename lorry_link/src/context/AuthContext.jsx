@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect} from 'react'; // Add useContext to the import
+import React, { useState, useContext, useEffect } from 'react'; // Add useContext to the import
 
 const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userType, setUserType] = useState(null);
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
 
   // Update the logging to properly stringify the state object
   console.log('Auth State:', JSON.stringify({
@@ -17,33 +17,33 @@ export const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState({
     isAuthenticated: false,
     userType: null,
-    username: '',
+    email: '',
     timestamp: ''
   });
 
   const login = (userData) => {
-    if (!userData.username) {
-      console.error('Username is required in userData');
+    if (!userData.email) {
+      console.error('Email is required in userData');
       return;
     }
 
     const newAuthState = {
       isAuthenticated: true,
       userType: userData.type,
-      username: userData.username,
+      email: userData.email,
       timestamp: new Date().toISOString()
     };
 
     setIsAuthenticated(true);
     setUserType(userData.type);
-    setUsername(userData.username);
+    setEmail(userData.email);
     setAuthState(newAuthState);
     localStorage.setItem('auth', JSON.stringify(newAuthState));
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    setUsername(null);
+    setEmail(null);
     localStorage.removeItem('auth');
   };
 
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
         if (newAuth) {
           setIsAuthenticated(newAuth.isAuthenticated);
           setUserType(newAuth.userType);
-          setUsername(newAuth.username);
+          setEmail(newAuth.email);
           setAuthState(newAuth);
         }
       }
@@ -69,12 +69,12 @@ export const AuthProvider = ({ children }) => {
     if (storedAuth && storedAuth.isAuthenticated) {
       setIsAuthenticated(true);
       setUserType(storedAuth.userType);
-      setUsername(storedAuth.username);
+      setEmail(storedAuth.email);
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userType, username, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userType, email, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

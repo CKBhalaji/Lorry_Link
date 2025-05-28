@@ -1,30 +1,10 @@
-
+import axios from 'axios';
 
 export const signUpDriver = async (formData) => {
   try {
-    const response = await fetch('http://localhost:8080/api/drivers/signup', {
+    const response = await fetch('http://localhost:8080/api/drivers/register', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        username: formData.username,
-        phoneNumber: formData.phoneNumber,
-        aadharNumber: formData.aadharNumber,
-        email: formData.email,
-        experience: formData.experience,
-        drivingLicenseFileName: formData.drivingLicenseFileName,
-        insuranceFileName: formData.insuranceFileName,
-        rcCardFileName: formData.rcCardFileName,
-        vehicleType: formData.vehicleType,
-        customVehicleType: formData.customVehicleType,
-        loadCapacityKg: formData.loadCapacityKg,
-        gpayId: formData.gpayId,
-        paytmId: formData.paytmId,
-        upiId: formData.upiId,
-        password: formData.password
-      })
+      body: formData // Send FormData directly
     });
 
     if (!response.ok) {
@@ -57,16 +37,27 @@ export const login = async (credentials) => {
   }
 };
 
+export const logindriver = async (credentials) => {
+  try {
+    const response = await axios.post(`http://localhost:8080/api/drivers/login`, credentials);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Login failed');
+  }
+};
+
 export const sendOTP = async (email) => {
   try {
-    const otp = Math.floor(1000 + Math.random() * 9000);
     const response = await fetch(`http://localhost:8080/api/verification/send?email=${email}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, token: otp.toString() }),
+      body: JSON.stringify({email}),
     });
-    if (!response.ok) throw new Error('Failed to send OTP');
-    return otp;
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'OTP send failed');
+    }
   } catch (error) {
     throw error;
   }

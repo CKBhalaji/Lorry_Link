@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import { useAuth } from '../../context/AuthContext';
+import { logindriver } from '../../services/authService'; // Import the driver login service
 
 const Login = () => {
   const { login } = useAuth();
-  const [driverUsername, setDriverUsername] = useState('');
+  const [driverEmail, setDriverEmail] = useState('');
   const [driverPassword, setDriverPassword] = useState('');
-  const [goodsOwnerUsername, setGoodsOwnerUsername] = useState('');
+  const [goodsOwnerEmail, setGoodsOwnerEmail] = useState('');
   const [goodsOwnerPassword, setGoodsOwnerPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -20,21 +21,52 @@ const Login = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // const handleDriverLogin = async () => {
+  //   const userData = {
+  //     type: 'driver',
+  //     email: driverEmail,
+  //     // Add other necessary fields
+  //   };
+  //   console.log('Attempting driver login with:', userData);
+  //   login(userData);
+  //   navigate('/driver');
+  // };
+
   const handleDriverLogin = async () => {
-    const userData = {
-      type: 'driver',
-      username: driverUsername,
-      // Add other necessary fields
-    };
-    console.log('Attempting driver login with:', userData);
-    login(userData);
-    navigate('/driver');
+    try {
+      // Clear previous errors
+      setErrorMessage('');
+
+      // Validate inputs
+      if (!driverEmail || !driverPassword) {
+        setErrorMessage('Please fill in all fields');
+        return;
+      }
+
+      // Call authentication service
+      const response = await logindriver({
+        email: driverEmail,
+        password: driverPassword
+      });
+
+      // Handle successful login
+      login({
+        type: 'driver',
+        token: response.token, // Assuming your backend returns a token
+        user: response.user    // Assuming your backend returns user data
+      });
+
+      navigate('/driver');
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrorMessage(error.message || 'Login failed. Please check your credentials.');
+    }
   };
 
   const handleGoodsOwnerLogin = async () => {
     const userData = {
       type: 'goodsOwner',
-      username: goodsOwnerUsername,
+      email: goodsOwnerEmail,
       // Add other necessary fields
     };
     console.log('Attempting goods owner login with:', userData);
@@ -49,13 +81,14 @@ const Login = () => {
           <h1>For Drivers</h1>
           <div id="login">
             <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-              <label htmlFor="username-driver">Username</label>
+              <label htmlFor="email-driver">Email</label>
               <input
-                id="username-driver"
-                type="text"
-                placeholder="Enter your username"
-                value={driverUsername}
-                onChange={(e) => setDriverUsername(e.target.value)}
+                id="email-driver"
+                type="email"
+                placeholder="Enter your email"
+                value={driverEmail}
+                onChange={(e) => setDriverEmail(e.target.value)}
+                required
               />
               <label htmlFor="password-driver">Password</label>
               <input
@@ -64,6 +97,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={driverPassword}
                 onChange={(e) => setDriverPassword(e.target.value)}
+                required
                 autoComplete="off"
               />
             </form>
@@ -81,13 +115,13 @@ const Login = () => {
           <h1>For Goods Owners</h1>
           <div id="login">
             <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-              <label htmlFor="username-owner">Username</label>
+              <label htmlFor="email-owner">Email</label>
               <input
-                id="username-owner"
+                id="email-owner"
                 type="text"
-                placeholder="Enter your username"
-                value={goodsOwnerUsername}
-                onChange={(e) => setGoodsOwnerUsername(e.target.value)}
+                placeholder="Enter your email"
+                value={goodsOwnerEmail}
+                onChange={(e) => setGoodsOwnerEmail(e.target.value)}
               />
               <label htmlFor="password-owner">Password</label>
               <input
@@ -132,13 +166,14 @@ const Login = () => {
             <h1>For Drivers</h1>
             <div id="login">
               <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-                <label htmlFor="username-driver">Username</label>
+                <label htmlFor="email-driver">Email</label>
                 <input
-                  id="username-driver"
-                  type="text"
-                  placeholder="Enter your username"
-                  value={driverUsername}
-                  onChange={(e) => setDriverUsername(e.target.value)}
+                  id="email-driver"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={driverEmail}
+                  onChange={(e) => setDriverEmail(e.target.value)}
+                  required
                 />
                 <label htmlFor="password-driver">Password</label>
                 <input
@@ -147,6 +182,8 @@ const Login = () => {
                   placeholder="Enter your password"
                   value={driverPassword}
                   onChange={(e) => setDriverPassword(e.target.value)}
+                  required
+                  autoComplete="off"
                 />
               </form>
               <button onClick={handleDriverLogin}>Login</button>
@@ -160,13 +197,13 @@ const Login = () => {
             <h1>For Goods Owners</h1>
             <div id="login">
               <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-                <label htmlFor="username-owner">Username</label>
+                <label htmlFor="email-owner">Email</label>
                 <input
-                  id="username-owner"
+                  id="email-owner"
                   type="text"
-                  placeholder="Enter your username"
-                  value={goodsOwnerUsername}
-                  onChange={(e) => setGoodsOwnerUsername(e.target.value)}
+                  placeholder="Enter your email"
+                  value={goodsOwnerEmail}
+                  onChange={(e) => setGoodsOwnerEmail(e.target.value)}
                 />
                 <label htmlFor="password-owner">Password</label>
                 <input
@@ -185,8 +222,9 @@ const Login = () => {
             </div>
           </div>
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
