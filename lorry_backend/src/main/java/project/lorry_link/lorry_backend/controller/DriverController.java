@@ -1,55 +1,67 @@
 package project.lorry_link.lorry_backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.multipart.MultipartFile;
+
+
 import project.lorry_link.lorry_backend.dto.DriverDto;
 import project.lorry_link.lorry_backend.entity.Driver;
+import project.lorry_link.lorry_backend.entity.Role;
 import project.lorry_link.lorry_backend.repository.DriverRepository;
+import project.lorry_link.lorry_backend.repository.RoleRepository;
+import project.lorry_link.lorry_backend.security.JWTUtil;
 import project.lorry_link.lorry_backend.service.DriverService;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Set;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/drivers")
 public class DriverController {
 
-    @Autowired
-    private DriverService driverService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final DriverService driverService;
+    private final DriverRepository driverRepository;
 
-    private DriverRepository driverRepository;
-
-//    @PostMapping("/register")
-//    public ResponseEntity<DriverDto> registerDriver(@RequestBody DriverDto driverDto) {
-//        DriverDto registeredDriver = driverService.registerDriver(driverDto);
-//
-//        return new ResponseEntity<>(registeredDriver, HttpStatus.CREATED);
-//    }
+    public DriverController(AuthenticationManager authenticationManager, JWTUtil jwtUtil, RoleRepository roleRepository, PasswordEncoder passwordEncoder, DriverService driverService, DriverRepository driverRepository) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.driverService = driverService;
+        this.driverRepository = driverRepository;
+    }
 
     @PostMapping(
             value = "/register",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DriverDto> registerDriver(
+    public ResponseEntity<String> registerDriver(
             @RequestPart("driver") DriverDto driverDto,
             @RequestPart("drivingLicense") MultipartFile drivingLicense,
             @RequestPart("insurance") MultipartFile insurance) {
+
+        if(driverRepository.findByUsername(driverDto.getUsername()).isPresent()){
+            return ResponseEntity.badRequest().body("Username is alredy taken");
+        }
 
         try {
             // File handling
@@ -60,8 +72,37 @@ public class DriverController {
             driverDto.setDrivingLicenseFileName(drivingLicenseFileName);
             driverDto.setInsuranceFileName(insuranceFileName);
 
-            DriverDto registeredDriver = driverService.registerDriver(driverDto);
-            return new ResponseEntity<>(registeredDriver, HttpStatus.CREATED);
+//            DriverDto registeredDriver = driverService.registerDriver(driverDto);
+            Driver newDriver = new Driver();
+            newDriver.setUsername(driverDto.getUsername());
+            newDriver.setEmail(driverDto.getEmail());
+            newDriver.setPhoneNumber(driverDto.getPhoneNumber());
+            newDriver.setAadharNumber(driverDto.getAadharNumber());
+            newDriver.setExperience(driverDto.getExperience());
+            newDriver.setRcCardNumber(driverDto.getRcCardNumber());
+            newDriver.setCustomVehicleType(driverDto.getCustomVehicleType());
+            newDriver.setVehicleType(driverDto.getVehicleType());
+            newDriver.setLoadCapacityKg(driverDto.getLoadCapacityKg());
+            newDriver.setPayemtDetail(driverDto.getPayemtDetail());
+            newDriver.setPaymentID(driverDto.getPaymentID());
+
+            String encodedPassword = passwordEncoder.encode(driverDto.getPassword());
+            newDriver.setPassword(encodedPassword);
+            System.out.println("EncodedPassword :"+encodedPassword);
+
+            Set<Role> roles = new HashSet<>();
+            for(String roleName : driverDto.getRole()){
+                Role role = roleRepository.findByName(roleName)
+                        .orElseThrow(() -> new RuntimeException("Role notFound: "+ roleName));
+                roles.add(role);
+            }
+
+            newDriver.setRole(roles);
+            driverRepository.save(newDriver);
+
+            return ResponseEntity.ok("User Registerd Succesfully");
+
+//            return new ResponseEntity<>(registeredDriver, HttpStatus.CREATED);
         } catch (IOException ex) {
             throw new RuntimeException("File storage failed", ex);
         }
@@ -106,7 +147,7 @@ public class DriverController {
     }
 
     @PostMapping("/check-email")
-    public ResponseEntity<?> checkEmailExists(@RequestParam String email) {
+    public ResponseEntity<String> checkEmailExists(@RequestParam String email) {
         boolean exists = driverService.checkEmailExists(email);
         return exists
                 ? ResponseEntity.status(HttpStatus.CONFLICT).body("Email already registered")
@@ -154,5 +195,18 @@ public class DriverController {
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam Driver loginRequest){
+
+        try{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
+
+        }catch (Exception e){
+            System.out.println("Exception: "+e);
+        }
+        String token = jwtUtil.generateToken(loginRequest.getUsername());
+        return ResponseEntity.ok(token);
     }
 }

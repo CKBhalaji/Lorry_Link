@@ -21,4 +21,6 @@ public interface DriverService {
     void deleteDriver(String email);
 
     boolean checkEmailExists(String email);
+
+//    Authentication authenticate(String email, String password);
 }

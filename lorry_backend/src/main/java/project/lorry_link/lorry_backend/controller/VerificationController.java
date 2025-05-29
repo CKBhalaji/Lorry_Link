@@ -3,13 +3,11 @@ package project.lorry_link.lorry_backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.*;
 
-import project.lorry_link.lorry_backend.service.VerificationService;
 import project.lorry_link.lorry_backend.service.EmailService;
+import project.lorry_link.lorry_backend.service.VerificationService;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/verification")
 public class VerificationController {

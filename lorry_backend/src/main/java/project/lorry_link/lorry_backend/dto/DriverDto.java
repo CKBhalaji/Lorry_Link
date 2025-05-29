@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,5 +29,6 @@ public class DriverDto {
     private String payemtDetail;
     private String paymentID;
     private String password;
+    private Set<String> role;
 }
 

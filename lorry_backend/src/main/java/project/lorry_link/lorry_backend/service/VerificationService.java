@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import project.lorry_link.lorry_backend.entity.VerificationToken;
 import project.lorry_link.lorry_backend.repository.VerificationTokenRepository;
 

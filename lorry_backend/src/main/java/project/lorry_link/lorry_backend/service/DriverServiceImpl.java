@@ -123,4 +123,11 @@ public class DriverServiceImpl implements DriverService {
     public boolean checkEmailExists(String email) {
         return driverRepository.existsByEmail(email);
     }
+
+//    @Override
+//    public Authentication authenticate(String email, String password) {
+//        UsernamePasswordAuthenticationToken token =
+//                new UsernamePasswordAuthenticationToken(email, password);
+//        return authenticationManager.authenticate(token);
+//    }
 }

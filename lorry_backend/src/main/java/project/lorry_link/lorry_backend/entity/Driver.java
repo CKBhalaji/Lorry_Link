@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -64,6 +67,9 @@ public class Driver {
     
     @Column(name="password")
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Set<Role> role = new HashSet<>();
 
     // Getters and Setters (Lombok @Data annotation handles this)
 }
