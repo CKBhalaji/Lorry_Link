@@ -2,11 +2,16 @@ package project.lorry_link.lorry_backend.mapper;
 
 import project.lorry_link.lorry_backend.dto.DriverDto;
 import project.lorry_link.lorry_backend.entity.Driver;
+import project.lorry_link.lorry_backend.entity.Role;
+
+import java.util.Collections;
+import java.util.Set;
 
 public class DriverMapper {
     
 
     public static DriverDto mapToDriverDto(Driver driver) {
+        Set<Role> roles = Collections.singleton(new Role("DRIVER"));
         return new DriverDto(
             driver.getId(),
             driver.getUsername(),
@@ -22,7 +27,8 @@ public class DriverMapper {
             driver.getLoadCapacityKg(),
             driver.getPayemtDetail(),
             driver.getPaymentID(),
-            driver.getPassword()
+            driver.getPassword(),
+                driver.getRole()
         );
     }
 
@@ -42,7 +48,8 @@ public class DriverMapper {
             driverDto.getLoadCapacityKg(),
             driverDto.getPayemtDetail(),
             driverDto.getPaymentID(),
-            driverDto.getPassword()
+            driverDto.getPassword(),
+                driverDto.getRole()
         );
     }
 }

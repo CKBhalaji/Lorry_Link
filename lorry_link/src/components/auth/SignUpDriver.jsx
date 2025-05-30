@@ -20,6 +20,7 @@ const SignUpDriver = () => {
   const [fileErrors, setFileErrors] = useState({});
   const [drivingLicenseFile, setDrivingLicenseFile] = useState(null);
   const [insuranceFile, setInsuranceFile] = useState(null);
+  const driver = 'DRIVER';
 
   const navigate = useNavigate();
 
@@ -209,7 +210,8 @@ const SignUpDriver = () => {
         loadCapacityKg: document.getElementById('vehicle-load').value,
         payemtDetail: document.querySelector('input[name="payment-method"]:checked').value,
         paymentID: document.getElementById('payment-id').value, // Add this input field
-        password
+        password,
+        role: [driver]
       };
 
       formData.append('driver', new Blob([JSON.stringify(driverData)], {

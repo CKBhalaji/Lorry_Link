@@ -6,27 +6,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import project.lorry_link.lorry_backend.dto.DriverDto;
 import project.lorry_link.lorry_backend.entity.Driver;
 import project.lorry_link.lorry_backend.entity.Role;
+import project.lorry_link.lorry_backend.mapper.DriverMapper;
 import project.lorry_link.lorry_backend.repository.DriverRepository;
 import project.lorry_link.lorry_backend.repository.RoleRepository;
 import project.lorry_link.lorry_backend.security.JWTUtil;
 import project.lorry_link.lorry_backend.service.DriverService;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -49,21 +48,85 @@ public class DriverController {
         this.driverRepository = driverRepository;
     }
 
+//    @PostMapping(
+//            value = "/register",
+//            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public ResponseEntity<String> registerDriver(
+//            @RequestPart("driver") DriverDto driverDto,
+//            @RequestPart("drivingLicense") MultipartFile drivingLicense,
+//            @RequestPart("insurance") MultipartFile insurance) {
+//
+//        if (driverRepository.findByUsername(driverDto.getUsername()).isPresent()) {
+//            return ResponseEntity.badRequest().body("Username is alredy taken");
+//        }
+//
+//        try {
+//            // File handling
+//            String drivingLicenseFileName = storeFile(drivingLicense, driverDto.getEmail());
+//            String insuranceFileName = storeFile(insurance, driverDto.getEmail());
+//
+//            // Update DTO with filenames
+//            driverDto.setDrivingLicenseFileName(drivingLicenseFileName);
+//            driverDto.setInsuranceFileName(insuranceFileName);
+//
+////            DriverDto registeredDriver = driverService.registerDriver(driverDto);
+//            Driver newDriver = new Driver();
+//            newDriver.setUsername(driverDto.getUsername());
+//            newDriver.setEmail(driverDto.getEmail());
+//            newDriver.setPhoneNumber(driverDto.getPhoneNumber());
+//            newDriver.setAadharNumber(driverDto.getAadharNumber());
+//            newDriver.setExperience(driverDto.getExperience());
+//            newDriver.setRcCardNumber(driverDto.getRcCardNumber());
+//            newDriver.setCustomVehicleType(driverDto.getCustomVehicleType());
+//            newDriver.setVehicleType(driverDto.getVehicleType());
+//            newDriver.setLoadCapacityKg(driverDto.getLoadCapacityKg());
+//            newDriver.setPayemtDetail(driverDto.getPayemtDetail());
+//            newDriver.setPaymentID(driverDto.getPaymentID());
+//            newDriver.setDrivingLicenseFileName(drivingLicenseFileName);
+//            newDriver.setInsuranceFileName(insuranceFileName);
+//
+//            String encodedPassword = passwordEncoder.encode(driverDto.getPassword());
+//            newDriver.setPassword(encodedPassword);
+//            System.out.println("EncodedPassword: " + encodedPassword);
+//
+//            Set<Role> roles = new HashSet<>();
+//            for (Role roleName : driverDto.getRole()) {
+////                Role role = roleRepository.findByName(roleName)
+////                        .orElseThrow(() -> new RuntimeException("Role notFound: "+ roleName));
+//                roles.add(roleName);
+//            }
+//
+//            Driver savedDriver = driverRepository.save(newDriver);
+//            DriverDto registeredDriver = DriverMapper.mapToDriverDto(savedDriver);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+//
+////            newDriver.setRole(roles);
+////            driverRepository.save(newDriver);
+//
+////            return ResponseEntity.ok("User Registerd Succesfully");
+////            return new ResponseEntity<>(registeredDriver, HttpStatus.CREATED);
+//        } catch (IOException ex) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+
+    /// /            throw new RuntimeException("File storage failed", ex);
+//        }
+//    }
     @PostMapping(
             value = "/register",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> registerDriver(
+    public ResponseEntity<DriverDto> registerDriver(
             @RequestPart("driver") DriverDto driverDto,
             @RequestPart("drivingLicense") MultipartFile drivingLicense,
             @RequestPart("insurance") MultipartFile insurance) {
-
-        if(driverRepository.findByUsername(driverDto.getUsername()).isPresent()){
-            return ResponseEntity.badRequest().body("Username is alredy taken");
-        }
-
         try {
+            if (driverRepository.findByUsername(driverDto.getUsername()).isPresent()) {
+                return ResponseEntity.badRequest().body(null);
+            }
+
             // File handling
             String drivingLicenseFileName = storeFile(drivingLicense, driverDto.getEmail());
             String insuranceFileName = storeFile(insurance, driverDto.getEmail());
@@ -72,7 +135,6 @@ public class DriverController {
             driverDto.setDrivingLicenseFileName(drivingLicenseFileName);
             driverDto.setInsuranceFileName(insuranceFileName);
 
-//            DriverDto registeredDriver = driverService.registerDriver(driverDto);
             Driver newDriver = new Driver();
             newDriver.setUsername(driverDto.getUsername());
             newDriver.setEmail(driverDto.getEmail());
@@ -85,26 +147,26 @@ public class DriverController {
             newDriver.setLoadCapacityKg(driverDto.getLoadCapacityKg());
             newDriver.setPayemtDetail(driverDto.getPayemtDetail());
             newDriver.setPaymentID(driverDto.getPaymentID());
+            newDriver.setDrivingLicenseFileName(drivingLicenseFileName);
+            newDriver.setInsuranceFileName(insuranceFileName);
 
             String encodedPassword = passwordEncoder.encode(driverDto.getPassword());
             newDriver.setPassword(encodedPassword);
-            System.out.println("EncodedPassword :"+encodedPassword);
+            System.out.println("EncodedPassword: " + encodedPassword);
 
             Set<Role> roles = new HashSet<>();
-            for(String roleName : driverDto.getRole()){
-                Role role = roleRepository.findByName(roleName)
-                        .orElseThrow(() -> new RuntimeException("Role notFound: "+ roleName));
+            for (Role roleName : driverDto.getRole()) {
+                Role role = roleRepository.findByName(roleName.getName())
+                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleName.getName()));
                 roles.add(role);
             }
-
             newDriver.setRole(roles);
-            driverRepository.save(newDriver);
 
-            return ResponseEntity.ok("User Registerd Succesfully");
-
-//            return new ResponseEntity<>(registeredDriver, HttpStatus.CREATED);
+            Driver savedDriver = driverRepository.save(newDriver);
+            DriverDto registeredDriver = DriverMapper.mapToDriverDto(savedDriver);
+            return ResponseEntity.status(HttpStatus.CREATED).body(registeredDriver);
         } catch (IOException ex) {
-            throw new RuntimeException("File storage failed", ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
@@ -135,13 +197,13 @@ public class DriverController {
     }
 
     @GetMapping("/username")
-    public ResponseEntity<DriverDto> getUserByusername(@RequestParam String username){
+    public ResponseEntity<DriverDto> getUserByusername(@RequestParam String username) {
         DriverDto driverDto = driverService.getDriverBYUsername(username);
         return new ResponseEntity<>(driverDto, HttpStatus.OK);
     }
 
     @GetMapping("/useremail")
-    public ResponseEntity<DriverDto> getUserByuseremail(@RequestParam String email){
+    public ResponseEntity<DriverDto> getUserByuseremail(@RequestParam String email) {
         DriverDto driverDto = driverService.gerDriverByUserEmail(email);
         return new ResponseEntity<>(driverDto, HttpStatus.OK);
     }
@@ -155,8 +217,8 @@ public class DriverController {
     }
 
     @GetMapping("/alldriver")
-    public ResponseEntity<List<DriverDto>> getAllDrivers(){
-        List<DriverDto> drivers = driverService .getAllDrivers();
+    public ResponseEntity<List<DriverDto>> getAllDrivers() {
+        List<DriverDto> drivers = driverService.getAllDrivers();
         return new ResponseEntity<>(drivers, HttpStatus.OK);
     }
 
@@ -167,13 +229,13 @@ public class DriverController {
     }
 
     @PutMapping("/updatepassword")
-    public ResponseEntity<DriverDto> updatePassword(@RequestParam String email, @RequestBody DriverDto driverDto){
+    public ResponseEntity<DriverDto> updatePassword(@RequestParam String email, @RequestBody DriverDto driverDto) {
         DriverDto updatedpsaaword = driverService.updatePassword(email, driverDto);
         return new ResponseEntity<>(updatedpsaaword, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletedriver")
-    public ResponseEntity<String> deleteDriver(@RequestParam String email){
+    public ResponseEntity<String> deleteDriver(@RequestParam String email) {
         driverService.deleteDriver(email);
         return ResponseEntity.ok("Driver Deleted Sucessfully");
     }
@@ -197,16 +259,64 @@ public class DriverController {
         }
     }
 
+    //    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody DriverDto loginRequest){
+//
+//        try{
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest
+//                    .getUsername(), loginRequest.getPassword()));
+//
+//        }catch (Exception e){
+//            System.out.println("Exception: "+e);
+//        }
+//        String token = jwtUtil.generateToken(loginRequest.getUsername());
+//        return ResponseEntity.ok(token);
+//    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody DriverDto loginRequest) {
+//        try {
+//            // Check if username exists
+//            if (!driverRepository.findByUsername(loginRequest.getUsername()).isPresent()) {
+//                return ResponseEntity.badRequest().body("Username not found");
+//            }
+//            if(!driverRepository.findByUsername(loginRequest.getPassword()).isPresent()){
+//                return ResponseEntity.badRequest().body("Password is incorrect");
+//            }
+//
+//            // Authenticate the user
+//            Authentication authentication = authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+//            );
+//
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//            // Generate JWT token
+//            String token = jwtUtil.generateToken(loginRequest.getUsername());
+//            return ResponseEntity.ok(token);
+//
+//        } catch (Exception ex) {
+//            System.out.println("Login exception: " + ex.getMessage());
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+//        }
+//    }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam Driver loginRequest){
+    public ResponseEntity<String> login(@RequestBody DriverDto loginDto) {
+        try {
+            Optional<Driver> user = driverRepository.findByUsername(loginDto.getUsername());
+            if (user.isEmpty()) {
+                return ResponseEntity.badRequest().body("Username not found");
+            }
 
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
+            boolean isValidPassword = passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword());
+            if (!isValidPassword) {
+                return ResponseEntity.badRequest().body("Invalid password");
+            }
 
-        }catch (Exception e){
-            System.out.println("Exception: "+e);
+            // If password is valid, proceed with your logic
+            return ResponseEntity.ok("Login successful");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Login failed");
         }
-        String token = jwtUtil.generateToken(loginRequest.getUsername());
-        return ResponseEntity.ok(token);
     }
 }

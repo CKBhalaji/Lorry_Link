@@ -1,21 +1,40 @@
 import axios from 'axios';
 
+// export const signUpDriver = async (formData) => {
+//   try {
+//     const response = await fetch('http://localhost:8080/api/drivers/register', {
+//       method: 'POST',
+//       body: formData // Send FormData directly
+//     });
+
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       throw new Error(errorData.message || 'Signup failed');
+//     }
+
+//     return await response.json();
+//   } catch (error) {
+//     console.error('Error during signup:', error);
+//     throw error;
+//   }
+// };
+
 export const signUpDriver = async (formData) => {
   try {
-    const response = await fetch('http://localhost:8080/api/drivers/register', {
-      method: 'POST',
-      body: formData // Send FormData directly
-    });
+      const response = await fetch('http://localhost:8080/api/drivers/register', {
+          method: 'POST',
+          body: formData,
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Signup failed');
-    }
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    return await response.json();
+      const data = await response.json();
+      return data;
   } catch (error) {
-    console.error('Error during signup:', error);
-    throw error;
+      console.error('Error during signup:', error);
+      throw error;
   }
 };
 

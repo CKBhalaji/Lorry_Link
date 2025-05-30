@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+import project.lorry_link.lorry_backend.entity.Role;
 
 import java.util.Set;
 
@@ -29,6 +29,6 @@ public class DriverDto {
     private String payemtDetail;
     private String paymentID;
     private String password;
-    private Set<String> role;
+    private Set<Role> role;
 }
 
