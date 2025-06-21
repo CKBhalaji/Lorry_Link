@@ -1,0 +1,55 @@
+:root {
+  --primary-bg: rgb(246, 249, 130); /* #f6f982 */
+  --primary-text: rgb(26, 26, 26); /* dark gray for readability */
+  --dashboard-bg: rgb(255, 255, 255); /* white */
+  --dashboard-border: rgb(217, 212, 111); /* #d9d46f */
+  --card-bg: rgb(217, 212, 111); /* #d9d46f */
+  --input-focus: rgb(250, 88, 98); /* #fa5862 */
+  --input-inside: rgba(250, 88, 98, 0.05); /* subtle accent */
+  --input-placeholder: rgba(26, 26, 26, 0.5);
+  --border-color: rgb(217, 212, 111); /* #d9d46f */
+  --hover-bg: rgba(250, 88, 98, 0.08); /* #fa5862, subtle */
+  --button-text: rgb(255, 255, 255); /* white */
+  --button-bg: rgb(250, 88, 98); /* #fa5862 */
+  --button-hover-bg: rgb(217, 212, 111); /* #d9d46f */
+  --button-hover-text: rgb(26, 26, 26); /* dark gray */
+  --tab-bg: rgb(217, 212, 111); /* #d9d46f */
+  --tab-text: rgb(250, 88, 98); /* #fa5862 */
+  --tab-hover-bg: rgba(250, 88, 98, 0.08);
+  --table-header: rgba(246, 249, 130, 0.08); /* #f6f982, subtle */
+  /* login_page */
+  --login-border: rgb(217, 212, 111); /* #d9d46f */
+  --login-bg: rgb(246, 249, 130); /* #f6f982 */
+  --login-card-bg: rgb(255, 255, 255); /* white */
+}
+
+[data-theme="dark"] {
+  --primary-bg: rgb(32, 36, 40); /* #202428 */
+  --primary-text: rgb(240, 240, 232); /* #f0f0e8 */
+  --dashboard-bg: rgb(44, 48, 54); /* #2c3036 */
+  --dashboard-border: rgb(217, 212, 111); /* #d9d46f */
+  --card-bg: rgb(44, 48, 54); /* #2c3036 */
+  --input-focus: rgb(250, 88, 98); /* #fa5862 */
+  --input-inside: rgba(250, 88, 98, 0.08);
+  --input-placeholder: rgba(240, 240, 232, 0.5); /* #f0f0e8 */
+  --border-color: rgb(217, 212, 111); /* #d9d46f */
+  --hover-bg: rgba(250, 88, 98, 0.12);
+  --button-text: rgb(240, 240, 232); /* #f0f0e8 */
+  --button-bg: rgb(250, 88, 98); /* #fa5862 */
+  --button-hover-bg: rgb(217, 212, 111); /* #d9d46f */
+  --button-hover-text: rgb(32, 36, 40); /* #202428 */
+  --tab-bg: rgb(44, 48, 54); /* #2c3036 */
+  --tab-text: rgb(217, 212, 111); /* #d9d46f */
+  --tab-hover-bg: rgba(250, 88, 98, 0.12);
+  --table-header: rgba(217, 212, 111, 0.12); /* #d9d46f, subtle */
+  /* login_page */
+  --login-border: rgb(217, 212, 111); /* #d9d46f */
+  --login-bg: rgb(32, 36, 40); /* #202428 */
+  --login-card-bg: rgb(44, 48, 54); /* #2c3036 */
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
