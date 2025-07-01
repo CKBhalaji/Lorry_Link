@@ -28,6 +28,20 @@ def create_superadmin_if_not_exists():
         db.add(superadmin)
         db.commit()
         db.refresh(superadmin)
+        # Create admin profile if not exists
+        existing_profile = db.query(models.AdminProfile).filter(models.AdminProfile.user_id == superadmin.id).first()
+        if not existing_profile:
+            admin_profile = models.AdminProfile(
+                user_id=superadmin.id,
+                name="Super Admin",
+                phone_number="9876543210"
+            )
+            db.add(admin_profile)
+            db.commit()
+            db.refresh(admin_profile)
+            print("Admin profile created for superadmin.")
+        else:
+            print("Admin profile for superadmin already exists.")
         print("Superadmin created:", superadmin)
     else:
         print("Superadmin already exists")
