@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="lorry_backend/.env")
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 

@@ -8,6 +8,7 @@ from fastapi.security import OAuth2PasswordRequestForm # For login form
 from sqlalchemy.orm import Session
 
 from .. import schemas, models, security, database # Adjusted import paths
+from ..config import settings
 
 router = APIRouter(
     prefix='/api/auth', # Adding a version prefix
@@ -120,8 +121,10 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 otp_store: Dict[str, str] = {}
 
 def send_otp_email(to_email: str, otp: str):
-    user = 'neelabhalaji2003@gmail.com'
-    password = 'ngibtkttpiptmtgs'
+    user = settings.EMAIL_USER
+    password = settings.EMAIL_PASSWORD
+    # print(f"[DEBUG] EMAIL_USER: {user}")
+    # print(f"[DEBUG] EMAIL_PASSWORD: {password}")
     subject = " Logistics Transport Your OTP Code"
     body = f"Welcome! Your OTP code is: {otp}"
 
