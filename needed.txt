@@ -1,29 +1,23 @@
-class Settings(BaseSettings):
-    DATABASE_URL: str = 'postgresql://postgres:2003@localhost:5432/LorryDatabase'
-    SECRET_KEY: str = 'your_very_secret_key_here_please_change_me' # IMPORTANT: Generate a strong secret key
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30 # Default to 30 minutes
-
-    # For file uploads if you store them locally (example)
-    UPLOAD_DIRECTORY: str = 'uploads'
-
-    class Config:
-        env_file = '.env'
-        env_file_encoding = 'utf-8'
-
-settings = Settings()
-
-# Create the UPLOAD_DIRECTORY if it doesn't exist
-if not os.path.exists(settings.UPLOAD_DIRECTORY):
-    os.makedirs(settings.UPLOAD_DIRECTORY)
-
-
-testadmin and password with ONEtwo@2003
 
 uvicorn lorry_backend.main:app --reload
 
-admin 
-ONEtwo@2003
+The main security features implemented in this project:
 
+1. Password Hashing: User passwords are hashed using bcrypt via passlib before being stored in the database. Password verification is also handled securely.
 
-bhalaji
-ONEtwo@2003
+2. JWT Authentication: The backend uses JSON Web Tokens (JWT) for authentication. Tokens are created and verified using the jose library, and include expiration times.
+
+3. OAuth2 Bearer Tokens: FastAPI's OAuth2PasswordBearer is used for securing endpoints, requiring a valid bearer token for access.
+
+4. Role-Based Access Control: There are checks for user roles (admin, driver, goods_owner, superadmin, etc.) to restrict access to certain endpoints and actions.
+
+5. CORS Middleware: Cross-Origin Resource Sharing (CORS) is configured to control which origins can access the backend API, helping to prevent unauthorized cross-origin requests.
+
+6. Session and Permission Checks: Endpoints verify that the current user is authorized to perform actions (e.g., only allowing users to change their own password, or only admins to access admin routes).
+
+7. Sensitive Data in Environment Variables: Secrets like the JWT secret key and email credentials are loaded from environment variables, not hardcoded.
+
+8. Email Verification: There are endpoints for sending and verifying email-based OTPs, which can be used for account verification or password reset.
+
+These features collectively provide authentication, authorization, secure password storage, and protection against common web vulnerabilities.
+
