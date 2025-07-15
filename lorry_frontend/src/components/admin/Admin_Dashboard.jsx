@@ -9,6 +9,7 @@ import AddAdmin from './AddAdmin';
 import AdminManagement from './AdminManagement';
 import AdminProfile from './AdminProfile';
 import ChangePassword from './ChangePassword';
+import OverallProgress from './OverallProgress';
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ const AdminDashboard = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const tabFromURL = searchParams.get('tab');
-  const [activeTab, setActiveTab] = useState(tabFromURL || 'users');
+  const [activeTab, setActiveTab] = useState(tabFromURL || 'overall-progress');
 
   const handleTabClick = (tab) => {
     setSearchParams({ tab });
@@ -51,6 +52,12 @@ const AdminDashboard = () => {
         </header> */}
 
         <div className="dashboard-tabs">
+          <button
+            className={`tab-button ${activeTab === 'overall-progress' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('overall-progress'); handleTabClick('overall-progress'); }}
+          >
+            Overall Progress
+          </button>
           <button
             className={`tab-button ${activeTab === 'users' ? 'active' : ''}`}
             onClick={() => { setActiveTab('users'); handleTabClick('users'); }}
@@ -87,6 +94,7 @@ const AdminDashboard = () => {
           >
             Admin Profile
           </button>
+          
           {/* <button
             className={`tab-button ${activeTab === 'change-password' ? 'active' : ''}`}
             onClick={() => { setActiveTab('change-password'); handleTabClick('change-password'); }}
@@ -101,6 +109,7 @@ const AdminDashboard = () => {
           {activeTab === 'admin-mangement' && <AdminManagement />}
           {activeTab === 'admin-profile' && <AdminProfile />}
           {activeTab === 'change-password' && <ChangePassword />}
+          {activeTab === 'overall-progress' && <OverallProgress />}
           {/* <Route path= "users/add" element={<AddAdmin />} /> */}
           {activeTab === 'loads' && <LoadManagement />}
           {activeTab === 'disputes' && <DisputeResolution />}

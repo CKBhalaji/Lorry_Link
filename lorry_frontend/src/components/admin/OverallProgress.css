@@ -1,0 +1,66 @@
+.overall-progress-main {
+  padding: 2rem;
+  color: var(--primary-text);
+}
+
+.load-status-fullwidth {
+  background: var(--dashboard-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--dashboard-shadow, rgba(0,0,0,0.07));
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  min-height: 350px;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overall-progress-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.chart-card {
+  background: var(--dashboard-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--dashboard-shadow, rgba(0,0,0,0.07));
+  padding: 1.5rem;
+  min-height: 350px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-text);
+}
+
+.chart-card canvas, .load-status-fullwidth canvas {
+  max-width: 100% !important;
+  max-height: 300px !important;
+  width: 100% !important;
+  height: 300px !important;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .overall-progress-charts-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-card {
+    max-width: 100%;
+  }
+}
+
+/* Dark theme overrides */
+.dark-theme .overall-progress-main,
+.dark-theme .chart-card,
+.dark-theme .load-status-fullwidth {
+  background: var(--dashboard-bg-dark, #23272f);
+  color: var(--primary-text-dark, #fff);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
